@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">toulouse-0219-android-seeknwild</string>
+    <string name="choisi_une_aventure">Choisi une aventure</string>
+    <string name="edite_tes_aventures">Edite tes aventures</string>
+    <string name="voir_ta_galerie">Voir ta galerie</string>
+    <string name="me_de_connecter">Me déconnecter</string>
 </resources>
