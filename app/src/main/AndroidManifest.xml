@@ -35,7 +35,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".treasureAdventureMapsActivity"
+            android:name=".TreasureAdventureMapsActivity"
             android:label="@string/title_activity_treasure_adventure_maps">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TreasureActivity" />
         <activity android:name=".MainActivity">
 
         </activity>
