@@ -6,8 +6,8 @@
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/activity_recycle_accueil"
-        android:layout_width="match_parent"
+        android:id="@+id/rvAccueil"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -20,6 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/accueil_recycle_item"/>
+        tools:listitem="@layout/accueil_recycle_item" />
 
 </android.support.constraint.ConstraintLayout>

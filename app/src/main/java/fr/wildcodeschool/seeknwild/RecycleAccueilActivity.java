@@ -1,7 +1,7 @@
 package fr.wildcodeschool.seeknwild;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -14,14 +14,17 @@ public class RecycleAccueilActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycle_accueil);
 
-        RecyclerView rvStudents = findViewById(R.id.rvStudent);
+        RecyclerView rvAccueil = findViewById(R.id.rvAccueil);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rvStudents.setLayoutManager(layoutManager);
+        rvAccueil.setLayoutManager(layoutManager);
 
-        final ArrayList<StudentModel> students = new ArrayList<>();
-        final AdapterStudentList adapter = new AdapterStudentList(students);
-        rvStudents.setAdapter(adapter);
+        final ArrayList<AdventureModel> adventures = new ArrayList<>();
+        AdventureModel adventure =
+                new AdventureModel("Into the Wild", "description", "distance",
+                        "https://images.app.goo.gl/gr4vEPEr1VhPkQn18", "https://images.app.goo.gl/YfrK6vWMJfHHwwKG7", "");
+        adventures.add(adventure);
 
-
+        final AccueilAdapter adapter = new AccueilAdapter(adventures, RecycleAccueilActivity.this);
+        rvAccueil.setAdapter(adapter);
     }
 }

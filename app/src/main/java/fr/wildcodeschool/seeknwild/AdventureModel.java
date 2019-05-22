@@ -5,13 +5,18 @@ public class AdventureModel {
     private String title;
     private String Description;
     private String Distance;
-    private String imageUrl;
+    private String imageAdventureUrl;
+    private String imageStarRate;
+    private String alreadyDone;
 
-    public AdventureModel(String title, String description, String distance, String imageUrl) {
+
+    public AdventureModel(String title, String description, String distance, String imageAdventureUrl, String imageStarRate, String alreadyDone) {
         this.title = title;
-        Description = description;
-        Distance = distance;
-        this.imageUrl = imageUrl;
+        this.Description = description;
+        this.Distance = distance;
+        this.imageAdventureUrl = imageAdventureUrl;
+        this.imageStarRate = imageStarRate;
+        this.alreadyDone = alreadyDone;
     }
 
     public String getTitle() {
@@ -38,11 +43,27 @@ public class AdventureModel {
         Distance = distance;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageAdventureUrl() {
+        return imageAdventureUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageAdventureUrl(String imageUrl) {
+        this.imageAdventureUrl = imageUrl;
+    }
+
+    public String getImageStarRate() {
+        return imageStarRate;
+    }
+
+    public void setImageStarRate(String imageStarRate) {
+        this.imageStarRate = imageStarRate;
+    }
+
+    public String getAlreadyDone() {
+        return alreadyDone;
+    }
+
+    public void setAlreadyDone(String alreadyDone) {
+        this.alreadyDone = alreadyDone;
     }
 }
