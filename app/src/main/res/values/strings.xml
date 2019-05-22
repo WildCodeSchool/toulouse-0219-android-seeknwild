@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">toulouse-0219-android-seeknwild</string>
+    <string name="title_activity_treasure_adventure_maps">Map</string>
+    <string name="title_activity_teasure_adventure_maps">Map</string>
 </resources>
