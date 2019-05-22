@@ -17,7 +17,6 @@ public class Activity_menu extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         drawer = findViewById(R.id.drawer_layout);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
@@ -35,6 +34,5 @@ public class Activity_menu extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-
     }
 }
