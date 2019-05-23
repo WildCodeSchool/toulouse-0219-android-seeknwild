@@ -1,6 +1,7 @@
 package fr.wildcodeschool.seeknwild;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,13 +12,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AccueilAdapter extends RecyclerView.Adapter<AccueilAdapter.IdviewHolder> {
 
-    private List<AdventureModel> listAdventure = new ArrayList<>();
-    private Context context;
+
+    private static Context context;
+    private List<AdventureModel> listAdventure;
 
     public AccueilAdapter(List<AdventureModel> listAdventure, Context context) {
         this.listAdventure = listAdventure;
@@ -36,9 +37,9 @@ public class AccueilAdapter extends RecyclerView.Adapter<AccueilAdapter.IdviewHo
         idviewHolder.title.setText(listAdventure.get(i).getTitle());
         idviewHolder.distance.setText(listAdventure.get(i).getDistance());
         idviewHolder.done.setText(listAdventure.get(i).getAlreadyDone());
-
         Glide.with(context).load(listAdventure.get(i).getImageAdventureUrl()).into(idviewHolder.adventureImage);
         Glide.with(context).load(listAdventure.get(i).getImageStarRate()).into(idviewHolder.starRate);
+
     }
 
     @Override
@@ -60,6 +61,13 @@ public class AccueilAdapter extends RecyclerView.Adapter<AccueilAdapter.IdviewHo
             done = favoritesView.findViewById(R.id.tvAlreadyDone);
             adventureImage = favoritesView.findViewById(R.id.ivAdventurePhoto);
             starRate = favoritesView.findViewById(R.id.ivStarRate);
+            itemView.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, MainActivity.class);
+                    v.getContext().startActivity(i);
+                }
+            }));
         }
     }
 }

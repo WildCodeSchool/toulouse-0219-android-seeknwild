@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">toulouse-0219-android-seeknwild</string>
     <string name="into_the_wild">Into the Wild</string>
-    <string name="cette_aventure_est_7_km_de_toi">Cette aventure est à 7 km de toi.</string>
-    <string name="todo">TODO</string>
     <string name="done">Déjà fait!</string>
     <string name="button">Button</string>
+    <string name="greybar">greybay</string>
+    <string name="adventureimg">AdventureImg</string>
+    <string name="starrate">StarRate</string>
+    <string name="distance">Distance</string>
 </resources>

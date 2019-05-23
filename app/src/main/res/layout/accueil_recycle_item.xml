@@ -3,15 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/listViewCardView"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardCornerRadius="5dp"
-    app:cardElevation="5dp">
+    app:cardElevation="5dp"
+    android:focusable="true">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
@@ -39,7 +42,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
-            android:text="@string/cette_aventure_est_7_km_de_toi"
+            android:text="@string/distance"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,13 +53,12 @@
             android:id="@+id/ivAdventurePhoto"
             android:layout_width="0dp"
             android:layout_height="181dp"
+            android:contentDescription="@string/adventureimg"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic[15]"
-            android:contentDescription="@string/todo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivStarRate"
@@ -65,21 +67,20 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
+            android:contentDescription="@string/starrate"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto"
-            app:srcCompat="@drawable/starprogress"
-            android:contentDescription="@string/todo" />
+            app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto" />
 
         <ImageView
             android:id="@+id/greyBar"
-            android:layout_width="387dp"
-            android:layout_height="11dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_margin="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="28dp"
             android:layout_marginRight="8dp"
             android:background="#DBD6D6"
-            android:contentDescription="@string/todo"
+            android:contentDescription="@string/greybar"
             android:cropToPadding="true"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
@@ -88,10 +89,10 @@
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto"
-            app:layout_constraintVertical_bias="0.962"
+            app:layout_constraintTop_toBottomOf="@+id/tvAdventureDistance"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@android:drawable/bottom_bar" />
 
         <TextView
