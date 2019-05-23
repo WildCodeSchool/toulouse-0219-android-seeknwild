@@ -17,8 +17,5 @@
         android:id="@+id/voir_ta_galerie"
         android:title="@string/voir_ta_galerie" />
 
-    <item
-        android:id="@+id/me_deconnecter"
-        android:title="@string/me_d_connecter" />
 
 </menu>
