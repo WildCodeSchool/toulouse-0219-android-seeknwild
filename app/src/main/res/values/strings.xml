@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">toulouse-0219-android-seeknwild</string>
+    <string name="bouge">Bouge !</string>
+    <string name="utiliser_ton_t_l_phone_comme_une_carte_aux_tr_sors">Utiliser ton téléphone comme une carte aux trésors</string>
+    <string name="de_couverte">Découverte !</string>
+    <string name="retrouve_des_spots_myst_res_propos_s_par_d_autres_utlisateurs">Retrouve des spots mystères proposés par d\'autres utlisateurs.</string>
+    <string name="cr_e_tes_propres_aventures_pour_pater_familles_et_amis">Crée tes propres aventures pour épater familles et amis</string>
+    <string name="partage">Partage !</string>
+    <string name="suivant">Suivant</string>
+    <string name="passer">Passer</string>
 </resources>

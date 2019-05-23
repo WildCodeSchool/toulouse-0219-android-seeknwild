@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TutorielActivity"
     android:orientation="vertical"
     android:layout_gravity="center">
 
     <TextView
-        android:id="@+id/bouge"
+        android:id="@+id/tv_bouge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -27,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/image_bouge"
+        android:id="@+id/iv_bouge"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
@@ -36,13 +35,13 @@
         android:layout_marginTop="236dp"
         android:layout_marginEnd="106dp"
         android:layout_marginRight="106dp"
-        android:src="@drawable/Picture1"
+        android:src="@drawable/picture1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/description_image"
+        android:id="@+id/tv_description_picture1"
         android:layout_width="201dp"
         android:layout_height="39dp"
         android:layout_marginStart="106dp"
@@ -51,9 +50,35 @@
         android:layout_marginEnd="104dp"
         android:layout_marginRight="104dp"
         android:text="@string/utiliser_ton_t_l_phone_comme_une_carte_aux_tr_sors"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_bouge" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_bouge"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/btn_passer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="144dp"
+        android:text="@string/passer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description_picture1" />
+
+    <Button
+        android:id="@+id/btn_suivant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="174dp"
+        android:layout_marginLeft="174dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginBottom="28dp"
+        android:text="@string/suivant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_passer"
+        app:layout_constraintTop_toBottomOf="@+id/tv_description_picture3" />
 
 </android.support.constraint.ConstraintLayout>
