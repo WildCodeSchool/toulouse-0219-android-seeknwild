@@ -53,6 +53,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_FINE_LOCATION);
             }
+
         } else {
             getLocation();
         }
@@ -122,6 +123,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+
             } else {
                 Toast.makeText(this, "Géolocalisation désactivée", Toast.LENGTH_SHORT).show();
             }
