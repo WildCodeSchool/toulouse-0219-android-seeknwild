@@ -10,4 +10,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="me_de_connecter">Me déconnecter</string>
+    <string name="gps_non_activee">L\'autorisation au GPS n\'est pas activée</string>
+    <string name="geolocalisation_desactivee">Géolocalisation désactivée</string>
 </resources>

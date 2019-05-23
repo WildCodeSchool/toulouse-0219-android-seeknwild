@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -38,6 +40,10 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         mapFragment.getMapAsync(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         askLocationPermission();
+
+        ImageView ivLogo = findViewById(R.id.ivTreasure);
+        String url = "https://i.goopics.net/5DbkX.jpg";
+        Glide.with(this).load(url).into(ivLogo);
     }
 
     private void askLocationPermission() {
@@ -70,7 +76,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
 
                 } else {
 
-                    Toast.makeText(TreasureAdventureMapsActivity.this, "L'autorisation au GPS n'est pas activée", Toast.LENGTH_LONG).show();
+                    Toast.makeText(TreasureAdventureMapsActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -108,28 +114,26 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         };
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-
-                            if (location != null) {
+            mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
                                 moveCameraOnUser(location);
-                            }
-                        }
-                    });
+                    }
+                }
+            });
 
-                       if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
             } else {
-                Toast.makeText(this, "Géolocalisation désactivée", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.geolocalisation_desactivee), Toast.LENGTH_SHORT).show();
             }
         }
 
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
