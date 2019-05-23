@@ -28,6 +28,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 public class TreasureAdventureMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
+    private static final int MIN_DISTANCE = 10;
+    private static final int DEFAULT_ZOOM = 17;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
 
@@ -40,7 +42,6 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         mapFragment.getMapAsync(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         askLocationPermission();
-
         ImageView ivLogo = findViewById(R.id.ivTreasure);
         String url = "https://i.goopics.net/5DbkX.jpg";
         Glide.with(this).load(url).into(ivLogo);
@@ -52,14 +53,11 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
-
             } else {
-
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                         MY_PERMISSIONS_REQUEST_FINE_LOCATION);
             }
-
         } else {
             getLocation();
         }
@@ -73,21 +71,16 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getLocation();
-
                 } else {
-
-                    Toast.makeText(TreasureAdventureMapsActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
-                }
+                    Toast.makeText(TreasureAdventureMapsActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();                }
                 return;
             }
         }
     }
 
     private void moveCameraOnUser(Location location) {
-
         LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-
-        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, 17);
+        CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(userLocation, DEFAULT_ZOOM);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
         }
@@ -95,24 +88,18 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
     }
 
     private void getLocation() {
-
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 moveCameraOnUser(location);
             }
-
             public void onStatusChanged(String provider, int status, Bundle extras) {
             }
-
             public void onProviderEnabled(String provider) {
             }
-
             public void onProviderDisabled(String provider) {
             }
         };
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mFusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
@@ -122,16 +109,14 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                     }
                 }
             });
-
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 10, locationListener);
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 10, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, MIN_DISTANCE, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, MIN_DISTANCE, locationListener);
 
             } else {
                 Toast.makeText(this, getString(R.string.geolocalisation_desactivee), Toast.LENGTH_SHORT).show();
             }
         }
-
     }
 
     @Override
