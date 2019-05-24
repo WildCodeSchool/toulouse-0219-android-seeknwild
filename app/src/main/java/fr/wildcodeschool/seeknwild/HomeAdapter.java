@@ -14,20 +14,20 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class AccueilAdapter extends RecyclerView.Adapter<AccueilAdapter.IdviewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> {
 
 
     private static Context context;
     private List<AdventureModel> listAdventure;
 
-    public AccueilAdapter(List<AdventureModel> listAdventure, Context context) {
+    public HomeAdapter(List<AdventureModel> listAdventure, Context context) {
         this.listAdventure = listAdventure;
-        AccueilAdapter.context = context;
+        HomeAdapter.context = context;
     }
 
     @Override
-    public AccueilAdapter.IdviewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.accueil_recycle_item, parent, false);
+    public HomeAdapter.IdviewHolder onCreateViewHolder(ViewGroup parent, int position) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_item, parent, false);
         IdviewHolder idviewHolder = new IdviewHolder(view);
         return idviewHolder;
     }
@@ -36,7 +36,7 @@ public class AccueilAdapter extends RecyclerView.Adapter<AccueilAdapter.IdviewHo
     public void onBindViewHolder(@NonNull IdviewHolder idviewHolder, int i) {
         idviewHolder.title.setText(listAdventure.get(i).getTitle());
         idviewHolder.distance.setText(listAdventure.get(i).getDistance());
-        idviewHolder.done.setText(listAdventure.get(i).getAlreadyDone());
+        idviewHolder.done.setText(listAdventure.get(i).getAlreadyDone() ? context.getString(R.string.already_done) : "");
         Glide.with(context).load(listAdventure.get(i).getImageAdventureUrl()).into(idviewHolder.adventureImage);
         Glide.with(context).load(listAdventure.get(i).getImageStarRate()).into(idviewHolder.starRate);
 

@@ -19,33 +19,23 @@
 
         <TextView
             android:id="@+id/tvAdventureName"
-            android:layout_width="228dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:text="@string/into_the_wild"
             android:textColor="@android:color/black"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/ivStarRate"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto" />
 
         <TextView
             android:id="@+id/tvAdventureDistance"
-            android:layout_width="258dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
             android:text="@string/distance"
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAdventureName" />
 
@@ -56,7 +46,6 @@
             android:contentDescription="@string/adventureimg"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,52 +53,30 @@
             android:id="@+id/ivStarRate"
             android:layout_width="112dp"
             android:layout_height="24dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
             android:contentDescription="@string/starrate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto" />
 
-        <ImageView
-            android:id="@+id/greyBar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginRight="8dp"
-            android:background="#DBD6D6"
-            android:contentDescription="@string/greybar"
-            android:cropToPadding="true"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:scaleType="fitXY"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAdventureDistance"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@android:drawable/bottom_bar" />
-
         <TextView
             android:id="@+id/tvAlreadyDone"
-            android:layout_width="79dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:textColor="#F12C2C"
+            android:textColor="@color/tempDone"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tvAdventureDistance"
             app:layout_constraintTop_toBottomOf="@+id/ivStarRate"
             tools:text="@string/done" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/BottomCardv"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAdventureDistance"></LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

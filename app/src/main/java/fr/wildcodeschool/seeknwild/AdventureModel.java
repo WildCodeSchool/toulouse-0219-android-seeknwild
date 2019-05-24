@@ -3,17 +3,17 @@ package fr.wildcodeschool.seeknwild;
 public class AdventureModel {
 
     private String title;
-    private String Description;
-    private String Distance;
+    private String description;
+    private String distance;
     private String imageAdventureUrl;
     private String imageStarRate;
-    private String alreadyDone;
+    private Boolean alreadyDone;
 
 
-    public AdventureModel(String title, String description, String distance, String imageAdventureUrl, String imageStarRate, String alreadyDone) {
+    public AdventureModel(String title, String description, String distance, String imageAdventureUrl, String imageStarRate, boolean alreadyDone) {
         this.title = title;
-        this.Description = description;
-        this.Distance = distance;
+        this.description = description;
+        this.distance = distance;
         this.imageAdventureUrl = imageAdventureUrl;
         this.imageStarRate = imageStarRate;
         this.alreadyDone = alreadyDone;
@@ -28,19 +28,19 @@ public class AdventureModel {
     }
 
     public String getDescription() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        Description = description;
+        description = description;
     }
 
     public String getDistance() {
-        return Distance;
+        return distance;
     }
 
     public void setDistance(String distance) {
-        Distance = distance;
+        distance = distance;
     }
 
     public String getImageAdventureUrl() {
@@ -59,11 +59,11 @@ public class AdventureModel {
         this.imageStarRate = imageStarRate;
     }
 
-    public String getAlreadyDone() {
+    public Boolean getAlreadyDone() {
         return alreadyDone;
     }
 
-    public void setAlreadyDone(String alreadyDone) {
+    public void setAlreadyDone(Boolean alreadyDone) {
         this.alreadyDone = alreadyDone;
     }
 }
