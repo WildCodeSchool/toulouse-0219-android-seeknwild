@@ -53,19 +53,6 @@ public class TutorielActivity extends AppCompatActivity {
             }
         });
 
-        btnSuivant.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentPage = viewPager.getCurrentItem()+1;
-                if (currentPage < layouts.length) {
-                    viewPager.setCurrentItem(currentPage);
-                }else{
-                    startMainActivity();
-                }
-
-            }
-        });
-
         layouts = new int[]{R.layout.activity_bouge, R.layout.activity_decouverte, R.layout.activity_partage};
         pageAdapter = new MyPageAdapter(layouts, getApplicationContext());
         viewPager.setAdapter(pageAdapter);
@@ -139,7 +126,6 @@ public class TutorielActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
-
 
     }
 

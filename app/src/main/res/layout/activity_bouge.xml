@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background=" #767777"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_bouge"
@@ -49,36 +50,12 @@
         android:layout_marginTop="36dp"
         android:layout_marginEnd="104dp"
         android:layout_marginRight="104dp"
+        android:gravity="center"
         android:text="@string/utiliser_ton_t_l_phone_comme_une_carte_aux_tr_sors"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_bouge"
-        android:gravity="center"/>
-
-    <Button
-        android:id="@+id/btn_passer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="144dp"
-        android:text="@string/passer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description_picture1" />
-
-    <Button
-        android:id="@+id/btn_suivant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="174dp"
-        android:layout_marginLeft="174dp"
-        android:layout_marginTop="144dp"
-        android:layout_marginBottom="28dp"
-        android:text="@string/suivant"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_passer"
-        app:layout_constraintTop_toBottomOf="@+id/tv_description_picture3" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_bouge" />
 
 </android.support.constraint.ConstraintLayout>
