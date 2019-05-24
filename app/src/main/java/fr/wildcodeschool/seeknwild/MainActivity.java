@@ -24,5 +24,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btmenu = findViewById(R.id.gotoMenu);
+        btmenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MenuActivity.class));
+            }
+        });
+
+        Button bttreasure = findViewById(R.id.button3);
+        bttreasure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TreasureAdventureMapsActivity.class));
+            }
+        });
     }
 }

@@ -22,7 +22,7 @@ public class AccueilAdapter extends RecyclerView.Adapter<AccueilAdapter.IdviewHo
 
     public AccueilAdapter(List<AdventureModel> listAdventure, Context context) {
         this.listAdventure = listAdventure;
-        this.context = context;
+        AccueilAdapter.context = context;
     }
 
     @Override

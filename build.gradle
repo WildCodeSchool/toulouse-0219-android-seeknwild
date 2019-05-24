@@ -13,8 +13,8 @@ buildscript {
             mavenCentral()
             google()
         }
-
     }
+
 }
 
 allprojects {

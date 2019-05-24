@@ -7,4 +7,18 @@
     <string name="adventureimg">AdventureImg</string>
     <string name="starrate">StarRate</string>
     <string name="distance">Distance</string>
+    <string name="title_activity_treasure_adventure_maps">Map</string>
+    <string name="title_activity_teasure_adventure_maps">Map</string>
+    <string name="description_courte_du_tr_sor">Description courte du trésor.</string>
+    <string name="choisi_une_aventure">Choisi une aventure</string>
+    <string name="edite_tes_aventures">Edite tes aventures</string>
+    <string name="voir_ta_galerie">Voir ta galerie</string>
+    <string name="hola_nom">Holà nom</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="me_de_connecter">Me déconnecter</string>
+    <string name="gps_non_activee">L\'autorisation au GPS n\'est pas activée</string>
+    <string name="geolocalisation_desactivee">Géolocalisation désactivée</string>
+    <string name="buttonGo">Button</string>
+    <string name="but">Button</string>
 </resources>
