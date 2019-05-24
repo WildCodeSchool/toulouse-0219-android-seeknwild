@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MyPageAdapter extends PagerAdapter {
+public class TutorielAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     private int[] layouts;
     private Context context;
 
 
-    public MyPageAdapter(int[] layouts, Context context) {
+    public TutorielAdapter(int[] layouts, Context context) {
         this.layouts = layouts;
         this.context = context;
     }
@@ -39,7 +39,7 @@ public class MyPageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        View v = (View)object;
+        View v = (View) object;
         container.removeView(v);
     }
 }
