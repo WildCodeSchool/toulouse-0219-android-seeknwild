@@ -37,15 +37,15 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()) {
             case R.id.choisi_une_aventures:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ChoisiUneAventureFragment()).commit();
+                        new AdventureChooseFragment()).commit();
                 break;
             case R.id.edite_tes_aventures:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new EditeTesAventuresFragment()).commit();
+                        new AdventureEditFragment()).commit();
                 break;
             case R.id.voir_ta_galerie:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new VoirTaGalerieFragment()).commit();
+                        new GalleryFragment()).commit();
                 break;
         }
 
