@@ -24,18 +24,19 @@
         <activity
             android:name=".TreasureAdventureMapsActivity"
             android:label="@string/title_activity_treasure_adventure_maps" >
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity
             android:name=".MenuActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity android:name=".HomeActivity"></activity>
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
     </application>
