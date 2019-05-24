@@ -8,7 +8,7 @@
         android:title="@string/hola_nom" />
 
     <item
-        android:id="@+id/choisi_aventure"
+        android:id="@+id/choisi_une_aventures"
         android:title="@string/choisi_une_aventure" />
     <item
         android:id="@+id/edite_tes_aventures"
@@ -17,8 +17,5 @@
         android:id="@+id/voir_ta_galerie"
         android:title="@string/voir_ta_galerie" />
 
-    <item
-        android:id="@+id/me_deconnecter"
-        android:title="@string/me_de_connecter" />
 
 </menu>

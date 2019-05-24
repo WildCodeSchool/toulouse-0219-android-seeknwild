@@ -26,13 +26,7 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
@@ -42,5 +36,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/drawer_menu" />
+
 
 </android.support.v4.widget.DrawerLayout>
