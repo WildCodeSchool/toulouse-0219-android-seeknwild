@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"/>
+        <activity android:name=".TutorialActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -25,20 +26,19 @@
             android:name=".TreasureAdventureMapsActivity"
             android:label="@string/title_activity_treasure_adventure_maps" >
         </activity>
+
         <activity
             android:name=".MenuActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
         </activity>
+
         <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".MainActivity">
+    <activity android:name=".MainActivity"></activity>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-        </activity>
-    </application>
 
 </manifest>
