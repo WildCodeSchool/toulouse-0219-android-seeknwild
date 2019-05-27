@@ -63,10 +63,10 @@ public class TutorialActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == layouts.length - 1) {
-                    btnFollowing.setText("C'EST PARTI");
+                    btnFollowing.setText(getString(R.string.cest_parti));
                     btnPass.setVisibility(View.GONE);
                 } else {
-                    btnFollowing.setText("SUIVANT");
+                    btnFollowing.setText(getString(R.string.suiv_ant));
                     btnPass.setVisibility(View.VISIBLE);
                 }
                 setDotStatus(i);
