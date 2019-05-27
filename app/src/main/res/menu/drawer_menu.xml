@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/hola"
+        android:title="@string/hola_nom" />
+
+    <item
+        android:id="@+id/choisi_une_aventures"
+        android:title="@string/choisi_une_aventure" />
+    <item
+        android:id="@+id/edite_tes_aventures"
+        android:title="@string/edite_tes_aventures" />
+    <item
+        android:id="@+id/voir_ta_galerie"
+        android:title="@string/voir_ta_galerie" />
+
+
+</menu>
