@@ -35,7 +35,7 @@
         android:id="@+id/tv_description_picture3"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text="@string/cr_e_tes_propres_aventures_pour_pater_familles_et_amis"
         android:textSize="14sp"
