@@ -16,15 +16,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class TutorielActivity extends AppCompatActivity {
+public class TutorialActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private LinearLayout layoutDot;
     private TextView[] dotstv;
     private int[] layouts;
-    private Button btnPasser;
-    private Button btnSuivant;
-    private TutorielAdapter pageAdapter;
+    private Button btnPass;
+    private Button btnFollowing;
+    private TutorialAdapter pageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +37,22 @@ public class TutorielActivity extends AppCompatActivity {
 
         setStatusBarTransparent();
 
-        setContentView(R.layout.activity_tutoriel);
+        setContentView(R.layout.activity_tutorial);
 
         viewPager = findViewById(R.id.view_pager);
         layoutDot = findViewById(R.id.dotLayout);
-        btnSuivant = findViewById(R.id.btn_suivant);
-        btnPasser = findViewById(R.id.btn_passer);
+        btnFollowing = findViewById(R.id.btn_following);
+        btnPass = findViewById(R.id.btn_pass);
 
-        btnPasser.setOnClickListener(new View.OnClickListener() {
+        btnPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startMainActivity();
             }
         });
 
-        layouts = new int[]{R.layout.activity_bouge, R.layout.activity_decouverte, R.layout.activity_partage};
-        pageAdapter = new TutorielAdapter(layouts, getApplicationContext());
+        layouts = new int[]{R.layout.tutorial_move, R.layout.tutorial_discover, R.layout.tutorial_share};
+        pageAdapter = new TutorialAdapter(layouts, getApplicationContext());
         viewPager.setAdapter(pageAdapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -63,11 +63,11 @@ public class TutorielActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int i) {
                 if (i == layouts.length - 1) {
-                    btnSuivant.setText("C'EST PARTI");
-                    btnPasser.setVisibility(View.GONE);
-                }else{
-                    btnSuivant.setText("SUIVANT");
-                    btnPasser.setVisibility(View.VISIBLE);
+                    btnFollowing.setText("C'EST PARTI");
+                    btnPass.setVisibility(View.GONE);
+                } else {
+                    btnFollowing.setText("SUIVANT");
+                    btnPass.setVisibility(View.VISIBLE);
                 }
                 setDotStatus(i);
             }
@@ -109,7 +109,7 @@ public class TutorielActivity extends AppCompatActivity {
 
     private void startMainActivity() {
         setFirstTimeStartStatus(true);
-        startActivity(new Intent(TutorielActivity.this, DecouverteActivity.class));
+        startActivity(new Intent(TutorialActivity.this, MainActivity.class));
         finish();
     }
 

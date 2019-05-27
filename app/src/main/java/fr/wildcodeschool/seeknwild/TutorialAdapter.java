@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TutorielAdapter extends PagerAdapter {
+public class TutorialAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     private int[] layouts;
     private Context context;
 
 
-    public TutorielAdapter(int[] layouts, Context context) {
+    public TutorialAdapter(int[] layouts, Context context) {
         this.layouts = layouts;
         this.context = context;
     }
