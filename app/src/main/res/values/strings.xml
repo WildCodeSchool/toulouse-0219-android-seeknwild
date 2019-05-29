@@ -32,4 +32,6 @@
     <string name="voir_ta_galerie">Voir ta galerie</string>
     <string name="cest_parti">C\'EST PARTI</string>
     <string name="suiv_ant">SUIVANT</string>
+    <string name="le_tresor">Le trésor se cache ici</string>
+    <string name="tresor">Le trésor se cache ici</string>
 </resources>
