@@ -31,7 +31,7 @@ public class TutorialActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (!isFirstTimeStartApp()) {
-            startMainActivity();
+            startHomeActivity();
             finish();
         }
 
@@ -47,7 +47,7 @@ public class TutorialActivity extends AppCompatActivity {
         btnPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startMainActivity();
+                startHomeActivity();
             }
         });
 
@@ -107,9 +107,9 @@ public class TutorialActivity extends AppCompatActivity {
         }
     }
 
-    private void startMainActivity() {
+    private void startHomeActivity() {
         setFirstTimeStartStatus(true);
-        startActivity(new Intent(TutorialActivity.this, MainActivity.class));
+        startActivity(new Intent(TutorialActivity.this, HomeActivity.class));
         finish();
     }
 
