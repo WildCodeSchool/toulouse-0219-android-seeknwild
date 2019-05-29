@@ -4,21 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/tresor1"
-        app:layout_constraintBottom_toTopOf="@+id/ivTreasure"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/ivTreasure"
@@ -33,6 +19,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fbTakePicTreasure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_camera"
+        app:backgroundTint="@color/colorPrimaryMaquette"
+        app:layout_anchor="@id/ivTreasure"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="36dp" />
+
+
 
     <TextView
         android:id="@+id/tvDescriptionTreasure"
@@ -60,3 +66,4 @@
         tools:context=".TreasureAdventureMapsActivity" />
 
 </android.support.constraint.ConstraintLayout>
+
