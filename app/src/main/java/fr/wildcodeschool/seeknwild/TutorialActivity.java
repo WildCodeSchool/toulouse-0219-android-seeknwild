@@ -45,7 +45,6 @@ public class TutorialActivity extends AppCompatActivity {
             }
         });
 
-
         layouts = new int[]{R.layout.tutorial_move, R.layout.tutorial_discover, R.layout.tutorial_share};
         pageAdapter = new TutorialAdapter(layouts, getApplicationContext());
         viewPager.setAdapter(pageAdapter);
@@ -75,11 +74,16 @@ public class TutorialActivity extends AppCompatActivity {
 
         btnFollowing.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(1);
+            public void onClick(View view) {
+                int currentPage = viewPager.getCurrentItem()+1;
+                if(currentPage < layouts.length) {
+                    //move to next page
+                    viewPager.setCurrentItem(currentPage);
+                } else {
+                    startHomeActivity();
+                }
             }
         });
-
 
     }
 
