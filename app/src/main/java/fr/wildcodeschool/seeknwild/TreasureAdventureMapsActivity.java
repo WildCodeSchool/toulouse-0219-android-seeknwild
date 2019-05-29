@@ -132,9 +132,16 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                // Création du marqueur
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
+                // ajoute un titre au marqueur
                 markerOptions.title(getString(R.string.le_tresor));
+                // effacer le marqueur précédent
+                mMap.clear();
+                // Zommer sur le marqueur placé
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                // Ajoute le marqueur à la carte
                 mMap.addMarker(markerOptions);
             }
         });
