@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/tresor1"
+        app:layout_constraintBottom_toTopOf="@+id/ivTreasure"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
     <ImageView
         android:id="@+id/ivTreasure"
         android:layout_width="0dp"
