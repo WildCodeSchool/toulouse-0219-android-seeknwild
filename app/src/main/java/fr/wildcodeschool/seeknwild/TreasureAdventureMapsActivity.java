@@ -21,6 +21,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -133,7 +135,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
             @Override
             public void onMapClick(LatLng latLng) {
                 // Création du marqueur
-                MarkerOptions markerOptions = new MarkerOptions();
+                MarkerOptions markerOptions = new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
                 markerOptions.position(latLng);
                 // ajoute un titre au marqueur
                 markerOptions.title(getString(R.string.le_tresor));
