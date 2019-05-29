@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#525554</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorBackground">#767777</color>
+    <color name="colorPrimary">#F76C6C</color>
+    <color name="secondary">#F99797</color>
+    <color name="secondaryYellow">#FFD64F</color>
+    <color name="secondaryBlack">#3B424E</color>
+    <color name = "secondaryGrey">#C8C8C8</color>
     <color name="BottomCardv">#999C9C</color>
     <color name="tempDone">#F12C2C</color>
 </resources>
