@@ -34,4 +34,7 @@
     <string name="suiv_ant">SUIVANT</string>
     <string name="le_tresor">Le trésor se cache ici</string>
     <string name="tresor">Le trésor se cache ici</string>
+    <string name="aventures_tr_sors">Aventures / Trésors</string>
+    <string name="menu">Menu</string>
+    <string name="accueil">Accueil</string>
 </resources>
