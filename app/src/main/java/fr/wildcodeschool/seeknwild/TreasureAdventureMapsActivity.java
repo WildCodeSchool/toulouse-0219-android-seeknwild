@@ -2,14 +2,18 @@ package fr.wildcodeschool.seeknwild;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,13 +25,16 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 public class TreasureAdventureMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
+    public static final int REQUEST_IMAGE_CAPTURE = 1234;
     private static final int MIN_DISTANCE = 10;
     private static final int DEFAULT_ZOOM = 17;
     private GoogleMap mMap;
@@ -45,6 +52,18 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         ImageView ivLogo = findViewById(R.id.ivTreasure);
         String url = "https://i.goopics.net/5DbkX.jpg";
         Glide.with(this).load(url).into(ivLogo);
+        actionFloattingButton();
+    }
+
+    private void actionFloattingButton() {
+        FloatingActionButton floatBtTakePicTreasure = findViewById(R.id.fbTakePicTreasure);
+        floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     private void askLocationPermission() {
@@ -72,7 +91,8 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 } else {
-                    Toast.makeText(TreasureAdventureMapsActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();                }
+                    Toast.makeText(TreasureAdventureMapsActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
+                }
                 return;
             }
         }
@@ -93,10 +113,13 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
             public void onLocationChanged(Location location) {
                 moveCameraOnUser(location);
             }
+
             public void onStatusChanged(String provider, int status, Bundle extras) {
             }
+
             public void onProviderEnabled(String provider) {
             }
+
             public void onProviderDisabled(String provider) {
             }
         };
@@ -112,7 +135,6 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, MIN_DISTANCE, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, MIN_DISTANCE, locationListener);
-
             } else {
                 Toast.makeText(this, getString(R.string.geolocalisation_desactivee), Toast.LENGTH_SHORT).show();
             }
@@ -120,9 +142,26 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
                 TreasureAdventureMapsActivity.this, R.raw.stylemap));
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                // Création du marqueur
+                MarkerOptions markerOptions = new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
+                markerOptions.position(latLng);
+                // ajoute un titre au marqueur
+                markerOptions.title(getString(R.string.le_tresor));
+                // effacer le marqueur précédent
+                mMap.clear();
+                // Zommer sur le marqueur placé
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+                // Ajoute le marqueur à la carte
+                mMap.addMarker(markerOptions);
+            }
+        });
     }
 }
