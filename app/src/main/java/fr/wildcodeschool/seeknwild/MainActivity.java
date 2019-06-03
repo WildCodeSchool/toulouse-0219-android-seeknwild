@@ -29,11 +29,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button bttreasure = findViewById(R.id.button3);
+        Button bttreasure = findViewById(R.id.button4);
         bttreasure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, TreasureAdventureMapsActivity.class));
+            }
+        });
+
+        Button bttuto = findViewById(R.id.button2);
+        bttuto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TutorialActivity.class));
             }
         });
     }
