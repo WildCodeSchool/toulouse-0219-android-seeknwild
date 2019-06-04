@@ -32,4 +32,9 @@
     <string name="voir_ta_galerie">Voir ta galerie</string>
     <string name="cest_parti">C\'EST PARTI</string>
     <string name="suiv_ant">SUIVANT</string>
+    <string name="le_tresor">Le trésor se cache ici</string>
+    <string name="accueil">Accueil</string>
+    <string name="menu">Menu</string>
+    <string name="aventure_tr_sors">Aventure/trésors</string>
+    <string name="tutoriel">Tutoriel</string>
 </resources>
