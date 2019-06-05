@@ -37,4 +37,5 @@
     <string name="menu">Menu</string>
     <string name="aventure_tr_sors">Aventure/trésors</string>
     <string name="tutoriel">Tutoriel</string>
+    <string name="d_connexion">Déconnexion</string>
 </resources>
