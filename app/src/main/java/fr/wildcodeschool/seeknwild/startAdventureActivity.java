@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.maps.android.SphericalUtil;
 
 import java.util.Random;
 
@@ -136,32 +137,25 @@ public class startAdventureActivity extends FragmentActivity implements OnMapRea
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
                 startAdventureActivity.this, R.raw.stylemap));
+
+
+
+        //TODO : aller chercher latlng du trésor crée dans l'aventure
         LatLng toulouse = new LatLng(43.600000, 1.433333);
+        MarkerOptions markerOptions = new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
+        markerOptions.position(toulouse);
+        mMap.addMarker(markerOptions);
+
+        Random r = new Random();
+        int randomHeading = r.nextInt(360);
+        int randomDistance = r.nextInt(300);
+        LatLng positionAleatoire = SphericalUtil.computeOffset(toulouse,randomDistance,randomHeading);
+
         Circle circle = mMap.addCircle(new CircleOptions()
-                .center(toulouse)
-                .radius(50)
+                .center(positionAleatoire)
+                .radius(200)
                 .strokeColor(R.color.colorPrimaryMaquette)
                 .fillColor(R.color.secondaryYellow));
-
-
-        /*mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-                // Création du marqueur
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
-                markerOptions.position(latLng);
-                // ajoute un titre au marqueur
-                markerOptions.title(getString(R.string.le_tresor));
-                // effacer le marqueur précédent
-                mMap.clear();
-                // Zommer sur le marqueur placé
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                // Ajoute le marqueur à la carte
-                mMap.addMarker(markerOptions);
-            }
-        });*/
     }
-
-
 }
