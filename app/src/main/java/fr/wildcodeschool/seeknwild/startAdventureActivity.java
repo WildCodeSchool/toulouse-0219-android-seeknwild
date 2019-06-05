@@ -23,7 +23,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -35,7 +34,6 @@ import java.util.Random;
 
 public class startAdventureActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    public static final int REQUEST_IMAGE_CAPTURE = 1234;
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
     private static final int MIN_DISTANCE = 10;
     private static final int DEFAULT_ZOOM = 17;
@@ -138,8 +136,6 @@ public class startAdventureActivity extends FragmentActivity implements OnMapRea
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
                 startAdventureActivity.this, R.raw.stylemap));
 
-
-
         //TODO : aller chercher latlng du trésor crée dans l'aventure
         LatLng toulouse = new LatLng(43.600000, 1.433333);
         MarkerOptions markerOptions = new MarkerOptions()
@@ -149,13 +145,13 @@ public class startAdventureActivity extends FragmentActivity implements OnMapRea
 
         Random r = new Random();
         int randomHeading = r.nextInt(360);
-        int randomDistance = r.nextInt(300);
-        LatLng positionAleatoire = SphericalUtil.computeOffset(toulouse,randomDistance,randomHeading);
+        int randomDistance = r.nextInt(200);
+        LatLng positionAleatoire = SphericalUtil.computeOffset(toulouse, randomDistance, randomHeading);
 
-        Circle circle = mMap.addCircle(new CircleOptions()
+        mMap.addCircle(new CircleOptions()
                 .center(positionAleatoire)
                 .radius(200)
-                .strokeColor(R.color.colorPrimaryMaquette)
-                .fillColor(R.color.secondaryYellow));
+                .strokeColor(Color.BLUE)
+                .fillColor(Color.LTGRAY));
     }
 }
