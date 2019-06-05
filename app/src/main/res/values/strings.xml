@@ -37,4 +37,10 @@
     <string name="menu">Menu</string>
     <string name="aventure_tr_sors">Aventure/trésors</string>
     <string name="tutoriel">Tutoriel</string>
+    <string name="createAccount">Crée ton compte</string>
+    <string name="pseudo">Pseudo</string>
+    <string name="AlreadyUser">Déjà utilisateur ? Connecte-toi</string>
+    <string name="email">Adresse email</string>
+    <string name="passWord">Mot de passe</string>
+    <string name="btCreateAccount">CREER MON COMPTE</string>
 </resources>
