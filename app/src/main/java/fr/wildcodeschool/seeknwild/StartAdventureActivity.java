@@ -32,13 +32,19 @@ import com.google.maps.android.SphericalUtil;
 
 import java.util.Random;
 
-public class startAdventureActivity extends FragmentActivity implements OnMapReadyCallback {
+public class StartAdventureActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
     private static final int MIN_DISTANCE = 10;
     private static final int DEFAULT_ZOOM = 17;
+    private static final String IMAGE_TEST = "https://i.goopics.net/5DbkX.jpg";
+    private static final int RANDOM_HEADING = 360;
+    private static final int RANDOM_DISTANCE = 200;
+    private static final int RADIUS_RANDOM_CIRCLE = 200;
+
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +56,7 @@ public class startAdventureActivity extends FragmentActivity implements OnMapRea
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         askLocationPermission();
         ImageView ivLogo = findViewById(R.id.ivTreasure);
-        String url = "https://i.goopics.net/5DbkX.jpg";
-        Glide.with(this).load(url).into(ivLogo);
+        Glide.with(this).load(IMAGE_TEST).into(ivLogo);
 
     }
 
@@ -80,7 +85,7 @@ public class startAdventureActivity extends FragmentActivity implements OnMapRea
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 } else {
-                    Toast.makeText(startAdventureActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
+                    Toast.makeText(StartAdventureActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -134,7 +139,7 @@ public class startAdventureActivity extends FragmentActivity implements OnMapRea
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
-                startAdventureActivity.this, R.raw.stylemap));
+                StartAdventureActivity.this, R.raw.stylemap));
 
         //TODO : aller chercher latlng du trésor crée dans l'aventure
         LatLng toulouse = new LatLng(43.600000, 1.433333);
@@ -144,14 +149,15 @@ public class startAdventureActivity extends FragmentActivity implements OnMapRea
         mMap.addMarker(markerOptions);
 
         Random r = new Random();
-        int randomHeading = r.nextInt(360);
-        int randomDistance = r.nextInt(200);
+        int randomHeading = r.nextInt(RANDOM_HEADING);
+        int randomDistance = r.nextInt(RANDOM_DISTANCE);
         LatLng positionAleatoire = SphericalUtil.computeOffset(toulouse, randomDistance, randomHeading);
 
         mMap.addCircle(new CircleOptions()
                 .center(positionAleatoire)
-                .radius(200)
+                .radius(RADIUS_RANDOM_CIRCLE)
                 .strokeColor(Color.BLUE)
                 .fillColor(Color.LTGRAY));
+
     }
 }
