@@ -10,8 +10,7 @@
         android:required="true" />
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true"/>
-
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -20,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".startAdventureActivity"></activity>
         <activity android:name=".TutorialActivity" />
 
         <meta-data
@@ -28,13 +28,11 @@
 
         <activity
             android:name=".TreasureAdventureMapsActivity"
-            android:label="@string/title_activity_treasure_adventure_maps"></activity>
-
+            android:label="@string/title_activity_treasure_adventure_maps" />
         <activity
             android:name=".MenuActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-        <activity android:name=".HomeActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,6 +41,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>
