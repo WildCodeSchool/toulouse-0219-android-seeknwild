@@ -4,10 +4,6 @@
     tools:showIn="navigation_view">
 
     <item
-        android:id="@+id/hola"
-        android:title="@string/hola_nom" />
-
-    <item
         android:id="@+id/choisi_une_aventures"
         android:title="@string/choisi_une_aventure" />
     <item
