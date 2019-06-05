@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btrandom = findViewById(R.id.random);
-        btrandom.setOnClickListener(new View.OnClickListener() {
+        Button btStartAdventure = findViewById(R.id.btStartAdventure);
+        btStartAdventure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, RandomActivity.class));
+                startActivity(new Intent(MainActivity.this, StartAdventureActivity.class));
             }
         });
     }
