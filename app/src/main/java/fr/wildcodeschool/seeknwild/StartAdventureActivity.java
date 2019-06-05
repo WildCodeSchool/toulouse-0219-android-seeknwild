@@ -1,13 +1,16 @@
 package fr.wildcodeschool.seeknwild;
 
 import android.Manifest;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -58,6 +61,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         ImageView ivLogo = findViewById(R.id.ivTreasure);
         Glide.with(this).load(IMAGE_TEST).into(ivLogo);
 
+
     }
 
     private void askLocationPermission() {
@@ -106,6 +110,16 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 moveCameraOnUser(location);
+                //TODO : récupérer la distance entre le marqueur et la position de l'utilisateur
+                Location newLocation = new Location ("newLocation");
+                newLocation.setLatitude(43.600000);
+                newLocation.setLongitude(1.433333);
+                double distance = location.distanceTo(newLocation);
+
+                if(distance < 400) {
+                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(400);
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -158,6 +172,10 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 .radius(RADIUS_RANDOM_CIRCLE)
                 .strokeColor(Color.BLUE)
                 .fillColor(Color.LTGRAY));
+
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
 
     }
 }
