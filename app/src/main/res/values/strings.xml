@@ -18,7 +18,6 @@
     <string name="title_activity_treasure_adventure_maps">Map</string>
     <string name="title_activity_teasure_adventure_maps">Map</string>
     <string name="description_courte_du_tr_sor">Description courte du trésor.</string>
-    <string name="hola_nom">Holà nom</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="me_de_connecter">Me déconnecter</string>
@@ -37,5 +36,14 @@
     <string name="menu">Menu</string>
     <string name="aventure_tr_sors">Aventure/trésors</string>
     <string name="tutoriel">Tutoriel</string>
+    <string name="d_connexion">Déconnexion</string>
     <string name="start_adventure">Start adventure</string>
+    <string name="bonjour">Bonjour</string>
+    <string name="hallo">Hallo</string>
+    <string name="hello">Hello</string>
+    <string name="hola">Holà</string>
+    <string name="buongiorno">Buongiorno</string>
+    <string name="ola">Olá</string>
+    <string name="kaixo">Kaixo</string>
+    <string name="alo">Alo</string>
 </resources>
