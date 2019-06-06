@@ -29,27 +29,31 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View header = navigationView.getHeaderView(0);
+        final View header = navigationView.getHeaderView(0);
 
-        String hello[] = {"Bonjour", "mirë dita", "guten tag", "hello", "salam",
-                "добър ден", "nǐ hăo", "annyǒng hashimnikka", "bonjou", "bok",
-                "buenos días", "tere", "gamarjoba", "halló", "buongiorno",
-                "konnichi wa", "rojbas", "moien", "manao ahoana",
-                "Сайн байна уу", "goede morgen", "god dag", "dzień dobry", "bom dia",
-                "bună ziua", "Добрый день", "dobar dan", "ia orana", "günaydin",
-                "pryvit", "chào"};
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+        R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                super.onDrawerStateChanged(newState);
+                if (newState == DrawerLayout.STATE_SETTLING) {
+                    sayHello(header);
+                }
+            }
+
+        };
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    public void sayHello(View header) {
+        final String hello[] = {getString(R.string.bonjour), getString(R.string.hallo), getString(R.string.hello), getString(R.string.hola), getString(R.string.buongiorno), getString(R.string.ola), getString(R.string.kaixo), getString(R.string.alo)};
 
         Random r = new Random();
-
         String motAleatoire = hello[r.nextInt(hello.length)];
         TextView textView = header.findViewById(R.id.hello);
         textView.setText(motAleatoire);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
     }
 
     @Override
