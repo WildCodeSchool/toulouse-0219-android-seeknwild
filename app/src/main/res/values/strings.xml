@@ -43,4 +43,5 @@
     <string name="email">Adresse email</string>
     <string name="passWord">Mot de passe</string>
     <string name="btCreateAccount">CREER MON COMPTE</string>
+    <string name="start_adventure">Start adventure</string>
 </resources>
