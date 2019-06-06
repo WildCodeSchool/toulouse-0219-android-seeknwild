@@ -31,7 +31,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         final View header = navigationView.getHeaderView(0);
 
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
         R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
@@ -41,7 +40,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                     sayHello(header);
                 }
             }
-
         };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -49,7 +47,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     public void sayHello(View header) {
         final String hello[] = {getString(R.string.bonjour), getString(R.string.hallo), getString(R.string.hello), getString(R.string.hola), getString(R.string.buongiorno), getString(R.string.ola), getString(R.string.kaixo), getString(R.string.alo)};
-
         Random r = new Random();
         String motAleatoire = hello[r.nextInt(hello.length)];
         TextView textView = header.findViewById(R.id.hello);
@@ -72,7 +69,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                         new GalleryFragment()).commit();
                 break;
         }
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -85,5 +81,4 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
 }
