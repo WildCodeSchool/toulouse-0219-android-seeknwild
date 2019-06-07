@@ -46,11 +46,8 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
     private static final int RADIUS_RANDOM_CIRCLE = 250;
     private static final int DISTANCE_USER_BETWEEN_TREASURE = 5;
     private static final int TIME_VIBRATION = 1500;
-
-
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,14 +113,12 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 newLocation.setLatitude(43.597442);
                 newLocation.setLongitude(1.4300557);
                 double distance = location.distanceTo(newLocation);
-
                 if (distance < DISTANCE_USER_BETWEEN_TREASURE) {
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(TIME_VIBRATION);
                     v.cancel();
                     Button btJaiTrouve = findViewById(R.id.btJaiTrouve);
                     btJaiTrouve.setCursorVisible(true);
-
                 }
             }
 
@@ -159,7 +154,6 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
                 StartAdventureActivity.this, R.raw.stylemap));
-
         //TODO : récupérer latlng du trésor crée dans l'aventure
         LatLng toulouse = new LatLng(43.597442, 1.4300557);
         final MarkerOptions markerOptions = new MarkerOptions()
