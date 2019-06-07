@@ -50,6 +50,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
 
 
 
+
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
 
@@ -123,7 +124,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(TIME_VIBRATION);
                     v.cancel();
-                    final Button btJaiTrouve = findViewById(R.id.btJaiTrouve);
+                    Button btJaiTrouve = findViewById(R.id.btJaiTrouve);
                     btJaiTrouve.setCursorVisible(true);
 
                 }
