@@ -9,9 +9,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+
+import java.util.Random;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +29,28 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        final View header = navigationView.getHeaderView(0);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                super.onDrawerStateChanged(newState);
+                if (newState == DrawerLayout.STATE_SETTLING) {
+                    sayHello(header);
+                }
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+    }
 
+    public void sayHello(View header) {
+        final String hello[] = {getString(R.string.bonjour), getString(R.string.hallo), getString(R.string.hello), getString(R.string.hola), getString(R.string.buongiorno), getString(R.string.ola), getString(R.string.kaixo), getString(R.string.alo)};
+        Random r = new Random();
+        String motAleatoire = hello[r.nextInt(hello.length)];
+        TextView textView = header.findViewById(R.id.hello);
+        textView.setText(motAleatoire);
     }
 
     @Override
@@ -48,7 +69,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                         new GalleryFragment()).commit();
                 break;
         }
-
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -61,5 +81,4 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
 }
