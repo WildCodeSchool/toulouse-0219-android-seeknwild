@@ -25,7 +25,7 @@
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:layout_marginTop="148dp"
-        android:src="@drawable/picture3"
+        android:src="@drawable/wns_02_hangout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
