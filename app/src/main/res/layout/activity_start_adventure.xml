@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/j_ai_trouv"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="@+id/ivTreasure"
         app:layout_constraintStart_toStartOf="@+id/ivTreasure" />
