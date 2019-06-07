@@ -117,8 +117,8 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(TIME_VIBRATION);
                     v.cancel();
-                    Button btJaiTrouve = findViewById(R.id.btJaiTrouve);
-                    btJaiTrouve.setCursorVisible(true);
+                    Button btFoundIt = findViewById(R.id.btFoundIt);
+                    btFoundIt.setCursorVisible(true);
                 }
             }
 
@@ -171,8 +171,8 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 .strokeColor(Color.BLUE)
                 .fillColor(Color.LTGRAY));
 
-        Button btJaiTrouve = findViewById(R.id.btJaiTrouve);
-        btJaiTrouve.setOnClickListener(new View.OnClickListener() {
+        Button btFoundIt = findViewById(R.id.btFoundIt);
+        btFoundIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMap.clear();
