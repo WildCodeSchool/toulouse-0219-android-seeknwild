@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btAddStudent = findViewById(R.id.button);
+        Button btAddStudent = findViewById(R.id.accueil);
         btAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button bttreasure = findViewById(R.id.button4);
+        Button bttreasure = findViewById(R.id.adventure);
         bttreasure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button bttuto = findViewById(R.id.button2);
+        Button bttuto = findViewById(R.id.tutoriel);
         bttuto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
