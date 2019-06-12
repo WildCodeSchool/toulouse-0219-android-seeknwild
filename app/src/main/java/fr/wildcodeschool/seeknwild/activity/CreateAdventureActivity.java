@@ -11,11 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import fr.wildcodeschool.seeknwild.R;
 
 public class CreateAdventureActivity extends AppCompatActivity {
@@ -53,7 +56,6 @@ public class CreateAdventureActivity extends AppCompatActivity {
     private void dispatchTakePictureIntent() {
         // ouvrir l'application de prise de photo
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
         // lors de la validation de la photo
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // créer le fichier contenant la photo
@@ -63,7 +65,6 @@ public class CreateAdventureActivity extends AppCompatActivity {
             } catch (IOException e) {
                 // TODO : gérer l'erreur
             }
-
             if (photoFile != null) {
                 // récupèrer le chemin de la photo
                 mFileUri = FileProvider.getUriForFile(this,
@@ -79,7 +80,6 @@ public class CreateAdventureActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView ivRecupPic = findViewById(R.id.ivPic);
-
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             ivRecupPic.setImageURI(mFileUri);
         }
@@ -93,6 +93,5 @@ public class CreateAdventureActivity extends AppCompatActivity {
                 dispatchTakePictureIntent();
             }
         });
-
     }
 }
