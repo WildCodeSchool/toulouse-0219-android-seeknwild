@@ -75,4 +75,8 @@
     <string name="tu_as_trouv_5_tr_sors_sur_6">Tu as trouvé 5 trésors sur 6</string>
     <string name="tu_as_aim_cette_aventure">Tu as aimé cette aventure ?</string>
     <string name="tu_peux_consulter_ta_galerie_photos_ou_d_marrer_une_nouvelle_aventure">Tu peux consulter ta galerie photos ou démarrer une nouvelle aventure</string>
+    <string name="nom_de_l_aventure">Nom de l\'aventure</string>
+    <string name="description_longue_de_l_aventure">Description longue de l\'aventure</string>
+    <string name="publier">Publier</string>
+    <string name="tresors">Tresors</string>
 </resources>

@@ -108,7 +108,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
     }
 
     private void actionFloattingButton() {
-        FloatingActionButton floatBtTakePicTreasure = findViewById(R.id.fbTakePicTreasure);
+        FloatingActionButton floatBtTakePicTreasure = findViewById(R.id.fbTakePicAdventure);
         floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
