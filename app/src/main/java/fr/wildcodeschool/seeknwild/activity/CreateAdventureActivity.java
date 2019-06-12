@@ -2,28 +2,27 @@ package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import fr.wildcodeschool.seeknwild.R;
 
 public class CreateAdventureActivity extends AppCompatActivity {
 
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
+    // chemin de la photo dans le téléphone
+    private Uri mFileUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
         btCreateTresor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateAdventureActivity.this,TreasureAdventureMapsActivity.class));
+                startActivity(new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class));
             }
         });
     }
@@ -50,8 +49,6 @@ public class CreateAdventureActivity extends AppCompatActivity {
         File image = File.createTempFile(imgFileName, ".jpg", storageDir);
         return image;
     }
-    // chemin de la photo dans le téléphone
-    private Uri mFileUri = null;
 
     private void dispatchTakePictureIntent() {
         // ouvrir l'application de prise de photo
@@ -78,6 +75,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView ivRecupPic = findViewById(R.id.ivPic);
