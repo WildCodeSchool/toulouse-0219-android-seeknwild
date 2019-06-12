@@ -50,13 +50,26 @@
         android:id="@+id/btFoundIt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/oval"
         android:text="@string/j_ai_trouv"
+        android:textColor="#FFFFFF"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/map"
         app:layout_constraintEnd_toEndOf="@+id/ivTreasure"
-        app:layout_constraintStart_toStartOf="@+id/ivTreasure"
-        android:background="@drawable/oval"/>
+        app:layout_constraintStart_toStartOf="@+id/ivTreasure" />
+
+    <Button
+        android:id="@+id/btRendCemomentInoubliable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/oval"
+        android:text="@string/moment_inoubliable"
+        android:textColor="#FFFFFF"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="@+id/ivTreasure"
+        app:layout_constraintStart_toStartOf="@+id/ivTreasure" />
 
 </android.support.constraint.ConstraintLayout>

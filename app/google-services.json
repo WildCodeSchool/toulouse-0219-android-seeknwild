@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "367848892432",
+    "firebase_url": "https://seek-n-wild.firebaseio.com",
+    "project_id": "seek-n-wild",
+    "storage_bucket": "seek-n-wild.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367848892432:android:6ad07e3c2822305d",
+        "android_client_info": {
+          "package_name": "fr.wildcodeschool.seeknwild"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367848892432-4mfhi48d1vjhocdbhkpqebgfc4qr4rdi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.seeknwild",
+            "certificate_hash": "d4dadc4669f23e4766ca196f3adbf253e6352483"
+          }
+        },
+        {
+          "client_id": "367848892432-c02ehij5bmirhtjlcro9quagsgs822k2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaIiS1AjhqysBYYXEXRcCjcLqyzmEjmJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367848892432-c02ehij5bmirhtjlcro9quagsgs822k2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
