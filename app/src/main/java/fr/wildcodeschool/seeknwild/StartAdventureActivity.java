@@ -159,7 +159,6 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         final MarkerOptions markerOptions = new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
         markerOptions.position(toulouse);
-        //mMap.addMarker(markerOptions);
 
         Random r = new Random();
         int randomHeading = r.nextInt(RANDOM_HEADING);
