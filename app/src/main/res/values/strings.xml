@@ -18,6 +18,7 @@
     <string name="title_activity_treasure_adventure_maps">Map</string>
     <string name="title_activity_teasure_adventure_maps">Map</string>
     <string name="description_courte_du_tr_sor">Description courte du trésor.</string>
+    <string name="hola_nom">Holà nom</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="me_de_connecter">Me déconnecter</string>
@@ -36,6 +37,12 @@
     <string name="menu">Menu</string>
     <string name="aventure_tr_sors">Créer une aventure</string>
     <string name="tutoriel">Tutoriel</string>
+    <string name="createAccount">Crée ton compte</string>
+    <string name="pseudo">Pseudo</string>
+    <string name="AlreadyUser">Déjà utilisateur ? Connecte-toi</string>
+    <string name="email">Adresse email</string>
+    <string name="passWord">Mot de passe</string>
+    <string name="btCreateAccount">CREER MON COMPTE</string>
     <string name="d_connexion">Déconnexion</string>
     <string name="start_adventure">Start adventure</string>
     <string name="j_ai_trouv">J\'ai trouvé !</string>
@@ -47,4 +54,16 @@
     <string name="ola">Olá</string>
     <string name="kaixo">Kaixo</string>
     <string name="alo">Alo</string>
+    <string name="createAccountIntent">Nouvel utilisateur ? Créer un compte</string>
+    <string name="Sign_In">ME CONNECTER</string>
+    <string name="sign">Connecte- toi</string>
+    <string name="failure">échec de conexion</string>
+    <string name="weakPW">onComplete: weak_password</string>
+    <string name="warning">Attention</string>
+    <string name="needMoreChar">Merci de renseigner un mot de passe de 8 lettres ou plus</string>
+    <string name="unformalMail">onComplete: malformed_email</string>
+    <string name="reWrittingMail">L’adresse email n’est pas correctement formatée.</string>
+    <string name="existingMail">onComplete: exist_email</string>
+    <string name="existINgAdress">Un compte existe déjà avec cette adresse email, souhaitez-vous vous connecter ?</string>
+    <string name="onComplete">onComplete:</string>
 </resources>

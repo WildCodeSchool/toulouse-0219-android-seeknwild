@@ -37,5 +37,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button btStartAdventure = findViewById(R.id.btStartAdventure);
+        btStartAdventure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, StartAdventureActivity.class));
+            }
+        });
+
+        Button btConnect = findViewById(R.id.btAccount);
+        btConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, CreateAccountActivity.class));
+            }
+        });
     }
 }
