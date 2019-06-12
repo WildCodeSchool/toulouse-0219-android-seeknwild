@@ -9,6 +9,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +31,14 @@ public class TakePictureActivity extends AppCompatActivity {
         String url = "https://i.goopics.net/kwb0o.jpg";
         Glide.with(this).load(url).into(ivLogo);
         actionFloattingButton();
+
+        Button btNext = findViewById(R.id.btNext);
+        btNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TakePictureActivity.this, NoteActivity.class));
+            }
+        });
     }
 
     private void actionFloattingButton() {

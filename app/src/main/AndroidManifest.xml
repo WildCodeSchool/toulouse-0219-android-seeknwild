@@ -23,14 +23,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".NoteActivity"></activity>
+        <activity android:name=".SignInActivity" />
         <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".TakePictureActivity"></activity>
+        <activity android:name=".TakePictureActivity" />
         <activity android:name=".StartAdventureActivity" />
         <activity android:name=".TutorialActivity">
-
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -47,7 +47,7 @@
             android:name=".MenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
