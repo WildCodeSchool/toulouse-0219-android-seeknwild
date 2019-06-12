@@ -66,4 +66,7 @@
     <string name="existingMail">onComplete: exist_email</string>
     <string name="existINgAdress">Un compte existe déjà avec cette adresse email, souhaitez-vous vous connecter ?</string>
     <string name="onComplete">onComplete:</string>
+    <string name="rend_ce_moment_inoubliable">Rend ce moment inoubliable !</string>
+    <string name="clique_dessus">Clique ci-dessus pour prendre une photo et l\'ajouter à ton album.</string>
+    <string name="moment_inoubliable">Rend ce moment inoubliable !</string>
 </resources>
