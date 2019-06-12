@@ -66,6 +66,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                         builder.setMessage(R.string.needMoreChar);
                                         AlertDialog dialog = builder.create();
                                         dialog.show();
+
                                     } catch (FirebaseAuthInvalidCredentialsException malformedEmail) {
                                         Log.d(TAG, getString(R.string.unformalMail));
                                         AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(CreateAccountActivity.this);

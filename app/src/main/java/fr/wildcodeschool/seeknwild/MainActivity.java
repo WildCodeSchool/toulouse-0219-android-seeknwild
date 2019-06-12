@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btConect = findViewById(R.id.btAccount);
-        btConect.setOnClickListener(new View.OnClickListener() {
+        Button btConnect = findViewById(R.id.btAccount);
+        btConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, CreateAccountActivity.class));
