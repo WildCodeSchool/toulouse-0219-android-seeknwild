@@ -193,6 +193,5 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
             }
         });
 
-
     }
 }
