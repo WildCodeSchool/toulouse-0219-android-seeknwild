@@ -69,4 +69,10 @@
     <string name="rend_ce_moment_inoubliable">Rend ce moment inoubliable !</string>
     <string name="clique_dessus">Clique ci-dessus pour prendre une photo et l\'ajouter à ton album.</string>
     <string name="moment_inoubliable">Rend ce moment inoubliable !</string>
+    <string name="galerie">Galerie</string>
+    <string name="continuer">Continuer</string>
+    <string name="bravo_tu_as_termin">Bravo, tu as terminé !</string>
+    <string name="tu_as_trouv_5_tr_sors_sur_6">Tu as trouvé 5 trésors sur 6</string>
+    <string name="tu_as_aim_cette_aventure">Tu as aimé cette aventure ?</string>
+    <string name="tu_peux_consulter_ta_galerie_photos_ou_d_marrer_une_nouvelle_aventure">Tu peux consulter ta galerie photos ou démarrer une nouvelle aventure</string>
 </resources>
