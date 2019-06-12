@@ -48,7 +48,7 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent goTo = new Intent(SignInActivity.this, HomeActivity.class);
+                            Intent goTo = new Intent(SignInActivity.this, MenuActivity.class);
                             startActivity(goTo);
                         } else {
                             Log.w(TAG, getString(R.string.failure), task.getException());

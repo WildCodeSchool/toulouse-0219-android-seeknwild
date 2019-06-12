@@ -17,4 +17,13 @@
         android:textStyle="bold"
         tools:text="Hello" />
 
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/secondaryBlack"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        tools:text="UserName" />
+
 </LinearLayout>

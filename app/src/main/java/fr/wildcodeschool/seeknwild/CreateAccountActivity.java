@@ -86,7 +86,11 @@ public class CreateAccountActivity extends AppCompatActivity {
                                     } catch (Exception e) {
                                         Log.d(TAG, getString(R.string.onComplete) + e.getMessage());
                                     }
+                                } else {
+                                    Intent goToMenu = new Intent(CreateAccountActivity.this, MenuActivity.class);
+                                    startActivity(goToMenu);
                                 }
+
                             }
                         }
                 );
