@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MenuActivity"
+    tools:context=".activity.MenuActivity"
     tools:openDrawer="start">
 
     <LinearLayout
@@ -44,7 +44,7 @@
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="@color/common_google_signin_btn_text_dark_pressed"
-            android:text="@string/d_connexion"
+            android:text="@string/connexion"
             android:textColor="@color/tempDone" />
 
     </android.support.design.widget.NavigationView>

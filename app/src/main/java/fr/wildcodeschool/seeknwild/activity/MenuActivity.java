@@ -1,4 +1,4 @@
-package fr.wildcodeschool.seeknwild;
+package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,11 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Random;
+
+import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.fragment.AdventureChooseFragment;
+import fr.wildcodeschool.seeknwild.fragment.AdventureEditFragment;
+import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;

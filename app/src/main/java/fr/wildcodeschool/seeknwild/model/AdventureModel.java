@@ -1,4 +1,4 @@
-package fr.wildcodeschool.seeknwild;
+package fr.wildcodeschool.seeknwild.model;
 
 public class AdventureModel {
 
