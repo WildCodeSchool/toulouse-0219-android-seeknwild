@@ -18,7 +18,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryMaquette"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -45,7 +45,7 @@
             android:layout_gravity="bottom"
             android:background="@color/common_google_signin_btn_text_dark_pressed"
             android:text="@string/d_connexion"
-            android:textColor="@color/tempDone" />
+            android:textColor="@color/colorPrimaryMaquette" />
 
     </android.support.design.widget.NavigationView>
 
