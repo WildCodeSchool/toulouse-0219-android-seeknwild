@@ -8,9 +8,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,16 +38,16 @@ import java.util.Random;
 public class StartAdventureActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
-    private static final int MIN_DISTANCE = 10;
+    private static final int MIN_DISTANCE = 1;
     private static final int DEFAULT_ZOOM = 17;
     private static final String IMAGE_TEST = "https://i.goopics.net/5DbkX.jpg";
     private static final int RANDOM_HEADING = 360;
-    private static final int RANDOM_DISTANCE = 200;
-    private static final int RADIUS_RANDOM_CIRCLE = 200;
-
+    private static final int RANDOM_DISTANCE = 250;
+    private static final int RADIUS_RANDOM_CIRCLE = 250;
+    private static final int DISTANCE_USER_BETWEEN_TREASURE = 500;
+    private static final int TIME_VIBRATION = 1500;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +60,6 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         askLocationPermission();
         ImageView ivLogo = findViewById(R.id.ivTreasure);
         Glide.with(this).load(IMAGE_TEST).into(ivLogo);
-
     }
 
     private void askLocationPermission() {
@@ -106,6 +108,18 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 moveCameraOnUser(location);
+                //TODO : récupérer la distance entre le marqueur et la position de l'utilisateur
+                Location newLocation = new Location("newLocation");
+                newLocation.setLatitude(43.597442);
+                newLocation.setLongitude(1.4300557);
+                double distance = location.distanceTo(newLocation);
+                if (distance < DISTANCE_USER_BETWEEN_TREASURE) {
+                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(TIME_VIBRATION);
+                    v.cancel();
+                    Button btFoundIt = findViewById(R.id.btFoundIt);
+                    btFoundIt.setVisibility(View.VISIBLE);
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -140,24 +154,29 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
                 StartAdventureActivity.this, R.raw.stylemap));
-
-        //TODO : aller chercher latlng du trésor crée dans l'aventure
-        LatLng toulouse = new LatLng(43.600000, 1.433333);
-        MarkerOptions markerOptions = new MarkerOptions()
+        //TODO : récupérer latlng du trésor crée dans l'aventure
+        LatLng toulouse = new LatLng(43.597442, 1.4300557);
+        final MarkerOptions markerOptions = new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
         markerOptions.position(toulouse);
-        mMap.addMarker(markerOptions);
 
         Random r = new Random();
         int randomHeading = r.nextInt(RANDOM_HEADING);
         int randomDistance = r.nextInt(RANDOM_DISTANCE);
         LatLng positionAleatoire = SphericalUtil.computeOffset(toulouse, randomDistance, randomHeading);
-
         mMap.addCircle(new CircleOptions()
                 .center(positionAleatoire)
                 .radius(RADIUS_RANDOM_CIRCLE)
-                .strokeColor(Color.BLUE)
+                .strokeColor(Color.LTGRAY)
                 .fillColor(Color.LTGRAY));
 
+        Button btFoundIt = findViewById(R.id.btFoundIt);
+        btFoundIt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mMap.clear();
+                mMap.addMarker(markerOptions);
+            }
+        });
     }
 }

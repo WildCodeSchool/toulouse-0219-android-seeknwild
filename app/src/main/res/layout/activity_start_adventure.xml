@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <ImageView
         android:id="@+id/ivTreasure"
         android:layout_width="0dp"
@@ -44,5 +45,18 @@
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toBottomOf="@+id/tvDescriptionTreasure"
         tools:context=".TreasureAdventureMapsActivity" />
+
+    <Button
+        android:id="@+id/btFoundIt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:textColor="#FFFFFF"
+        android:text="@string/j_ai_trouv"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/map"
+        app:layout_constraintEnd_toEndOf="@+id/ivTreasure"
+        app:layout_constraintStart_toStartOf="@+id/ivTreasure"
+        android:background="@drawable/oval"/>
 
 </android.support.constraint.ConstraintLayout>

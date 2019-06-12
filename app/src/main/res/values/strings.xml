@@ -35,7 +35,7 @@
     <string name="le_tresor">Le trésor se cache ici</string>
     <string name="accueil">Accueil</string>
     <string name="menu">Menu</string>
-    <string name="aventure_tr_sors">Aventure/trésors</string>
+    <string name="aventure_tr_sors">Créer une aventure</string>
     <string name="tutoriel">Tutoriel</string>
     <string name="createAccount">Crée ton compte</string>
     <string name="pseudo">Pseudo</string>
@@ -45,6 +45,7 @@
     <string name="btCreateAccount">CREER MON COMPTE</string>
     <string name="d_connexion">Déconnexion</string>
     <string name="start_adventure">Start adventure</string>
+    <string name="j_ai_trouv">J\'ai trouvé !</string>
     <string name="bonjour">Bonjour</string>
     <string name="hallo">Hallo</string>
     <string name="hello">Hello</string>
