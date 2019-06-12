@@ -2,6 +2,7 @@ package fr.wildcodeschool.seeknwild;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,6 +26,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Hello");
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -59,14 +62,17 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             case R.id.choisi_une_aventures:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AdventureChooseFragment()).commit();
+                getSupportActionBar().setTitle("Choisi une aventure");
                 break;
             case R.id.edite_tes_aventures:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new AdventureEditFragment()).commit();
+                getSupportActionBar().setTitle("Edite tes aventures");
                 break;
             case R.id.voir_ta_galerie:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new GalleryFragment()).commit();
+                getSupportActionBar().setTitle("Voir ta galerie");
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
