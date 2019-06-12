@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateAccount">
+    tools:context=".CreateAccountActivity">
 
     <TextView
         android:id="@+id/tvTitleCreate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="124dp"
         android:text="@string/createAccount"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -22,6 +25,8 @@
         android:id="@+id/tvPseudo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/pseudo"
         android:textColor="@color/BottomCardv"
@@ -32,21 +37,24 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTitleCreate" />
 
     <TextView
-        android:id="@+id/AlreadyUser"
+        android:id="@+id/tvAlreadyUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:gravity="center"
         android:text="@string/AlreadyUser"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btCreate"
-        android:clickable="true" />
+        app:layout_constraintTop_toBottomOf="@+id/btCreate" />
 
     <TextView
         android:id="@+id/tvMail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/email"
         android:textColor="@color/BottomCardv"
@@ -58,6 +66,8 @@
         android:id="@+id/tvPw"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/passWord"
         android:textColor="@color/BottomCardv"
@@ -69,6 +79,8 @@
         android:id="@+id/etPseudo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -81,6 +93,8 @@
         android:id="@+id/etMail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,6 +105,8 @@
         android:id="@+id/etPw"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPassword"
