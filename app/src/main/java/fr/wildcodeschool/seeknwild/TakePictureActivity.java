@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class TakePicMoment extends AppCompatActivity {
+public class TakePictureActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
 
     @Override

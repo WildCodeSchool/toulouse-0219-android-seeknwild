@@ -14,7 +14,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -36,7 +35,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.SphericalUtil;
 
 import java.util.Random;
-import java.util.Timer;
 
 import static java.lang.Thread.sleep;
 
@@ -176,20 +174,20 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 .fillColor(Color.LTGRAY));
 
         final Button btFoundIt = findViewById(R.id.btFoundIt);
-        final Button btMoment = findViewById(R.id.btRendCemomentInoubliable);
+        final Button btTakePicture = findViewById(R.id.btRendCemomentInoubliable);
         btFoundIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMap.clear();
                 mMap.addMarker(markerOptions);
-                btMoment.setVisibility(View.VISIBLE);
+                btTakePicture.setVisibility(View.VISIBLE);
             }
         });
 
-        btMoment.setOnClickListener(new View.OnClickListener() {
+        btTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StartAdventureActivity.this,TakePicMoment.class));
+                startActivity(new Intent(StartAdventureActivity.this, TakePictureActivity.class));
             }
         });
 
