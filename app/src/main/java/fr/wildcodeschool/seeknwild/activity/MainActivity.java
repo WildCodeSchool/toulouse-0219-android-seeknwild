@@ -1,10 +1,12 @@
-package fr.wildcodeschool.seeknwild;
+package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import fr.wildcodeschool.seeknwild.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,22 +1,20 @@
-package fr.wildcodeschool.seeknwild;
+package fr.wildcodeschool.seeknwild.activity;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
+import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -29,93 +27,44 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.maps.android.SphericalUtil;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Random;
 
-public class TreasureAdventureMapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import fr.wildcodeschool.seeknwild.R;
+
+import static java.lang.Thread.sleep;
+
+public class StartAdventureActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
-    public static final int REQUEST_IMAGE_CAPTURE = 1234;
-    private static final int MIN_DISTANCE = 10;
+    private static final int MIN_DISTANCE = 1;
     private static final int DEFAULT_ZOOM = 17;
+    private static final String IMAGE_TEST = "https://i.goopics.net/5DbkX.jpg";
+    private static final int RANDOM_HEADING = 360;
+    private static final int RANDOM_DISTANCE = 250;
+    private static final int RADIUS_RANDOM_CIRCLE = 250;
+    private static final int DISTANCE_USER_BETWEEN_TREASURE = 500;
+    private static final int TIME_VIBRATION = 1500;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_teasure_adventure_maps);
+        setContentView(R.layout.activity_start_adventure);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         askLocationPermission();
         ImageView ivLogo = findViewById(R.id.ivTreasure);
-        String url = "https://i.goopics.net/5DbkX.jpg";
-        Glide.with(this).load(url).into(ivLogo);
-        actionFloattingButton();
-    }
-
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imgFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imgFileName, ".jpg", storageDir);
-        return image;
-    }
-    // chemin de la photo dans le téléphone
-    private Uri mFileUri = null;
-
-    private void dispatchTakePictureIntent() {
-        // ouvrir l'application de prise de photo
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // lors de la validation de la photo
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // créer le fichier contenant la photo
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException e) {
-                // TODO : gérer l'erreur
-            }
-
-            if (photoFile != null) {
-                // récupèrer le chemin de la photo
-                mFileUri = FileProvider.getUriForFile(this,
-                        "fr.wildcodeschool.seeknwild.fileprovider",
-                        photoFile);
-                // déclenche l'appel de onActivityResult
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        ImageView ivRecupPic = findViewById(R.id.ivPic);
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            ivRecupPic.setImageURI(mFileUri);
-        }
-    }
-
-    private void actionFloattingButton() {
-        FloatingActionButton floatBtTakePicTreasure = findViewById(R.id.fbTakePicAdventure);
-        floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dispatchTakePictureIntent();
-            }
-        });
-
+        Glide.with(this).load(IMAGE_TEST).into(ivLogo);
     }
 
     private void askLocationPermission() {
@@ -136,14 +85,14 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 } else {
-                    Toast.makeText(TreasureAdventureMapsActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
+                    Toast.makeText(StartAdventureActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -164,6 +113,18 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 moveCameraOnUser(location);
+                //TODO : récupérer la distance entre le marqueur et la position de l'utilisateur
+                Location newLocation = new Location("newLocation");
+                newLocation.setLatitude(43.597442);
+                newLocation.setLongitude(1.4300557);
+                double distance = location.distanceTo(newLocation);
+                if (distance < DISTANCE_USER_BETWEEN_TREASURE) {
+                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(TIME_VIBRATION);
+                    v.cancel();
+                    Button btFoundIt = findViewById(R.id.btFoundIt);
+                    btFoundIt.setVisibility(View.VISIBLE);
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -197,23 +158,40 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
-                TreasureAdventureMapsActivity.this, R.raw.stylemap));
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                StartAdventureActivity.this, R.raw.stylemap));
+        //TODO : récupérer latlng du trésor crée dans l'aventure
+        LatLng toulouse = new LatLng(43.597442, 1.4300557);
+        final MarkerOptions markerOptions = new MarkerOptions()
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
+        markerOptions.position(toulouse);
+
+        Random r = new Random();
+        int randomHeading = r.nextInt(RANDOM_HEADING);
+        int randomDistance = r.nextInt(RANDOM_DISTANCE);
+        LatLng positionAleatoire = SphericalUtil.computeOffset(toulouse, randomDistance, randomHeading);
+        mMap.addCircle(new CircleOptions()
+                .center(positionAleatoire)
+                .radius(RADIUS_RANDOM_CIRCLE)
+                .strokeColor(Color.LTGRAY)
+                .fillColor(Color.LTGRAY));
+
+        final Button btFoundIt = findViewById(R.id.btFoundIt);
+        final Button btTakePicture = findViewById(R.id.btRendCemomentInoubliable);
+        btFoundIt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-                // Création du marqueur
-                MarkerOptions markerOptions = new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
-                markerOptions.position(latLng);
-                // ajoute un titre au marqueur
-                markerOptions.title(getString(R.string.le_tresor));
-                // effacer le marqueur précédent
+            public void onClick(View v) {
                 mMap.clear();
-                // Zommer sur le marqueur placé
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                // Ajoute le marqueur à la carte
                 mMap.addMarker(markerOptions);
+                btTakePicture.setVisibility(View.VISIBLE);
             }
         });
+
+        btTakePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StartAdventureActivity.this, TakePictureActivity.class));
+            }
+        });
+
     }
 }

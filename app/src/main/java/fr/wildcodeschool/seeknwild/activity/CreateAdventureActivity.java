@@ -1,4 +1,4 @@
-package fr.wildcodeschool.seeknwild;
+package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import fr.wildcodeschool.seeknwild.R;
 
 public class CreateAdventureActivity extends AppCompatActivity {
 

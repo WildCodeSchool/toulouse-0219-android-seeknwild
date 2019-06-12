@@ -44,7 +44,7 @@
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toBottomOf="@+id/tvDescriptionTreasure"
-        tools:context=".TreasureAdventureMapsActivity" />
+        tools:context=".activity.TreasureAdventureMapsActivity" />
 
     <Button
         android:id="@+id/btFoundIt"

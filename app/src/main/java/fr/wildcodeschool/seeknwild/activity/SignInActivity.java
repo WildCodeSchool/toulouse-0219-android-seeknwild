@@ -1,4 +1,4 @@
-package fr.wildcodeschool.seeknwild;
+package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import fr.wildcodeschool.seeknwild.R;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -48,7 +50,7 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent goTo = new Intent(SignInActivity.this, HomeActivity.class);
+                            Intent goTo = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(goTo);
                         } else {
                             Log.w(TAG, getString(R.string.failure), task.getException());

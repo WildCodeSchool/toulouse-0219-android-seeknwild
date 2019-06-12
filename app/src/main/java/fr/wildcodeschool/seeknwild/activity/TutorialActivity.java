@@ -1,20 +1,18 @@
-package fr.wildcodeschool.seeknwild;
+package fr.wildcodeschool.seeknwild.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.adapter.TutorialAdapter;
 
 public class TutorialActivity extends AppCompatActivity {
 
