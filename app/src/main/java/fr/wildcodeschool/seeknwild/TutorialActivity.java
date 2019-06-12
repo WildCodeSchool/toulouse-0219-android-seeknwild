@@ -105,7 +105,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     private void startHomeActivity() {
-        startActivity(new Intent(TutorialActivity.this, HomeActivity.class));
+        startActivity(new Intent(TutorialActivity.this, MainActivity.class));
         finish();
     }
 

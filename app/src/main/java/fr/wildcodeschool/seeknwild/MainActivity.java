@@ -37,20 +37,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button bttuto = findViewById(R.id.tutoriel);
-        bttuto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TutorialActivity.class));
-            }
-        });
-
-        Button btStartAdventure = findViewById(R.id.btStartAdventure);
-        btStartAdventure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, StartAdventureActivity.class));
-            }
-        });
     }
 }

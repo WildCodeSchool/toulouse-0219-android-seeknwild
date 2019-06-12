@@ -64,7 +64,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> 
             itemView.setOnClickListener((new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, MainActivity.class);
+                    Intent i = new Intent(context, StartAdventureActivity.class);
                     v.getContext().startActivity(i);
                 }
             }));

@@ -38,13 +38,13 @@ import java.util.Random;
 public class StartAdventureActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
-    private static final int MIN_DISTANCE = 10;
+    private static final int MIN_DISTANCE = 1;
     private static final int DEFAULT_ZOOM = 17;
     private static final String IMAGE_TEST = "https://i.goopics.net/5DbkX.jpg";
     private static final int RANDOM_HEADING = 360;
     private static final int RANDOM_DISTANCE = 250;
     private static final int RADIUS_RANDOM_CIRCLE = 250;
-    private static final int DISTANCE_USER_BETWEEN_TREASURE = 5;
+    private static final int DISTANCE_USER_BETWEEN_TREASURE = 500;
     private static final int TIME_VIBRATION = 1500;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
@@ -118,7 +118,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                     v.vibrate(TIME_VIBRATION);
                     v.cancel();
                     Button btFoundIt = findViewById(R.id.btFoundIt);
-                    btFoundIt.setCursorVisible(true);
+                    btFoundIt.setVisibility(View.VISIBLE);
                 }
             }
 
