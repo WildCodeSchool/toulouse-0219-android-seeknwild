@@ -59,5 +59,4 @@
         app:layout_constraintStart_toStartOf="@+id/ivTreasure"
         android:background="@drawable/oval"/>
 
-
 </android.support.constraint.ConstraintLayout>
