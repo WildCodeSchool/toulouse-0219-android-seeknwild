@@ -43,7 +43,7 @@
     <string name="email">Adresse email</string>
     <string name="passWord">Mot de passe</string>
     <string name="btCreateAccount">CREER MON COMPTE</string>
-    <string name="d_connexion">Déconnexion</string>
+    <string name="connexion">Connexion</string>
     <string name="start_adventure">Start adventure</string>
     <string name="j_ai_trouv">J\'ai trouvé !</string>
     <string name="bonjour">Bonjour</string>
@@ -73,5 +73,15 @@
     <string name="rend_ce_moment_inoubliable">Rend ce moment inoubliable !</string>
     <string name="clique_dessus">Clique ci-dessus pour prendre une photo et l\'ajouter à ton album.</string>
     <string name="moment_inoubliable">Rend ce moment inoubliable !</string>
+    <string name="galerie">Galerie</string>
+    <string name="continuer">Continuer</string>
+    <string name="bravo_tu_as_termin">Bravo, tu as terminé !</string>
+    <string name="tu_as_trouv_5_tr_sors_sur_6">Tu as trouvé 5 trésors sur 6</string>
+    <string name="tu_as_aim_cette_aventure">Tu as aimé cette aventure ?</string>
+    <string name="tu_peux_consulter_ta_galerie_photos_ou_d_marrer_une_nouvelle_aventure">Tu peux consulter ta galerie photos ou démarrer une nouvelle aventure</string>
+    <string name="nom_de_l_aventure">Nom de l\'aventure</string>
+    <string name="description_longue_de_l_aventure">Description longue de l\'aventure</string>
+    <string name="publier">Publier</string>
+    <string name="tresors">Trésors</string>
     <string name="p_asser">Passer</string>
 </resources>

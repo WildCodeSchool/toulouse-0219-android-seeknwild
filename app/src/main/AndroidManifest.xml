@@ -23,12 +23,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SignInActivity"></activity>
-        <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".TakePictureActivity"></activity>
-        <activity android:name=".StartAdventureActivity" />
-        <activity android:name=".TutorialActivity">
-
+        <activity android:name=".activity.CreateAdventureActivity"></activity>
+        <activity android:name=".activity.NoteActivity" />
+        <activity android:name=".activity.SignInActivity" />
+        <activity android:name=".activity.CreateAccountActivity" />
+        <activity android:name=".activity.TakePictureActivity" />
+        <activity android:name=".activity.StartAdventureActivity" />
+        <activity android:name=".activity.TutorialActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,13 +42,13 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".TreasureAdventureMapsActivity"
+            android:name=".activity.TreasureAdventureMapsActivity"
             android:label="@string/title_activity_treasure_adventure_maps" />
         <activity
-            android:name=".MenuActivity"
+            android:name=".activity.MenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.MainActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -56,7 +57,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 
