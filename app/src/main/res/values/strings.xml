@@ -43,7 +43,7 @@
     <string name="email">Adresse email</string>
     <string name="passWord">Mot de passe</string>
     <string name="btCreateAccount">CREER MON COMPTE</string>
-    <string name="connexion">Connexion</string>
+    <string name="connexion">Me déconnecter</string>
     <string name="start_adventure">Start adventure</string>
     <string name="j_ai_trouv">J\'ai trouvé !</string>
     <string name="bonjour">Bonjour</string>
