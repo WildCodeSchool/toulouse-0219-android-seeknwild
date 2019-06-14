@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/choisi_une_aventures"
-        android:title="@string/choisi_une_aventure" />
+        android:title="@string/choisi_une_aventure"/>
     <item
         android:id="@+id/edite_tes_aventures"
         android:title="@string/edite_tes_aventures" />
