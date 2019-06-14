@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +32,15 @@ public class SignInActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        TextView already = findViewById(R.id.tvHaveAccount);
+        already.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToSignIn = new Intent(SignInActivity.this, CreateAccountActivity.class);
+                startActivity(goToSignIn);
+            }
+        });
+
         Button btLogin = findViewById(R.id.btSignIn);
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +60,7 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent goTo = new Intent(SignInActivity.this, MenuActivity.class);
+                            Intent goTo = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(goTo);
                         } else {
                             Log.w(TAG, getString(R.string.failure), task.getException());
