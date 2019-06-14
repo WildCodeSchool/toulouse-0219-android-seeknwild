@@ -54,6 +54,10 @@
     <string name="ola">Olá</string>
     <string name="kaixo">Kaixo</string>
     <string name="alo">Alo</string>
+    <string name="seekn_wild">Seek\'n Wild</string>
+    <string name="choisiUneAventure">Choisi une aventure</string>
+    <string name="editeTesAventures">Edite tes aventures</string>
+    <string name="voirTaGalerie">Voir ta galerie</string>
     <string name="createAccountIntent">Nouvel utilisateur ? Créer un compte</string>
     <string name="Sign_In">ME CONNECTER</string>
     <string name="sign">Connecte- toi</string>
@@ -79,4 +83,5 @@
     <string name="description_longue_de_l_aventure">Description longue de l\'aventure</string>
     <string name="publier">Publier</string>
     <string name="tresors">Trésors</string>
+    <string name="p_asser">Passer</string>
 </resources>
