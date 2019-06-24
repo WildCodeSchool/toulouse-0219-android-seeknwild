@@ -43,7 +43,7 @@
     <string name="email">Adresse email</string>
     <string name="passWord">Mot de passe</string>
     <string name="btCreateAccount">CREER MON COMPTE</string>
-    <string name="connexion">Connexion</string>
+    <string name="connexion">Me déconnecter</string>
     <string name="start_adventure">Start adventure</string>
     <string name="j_ai_trouv">J\'ai trouvé !</string>
     <string name="bonjour">Bonjour</string>
@@ -72,7 +72,7 @@
     <string name="onComplete">onComplete:</string>
     <string name="rend_ce_moment_inoubliable">Rend ce moment inoubliable !</string>
     <string name="clique_dessus">Clique ci-dessus pour prendre une photo et l\'ajouter à ton album.</string>
-    <string name="moment_inoubliable">Rend ce moment inoubliable !</string>
+    <string name="moment_inoubliable">Suivant</string>
     <string name="galerie">Galerie</string>
     <string name="continuer">Continuer</string>
     <string name="bravo_tu_as_termin">Bravo, tu as terminé !</string>

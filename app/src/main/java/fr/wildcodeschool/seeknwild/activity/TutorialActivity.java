@@ -103,7 +103,7 @@ public class TutorialActivity extends AppCompatActivity {
     }
 
     private void startHomeActivity() {
-        startActivity(new Intent(TutorialActivity.this, MainActivity.class));
+        startActivity(new Intent(TutorialActivity.this, SignInActivity.class));
         finish();
     }
 
