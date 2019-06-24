@@ -10,21 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
 
-import fr.wildcodeschool.seeknwild.model.AdventureModel;
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.activity.StartAdventureActivity;
+import fr.wildcodeschool.seeknwild.model.Adventure;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> {
 
-
     private static Context context;
-    private List<AdventureModel> listAdventure;
+    private List<Adventure> listAdventure;
 
-    public HomeAdapter(List<AdventureModel> listAdventure, Context context) {
+    public HomeAdapter(List<Adventure> listAdventure, Context context) {
         this.listAdventure = listAdventure;
         HomeAdapter.context = context;
     }
@@ -39,11 +36,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> 
     @Override
     public void onBindViewHolder(@NonNull IdviewHolder idviewHolder, int i) {
         idviewHolder.title.setText(listAdventure.get(i).getTitle());
-        idviewHolder.distance.setText(listAdventure.get(i).getDistance());
+        idviewHolder.distance.setText(String.valueOf(listAdventure.get(i).getDistance()));
         idviewHolder.done.setText(listAdventure.get(i).getAlreadyDone() ? context.getString(R.string.already_done) : "");
-        Glide.with(context).load(listAdventure.get(i).getImageAdventureUrl()).into(idviewHolder.adventureImage);
-        Glide.with(context).load(listAdventure.get(i).getImageStarRate()).into(idviewHolder.starRate);
-
+        //Glide.with(context).load(listAdventure.get(i).getAdventurePicture()).into(idviewHolder.adventureImage);
+        //Glide.with(context).load(listAdventure.get(i).getRate()).into(idviewHolder.starRate);
     }
 
     @Override
