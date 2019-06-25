@@ -7,10 +7,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
+import android.support.v4.util.Consumer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -20,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.Adventure;
 
 public class CreateAdventureActivity extends AppCompatActivity {
 
@@ -41,6 +45,25 @@ public class CreateAdventureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class));
+            }
+        });
+
+        Button bbtPublished = findViewById(R.id.btPublished);
+        bbtPublished.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText etNameAdventure = findViewById(R.id.etNameAdventure);
+                EditText etDescriptionAdventure = findViewById(R.id.etDescriptionAdventure);
+                Adventure newAdventure = new Adventure();
+                newAdventure.setTitle(etNameAdventure.getText().toString());
+                newAdventure.setDescription(etDescriptionAdventure.getText().toString());
+
+                VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
+                    @Override
+                    public void accept(Adventure adventure) {
+                        Toast.makeText(CreateAdventureActivity.this, String.valueOf(adventure.getIdAdventure()), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
