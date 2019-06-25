@@ -1,25 +1,28 @@
 package fr.wildcodeschool.seeknwild.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Adventure {
 
+    @SerializedName("idAdventure")
     private Long idAdventure;
-
+    @SerializedName("title")
     private String title;
-
+    @SerializedName("description")
     private String description;
-
+    @SerializedName("distance")
     private Double distance;
-
+    @SerializedName("rate")
     private Double rate;
-
+    @SerializedName("adventurePicture")
     private String adventurePicture;
-
+    @SerializedName("user")
     private User user;
-
+    @SerializedName("treasures")
     private List<Treasure> treasures;
-
+    @SerializedName("userAdventure")
     private UserAdventure userAdventure;
 
     public Adventure() {
