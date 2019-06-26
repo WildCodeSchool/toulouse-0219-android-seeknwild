@@ -48,6 +48,8 @@ public class CreateAdventureActivity extends AppCompatActivity {
             }
         });
 
+        //TODO: mettre le boutton sauver
+        //TODO: mettre un état publié ou non.
         Button bbtPublished = findViewById(R.id.btPublished);
         bbtPublished.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +59,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
                 Adventure newAdventure = new Adventure();
                 newAdventure.setTitle(etNameAdventure.getText().toString());
                 newAdventure.setDescription(etDescriptionAdventure.getText().toString());
+                newAdventure.setPublished(true);
 
                 VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
                     @Override

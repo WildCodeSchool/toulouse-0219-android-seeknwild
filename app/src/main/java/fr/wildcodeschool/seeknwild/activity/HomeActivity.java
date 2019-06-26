@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvHome.setLayoutManager(layoutManager);
 
+
         final ArrayList<Adventure> adventures = new ArrayList<>();
         VolleySingleton.getInstance(getApplicationContext()).getAdventures(new Consumer<List<Adventure>>() {
             @Override
