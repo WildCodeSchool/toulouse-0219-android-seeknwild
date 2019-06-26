@@ -1,5 +1,6 @@
 package fr.wildcodeschool.seeknwild.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -30,6 +30,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
     // chemin de la photo dans le téléphone
     private Uri mFileUri = null;
+    private Long idAdventure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,48 +45,31 @@ public class CreateAdventureActivity extends AppCompatActivity {
         btCreateTresor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class));
-            }
-        });
-
-        Button btPublished = findViewById(R.id.btSave);
-        btPublished.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO : Sauvegarder l'aventure en attente. Update
                 EditText etNameAdventure = findViewById(R.id.etNameAdventure);
                 EditText etDescriptionAdventure = findViewById(R.id.etDescriptionAdventure);
                 Adventure newAdventure = new Adventure();
                 newAdventure.setTitle(etNameAdventure.getText().toString());
                 newAdventure.setDescription(etDescriptionAdventure.getText().toString());
-
-                VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
-                    @Override
-                    public void accept(Adventure adventure) {
-                        Toast.makeText(CreateAdventureActivity.this, String.valueOf(adventure.getIdAdventure()), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
-        Button btSave = findViewById(R.id.btSave);
-        btSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO Récupérer trésors.
-                EditText etNameAdventure = findViewById(R.id.etNameAdventure);
-                EditText etDescriptionAdventure = findViewById(R.id.etDescriptionAdventure);
-                Adventure newAdventure = new Adventure();
-                newAdventure.setTitle(etNameAdventure.getText().toString());
-                newAdventure.setDescription(etDescriptionAdventure.getText().toString());
-                newAdventure.setPublished(true);
-
-                VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
-                    @Override
-                    public void accept(Adventure adventure) {
-                        Toast.makeText(CreateAdventureActivity.this, String.valueOf(adventure.getIdAdventure()), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if (idAdventure == null
+                        && !etNameAdventure.getText().toString().isEmpty()
+                        && !etDescriptionAdventure.getText().toString().isEmpty()) {
+                    VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
+                        @Override
+                        public void accept(Adventure adventure) {
+                            idAdventure = adventure.getIdAdventure();
+                            Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
+                            intent.putExtra("idAdventure", idAdventure);
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateAdventureActivity.this);
+                    builder.setTitle(getString(R.string.warningError));
+                    builder.setMessage(getString(R.string.messageErrorEmptyFile));
+                    builder.setPositiveButton("OK", null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
     }

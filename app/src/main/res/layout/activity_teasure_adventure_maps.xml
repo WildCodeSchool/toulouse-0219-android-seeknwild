@@ -52,13 +52,13 @@
         app:maxImageSize="36dp" />
 
 
-    <TextView
-        android:id="@+id/tvDescriptionTreasure"
+    <EditText
+        android:id="@+id/etDescriptionTreasure"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:hint="@string/descriptionTreasure"
         android:padding="8dp"
-        android:text="@string/description_courte_du_tr_sor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,27 +68,26 @@
         android:id="@+id/btPublishedTreasure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/oval"
         android:text="@string/publier"
         android:textColor="#FFFFFF"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btCreateTreasure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/tr_sor_suivant"
         android:background="@drawable/oval"
+        android:text="@string/tr_sor_suivant"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -100,7 +99,7 @@
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/tvDescriptionTreasure"
+        map:layout_constraintTop_toBottomOf="@+id/etDescriptionTreasure"
         tools:context=".activity.TreasureAdventureMapsActivity" />
 
 </android.support.constraint.ConstraintLayout>

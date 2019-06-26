@@ -17,8 +17,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.util.Consumer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -42,20 +44,29 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.Treasure;
 
 public class TreasureAdventureMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
+    private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
     private static final int MIN_DISTANCE = 10;
     private static final int DEFAULT_ZOOM = 17;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
+    private Double lat;
+    private Double lng;
+    private Uri mFileUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teasure_adventure_maps);
+
+        Intent intent = getIntent();
+        final Long idAdventure = intent.getLongExtra("idAdventure", 0);
+        final int sizeTreasure = intent.getIntExtra("sizeTreasure", 0);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -65,25 +76,39 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         String url = "https://i.goopics.net/5DbkX.jpg";
         Glide.with(this).load(url).into(ivLogo);
         actionFloattingButton();
-        alertDialogPublish();
-    }
 
-    public void alertDialogPublish() {
-        Button btPublish = findViewById(R.id.btPublishedTreasure);
-        btPublish.setOnClickListener(new View.OnClickListener() {
+        final EditText description = findViewById(R.id.etDescriptionTreasure);
+        Button btCreateTresure = findViewById(R.id.btCreateTreasure);
+        btCreateTresure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(TreasureAdventureMapsActivity.this);
-                builder.setTitle("");
-                builder.setMessage("Il vous faut créer au minimun 5 trésors pour pouvoir continuer");
+                if (lat != null && lng != null && !description.getText().toString().isEmpty()) {
 
-                builder.setPositiveButton("OK", null);
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                    Treasure treasure = new Treasure();
+                    treasure.setDescription(description.getText().toString());
+                    treasure.setLongTreasure(lng);
+                    treasure.setLatTreasure(lat);
+                    treasure.setPictureTreasure("pic");
+                    VolleySingleton.getInstance(getApplicationContext()).createTreasure(treasure, idAdventure, new Consumer<Treasure>() {
+                        @Override
+                        public void accept(Treasure treasure) {
+                            Intent intent = new Intent(TreasureAdventureMapsActivity.this, TreasureAdventureMapsActivity.class);
+                            intent.putExtra("idAdventure", idAdventure);
+                            intent.putExtra("sizeTreasure", sizeTreasure + 1);
+                            mMap.clear();
+                            startActivity(intent);
+                        }
+                    });
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(TreasureAdventureMapsActivity.this);
+                    builder.setTitle("");
+                    builder.setMessage(getString(R.string.errorEmptyTreasure));
+                    builder.setPositiveButton("OK", null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
-
     }
 
     private File createImageFile() throws IOException {
@@ -93,8 +118,6 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         File image = File.createTempFile(imgFileName, ".jpg", storageDir);
         return image;
     }
-    // chemin de la photo dans le téléphone
-    private Uri mFileUri = null;
 
     private void dispatchTakePictureIntent() {
         // ouvrir l'application de prise de photo
@@ -121,6 +144,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView ivRecupPic = findViewById(R.id.ivPic);
@@ -159,7 +183,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+                                           String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_FINE_LOCATION: {
                 if (grantResults.length > 0
@@ -237,8 +261,8 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                 // Ajoute le marqueur à la carte
                 mMap.addMarker(markerOptions);
                 // récupére la position GPS du marqueur
-                double lat = markerOptions.getPosition().latitude;
-                double lng = markerOptions.getPosition().longitude;
+                lat = markerOptions.getPosition().latitude;
+                lng = markerOptions.getPosition().longitude;
             }
         });
     }
