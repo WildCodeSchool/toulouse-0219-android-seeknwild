@@ -1,6 +1,7 @@
 package fr.wildcodeschool.seeknwild.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -63,6 +65,25 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         String url = "https://i.goopics.net/5DbkX.jpg";
         Glide.with(this).load(url).into(ivLogo);
         actionFloattingButton();
+        alertDialogPublish();
+    }
+
+    public void alertDialogPublish() {
+        Button btPublish = findViewById(R.id.btPublishedTreasure);
+        btPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(TreasureAdventureMapsActivity.this);
+                builder.setTitle("");
+                builder.setMessage("Il vous faut créer au minimun 5 trésors pour pouvoir continuer");
+
+                builder.setPositiveButton("OK", null);
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
     }
 
     private File createImageFile() throws IOException {
@@ -215,6 +236,9 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
                 // Ajoute le marqueur à la carte
                 mMap.addMarker(markerOptions);
+                // récupére la position GPS du marqueur
+                double lat = markerOptions.getPosition().latitude;
+                double lng = markerOptions.getPosition().longitude;
             }
         });
     }

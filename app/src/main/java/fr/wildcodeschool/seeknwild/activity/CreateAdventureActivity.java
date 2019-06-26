@@ -48,12 +48,31 @@ public class CreateAdventureActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: mettre le boutton sauver
-        //TODO: mettre un état publié ou non.
-        Button bbtPublished = findViewById(R.id.btPublished);
-        bbtPublished.setOnClickListener(new View.OnClickListener() {
+        Button btPublished = findViewById(R.id.btSave);
+        btPublished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO : Sauvegarder l'aventure en attente. Update
+                EditText etNameAdventure = findViewById(R.id.etNameAdventure);
+                EditText etDescriptionAdventure = findViewById(R.id.etDescriptionAdventure);
+                Adventure newAdventure = new Adventure();
+                newAdventure.setTitle(etNameAdventure.getText().toString());
+                newAdventure.setDescription(etDescriptionAdventure.getText().toString());
+
+                VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
+                    @Override
+                    public void accept(Adventure adventure) {
+                        Toast.makeText(CreateAdventureActivity.this, String.valueOf(adventure.getIdAdventure()), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        Button btSave = findViewById(R.id.btSave);
+        btSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Récupérer trésors.
                 EditText etNameAdventure = findViewById(R.id.etNameAdventure);
                 EditText etDescriptionAdventure = findViewById(R.id.etDescriptionAdventure);
                 Adventure newAdventure = new Adventure();
