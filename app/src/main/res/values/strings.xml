@@ -84,4 +84,6 @@
     <string name="publier">Publier</string>
     <string name="tresors">Trésors</string>
     <string name="p_asser">Passer</string>
+    <string name="en_cours">En Cours</string>
+    <string name="homecreate">HomeCreate</string>
 </resources>
