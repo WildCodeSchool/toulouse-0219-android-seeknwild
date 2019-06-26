@@ -48,8 +48,8 @@ public class CreateAdventureActivity extends AppCompatActivity {
             }
         });
 
-        Button bbtPublished = findViewById(R.id.btPublished);
-        bbtPublished.setOnClickListener(new View.OnClickListener() {
+        Button btPublished = findViewById(R.id.btPublished);
+        btPublished.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText etNameAdventure = findViewById(R.id.etNameAdventure);
