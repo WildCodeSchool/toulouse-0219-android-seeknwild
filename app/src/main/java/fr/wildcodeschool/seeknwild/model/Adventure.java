@@ -24,7 +24,6 @@ public class Adventure {
 
     private boolean published;
 
-
     public Adventure() {
     }
 

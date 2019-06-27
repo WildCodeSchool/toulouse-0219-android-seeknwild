@@ -93,7 +93,6 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
             @Override
             public void onClick(View v) {
                 if (lat != null && lng != null && !description.getText().toString().isEmpty()) {
-
                     Treasure treasure = new Treasure();
                     treasure.setDescription(description.getText().toString());
                     treasure.setLongTreasure(lng);

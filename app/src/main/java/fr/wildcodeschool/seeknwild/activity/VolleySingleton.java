@@ -57,7 +57,6 @@ public class VolleySingleton {
 
     //TODO: autres appels API + ATTENTION AU CONSUMER
     public void getAdventures(final Consumer<List<Adventure>> listener) {
-
         String url = REQUEST_URL + "adventure";
 
         final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
@@ -86,8 +85,7 @@ public class VolleySingleton {
     }
 
     public void getAdventureById(Long idAdventure, final Consumer<Adventure> listener) {
-
-        String url = REQUEST_URL + "adventure/" + idAdventure ;
+        String url = REQUEST_URL + "adventure/" + idAdventure;
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url, null,
@@ -152,8 +150,9 @@ public class VolleySingleton {
         };
         requestQueue.add(jsonObjectRequest);
     }
+
     //TODO méthode à vérifier + récupérer l'ensemble des trésors sur l'aventure
-    public void updateAdventure (Long idAdventure,Adventure adventure, final ResponseListener<Adventure> listener) {
+    public void updateAdventure(Long idAdventure, Adventure adventure, final ResponseListener<Adventure> listener) {
         String url = REQUEST_URL + "adventure/" + idAdventure;
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -181,7 +180,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void publishedAdventure (Long idAdventure, final ResponseListener<Adventure> listener) {
+    public void publishedAdventure(Long idAdventure, final ResponseListener<Adventure> listener) {
         String url = REQUEST_URL + "adventure/" + idAdventure + "/published";
 
         final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
@@ -247,7 +246,6 @@ public class VolleySingleton {
         };
         requestQueue.add(jsonObjectRequest);
     }
-
 
 
     interface ResponseListener<T> {
