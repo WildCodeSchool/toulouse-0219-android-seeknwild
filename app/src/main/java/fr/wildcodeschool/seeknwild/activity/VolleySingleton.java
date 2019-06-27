@@ -152,8 +152,12 @@ public class VolleySingleton {
     }
 
     //TODO méthode à vérifier + récupérer l'ensemble des trésors sur l'aventure
-    public void updateAdventure(Long idAdventure, Adventure adventure, final ResponseListener<Adventure> listener) {
+    public void updateAdventure(final Long idAdventure, Adventure adventure, final ResponseListener<Adventure> listener) {
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
         String url = REQUEST_URL + "adventure/" + idAdventure;
+        final String requestBody = gson.toJson(adventure);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.PUT, url, null,
@@ -166,17 +170,30 @@ public class VolleySingleton {
                         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
                         Gson gson = gsonBuilder.create();
                         Adventure adventure = (gson.fromJson(response.toString(), Adventure.class));
+
                         listener.finished(adventure);
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
-                    }
+            @Override
+            public byte[] getBody() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
                 }
-        );
+                return null;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -204,6 +221,7 @@ public class VolleySingleton {
                         Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
                     }
                 }
+
         );
         requestQueue.add(jsonObjectRequest);
     }
