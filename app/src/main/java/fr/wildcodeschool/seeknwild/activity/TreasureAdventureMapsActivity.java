@@ -78,7 +78,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         actionFloattingButton();
 
         final EditText description = findViewById(R.id.etDescriptionTreasure);
-        Button btCreateTresure = findViewById(R.id.btCreateTreasure);
+        final Button btCreateTresure = findViewById(R.id.btCreateTreasure);
         btCreateTresure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +95,22 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                             Intent intent = new Intent(TreasureAdventureMapsActivity.this, TreasureAdventureMapsActivity.class);
                             intent.putExtra("idAdventure", idAdventure);
                             intent.putExtra("sizeTreasure", sizeTreasure + 1);
-                            mMap.clear();
-                            startActivity(intent);
+                            if(sizeTreasure == 4){
+                                Button btPublished = findViewById(R.id.btPublishedTreasure);
+                                btCreateTresure.setVisibility(View.GONE);
+                                btPublished.setVisibility(View.VISIBLE);
+                                btPublished.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // TODO : appeler la méthode update adventure
+                                        startActivity(new Intent(TreasureAdventureMapsActivity.this , MainActivity.class));
+                                    }
+                                });
+
+                            } else {
+                                mMap.clear();
+                                startActivity(intent);
+                            }
                         }
                     });
                 } else {
