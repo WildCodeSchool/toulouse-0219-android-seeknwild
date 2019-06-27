@@ -40,6 +40,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
         String url = "https://i.goopics.net/5DbkX.jpg";
         Glide.with(this).load(url).into(ivLogo);
         actionFloattingButton();
+        //TODO si l'idAdventure != null , charger l'aventure grâce à son ID (recharger les champs)
 
         Button btCreateTresor = findViewById(R.id.btTreasure);
         btCreateTresor.setOnClickListener(new View.OnClickListener() {

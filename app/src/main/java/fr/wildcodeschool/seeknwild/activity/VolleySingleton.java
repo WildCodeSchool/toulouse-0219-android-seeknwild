@@ -162,4 +162,36 @@ public class VolleySingleton {
         };
         requestQueue.add(jsonObjectRequest);
     }
+
+    public void publishedAdventure (Long idAdventure, final ResponseListener<Adventure> listener) {
+        String url = REQUEST_URL + "adventure/" + idAdventure + "/published";
+
+        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                Request.Method.PUT, url, null,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("VOLLEY_SUCCESS", response.toString());
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+                        Gson gson = gsonBuilder.create();
+                        Adventure adventure = (gson.fromJson(response.toString(), Adventure.class));
+                        listener.finished(adventure);
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
+                    }
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    interface ResponseListener<T> {
+        void finished(T response);
+    }
 }

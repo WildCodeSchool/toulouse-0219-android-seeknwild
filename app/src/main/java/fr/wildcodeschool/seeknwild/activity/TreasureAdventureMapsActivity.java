@@ -44,6 +44,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.Treasure;
 
 public class TreasureAdventureMapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -57,6 +58,15 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
     private Double lat;
     private Double lng;
     private Uri mFileUri = null;
+    private Long idAdventure;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intentCreateAdv = new Intent(TreasureAdventureMapsActivity.this, CreateAdventureActivity.class);
+        intentCreateAdv.putExtra("idAdventure" , idAdventure);
+        startActivity(intentCreateAdv);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +74,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         setContentView(R.layout.activity_teasure_adventure_maps);
 
         Intent intent = getIntent();
-        final Long idAdventure = intent.getLongExtra("idAdventure", 0);
+        idAdventure = intent.getLongExtra("idAdventure", 0);
         final int sizeTreasure = intent.getIntExtra("sizeTreasure", 0);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -92,22 +102,19 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                     VolleySingleton.getInstance(getApplicationContext()).createTreasure(treasure, idAdventure, new Consumer<Treasure>() {
                         @Override
                         public void accept(Treasure treasure) {
-                            Intent intent = new Intent(TreasureAdventureMapsActivity.this, TreasureAdventureMapsActivity.class);
-                            intent.putExtra("idAdventure", idAdventure);
-                            intent.putExtra("sizeTreasure", sizeTreasure + 1);
-                            if(sizeTreasure == 4){
-                                Button btPublished = findViewById(R.id.btPublishedTreasure);
-                                btCreateTresure.setVisibility(View.GONE);
-                                btPublished.setVisibility(View.VISIBLE);
-                                btPublished.setOnClickListener(new View.OnClickListener() {
+                            if (sizeTreasure == 4) {
+                                VolleySingleton.getInstance(getApplicationContext()).publishedAdventure(idAdventure, new VolleySingleton.ResponseListener<Adventure>() {
                                     @Override
-                                    public void onClick(View v) {
-                                        // TODO : appeler la méthode update adventure
-                                        startActivity(new Intent(TreasureAdventureMapsActivity.this , MainActivity.class));
+                                    public void finished(Adventure adventure) {
+                                        //TODO rediriger l'utilisateur vers sa liste d'aventure
+                                        Intent intentList = new Intent(TreasureAdventureMapsActivity.this, HomeActivity.class);
+                                        startActivity(intentList);
                                     }
                                 });
-
                             } else {
+                                Intent intent = new Intent(TreasureAdventureMapsActivity.this, TreasureAdventureMapsActivity.class);
+                                intent.putExtra("idAdventure", idAdventure);
+                                intent.putExtra("sizeTreasure", sizeTreasure + 1);
                                 mMap.clear();
                                 startActivity(intent);
                             }
@@ -123,6 +130,10 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                 }
             }
         });
+
+        if (sizeTreasure == 4) {
+            btCreateTresure.setText(R.string.publier);
+        }
     }
 
     private File createImageFile() throws IOException {
