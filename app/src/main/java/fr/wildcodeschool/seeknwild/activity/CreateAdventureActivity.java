@@ -72,6 +72,9 @@ public class CreateAdventureActivity extends AppCompatActivity {
                                 etDescriptionAdventure.setText(etDescriptionAdventure.getText().toString());
                                 newAdventure.setTitle(etNameAdventure.getText().toString());
                                 newAdventure.setDescription(etDescriptionAdventure.getText().toString());
+                                Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
+                                intent.putExtra("idAdventure", idAdventure);
+                                startActivity(intent);
                             }
                         });
                     }
