@@ -16,7 +16,6 @@ import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.activity.CreateAdventureActivity;
-import fr.wildcodeschool.seeknwild.activity.StartAdventureActivity;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 
 public class CreateHomeAdapter extends  RecyclerView.Adapter<CreateHomeAdapter.IdviewHolder>{
