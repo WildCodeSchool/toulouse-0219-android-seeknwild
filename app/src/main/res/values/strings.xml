@@ -89,4 +89,5 @@
     <string name="errorEmptyTreasure">Vous devez remplir la description et placer un trésor sur la carte pour continuer.</string>
     <string name="warningError">ATTENTION</string>
     <string name="messageErrorEmptyFile">Vous devez remplir tous les champs avant de pouvoir créer un trésor</string>
+    <string name="ok">OK</string>
 </resources>

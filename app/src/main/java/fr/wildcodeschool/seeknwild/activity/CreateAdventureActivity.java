@@ -36,43 +36,68 @@ public class CreateAdventureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_adventure);
+        Intent intent = getIntent();
+        idAdventure = intent.getLongExtra("idAdventure", -1);
         ImageView ivLogo = findViewById(R.id.ivAdventure);
         String url = "https://i.goopics.net/5DbkX.jpg";
         Glide.with(this).load(url).into(ivLogo);
         actionFloattingButton();
-        //TODO si l'idAdventure != null , charger l'aventure grâce à son ID (recharger les champs)
-
         Button btCreateTresor = findViewById(R.id.btTreasure);
         btCreateTresor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText etNameAdventure = findViewById(R.id.etNameAdventure);
-                EditText etDescriptionAdventure = findViewById(R.id.etDescriptionAdventure);
-                Adventure newAdventure = new Adventure();
+                final EditText etNameAdventure = findViewById(R.id.etNameAdventure);
+                final EditText etDescriptionAdventure = findViewById(R.id.etDescriptionAdventure);
+                final Adventure newAdventure = new Adventure();
                 newAdventure.setTitle(etNameAdventure.getText().toString());
                 newAdventure.setDescription(etDescriptionAdventure.getText().toString());
-                if (idAdventure == null
-                        && !etNameAdventure.getText().toString().isEmpty()
+                if (!etNameAdventure.getText().toString().isEmpty()
                         && !etDescriptionAdventure.getText().toString().isEmpty()) {
-                    VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
-                        @Override
-                        public void accept(Adventure adventure) {
-                            idAdventure = adventure.getIdAdventure();
-                            Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
-                            intent.putExtra("idAdventure", idAdventure);
-                            startActivity(intent);
-                        }
-                    });
+                    if (idAdventure == -1) {
+                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
+                            @Override
+                            public void accept(Adventure adventure) {
+                                idAdventure = adventure.getIdAdventure();
+                                Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
+                                intent.putExtra("idAdventure", idAdventure);
+                                startActivity(intent);
+                            }
+                        });
+                    } else {
+                        //TODO mettre à jour l'aventure et aller à la fin de la liste des trésors
+                        VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, newAdventure, new VolleySingleton.ResponseListener<Adventure>() {
+                            @Override
+                            public void finished(Adventure response) {
+                                etNameAdventure.setText(etNameAdventure.getText().toString());
+                                etDescriptionAdventure.setText(etDescriptionAdventure.getText().toString());
+                                newAdventure.setTitle(etNameAdventure.getText().toString());
+                                newAdventure.setDescription(etDescriptionAdventure.getText().toString());
+                            }
+                        });
+                    }
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(CreateAdventureActivity.this);
                     builder.setTitle(getString(R.string.warningError));
                     builder.setMessage(getString(R.string.messageErrorEmptyFile));
-                    builder.setPositiveButton("OK", null);
+                    builder.setPositiveButton(getString(R.string.ok), null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
             }
         });
+
+        if (idAdventure != -1) {
+            VolleySingleton.getInstance(getApplicationContext()).getAdventureById(idAdventure, new Consumer<Adventure>() {
+                @Override
+                public void accept(Adventure adventure) {
+                    EditText etTitre = findViewById(R.id.etNameAdventure);
+                    EditText etDescription = findViewById(R.id.etDescriptionAdventure);
+                    etTitre.setText(adventure.getTitle());
+                    etDescription.setText(adventure.getDescription());
+
+                }
+            });
+        }
     }
 
     private File createImageFile() throws IOException {

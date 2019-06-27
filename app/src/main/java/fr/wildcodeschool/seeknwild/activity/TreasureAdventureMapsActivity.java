@@ -60,9 +60,9 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
     private Uri mFileUri = null;
     private Long idAdventure;
 
+    //permet de modifier l'action du bouton retour android
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         Intent intentCreateAdv = new Intent(TreasureAdventureMapsActivity.this, CreateAdventureActivity.class);
         intentCreateAdv.putExtra("idAdventure" , idAdventure);
         startActivity(intentCreateAdv);
