@@ -64,7 +64,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
     @Override
     public void onBackPressed() {
         Intent intentCreateAdv = new Intent(TreasureAdventureMapsActivity.this, CreateAdventureActivity.class);
-        intentCreateAdv.putExtra("idAdventure" , idAdventure);
+        intentCreateAdv.putExtra("idAdventure", idAdventure);
         startActivity(intentCreateAdv);
     }
 
@@ -124,7 +124,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                     AlertDialog.Builder builder = new AlertDialog.Builder(TreasureAdventureMapsActivity.this);
                     builder.setTitle("");
                     builder.setMessage(getString(R.string.errorEmptyTreasure));
-                    builder.setPositiveButton("OK", null);
+                    builder.setPositiveButton(R.string.ok, null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
