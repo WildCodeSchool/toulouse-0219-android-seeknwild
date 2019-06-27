@@ -84,4 +84,10 @@
     <string name="publier">Publier</string>
     <string name="tresors">Trésors</string>
     <string name="p_asser">Passer</string>
+    <string name="tr_sor_suivant">Trésor suivant</string>
+    <string name="descriptionTreasure">Ecrire une description du trésor</string>
+    <string name="errorEmptyTreasure">Vous devez remplir la description et placer un trésor sur la carte pour continuer.</string>
+    <string name="warningError">ATTENTION</string>
+    <string name="messageErrorEmptyFile">Vous devez remplir tous les champs avant de pouvoir créer un trésor</string>
+    <string name="ok">OK</string>
 </resources>

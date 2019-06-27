@@ -7,28 +7,77 @@ import java.util.List;
 
 public class Treasure {
 
-    @SerializedName("idTreasure")
     private Long idTreasure;
 
-    @SerializedName("description")
     private String description;
 
-    @SerializedName("latTreasure")
     private Double latTreasure;
 
-    @SerializedName("longTreasure")
     private Double longTreasure;
 
-    @SerializedName("pictureTreasure")
     private String pictureTreasure;
 
-    @SerializedName("adventure")
     private Adventure adventure;
 
-    @SerializedName("userAdventures")
     private List<UserAdventure> userAdventures = new ArrayList<>();
 
     public Treasure() {
     }
 
+
+    public Long getIdTreasure() {
+        return idTreasure;
+    }
+
+    public void setIdTreasure(Long idTreasure) {
+        this.idTreasure = idTreasure;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getLatTreasure() {
+        return latTreasure;
+    }
+
+    public void setLatTreasure(Double latTreasure) {
+        this.latTreasure = latTreasure;
+    }
+
+    public Double getLongTreasure() {
+        return longTreasure;
+    }
+
+    public void setLongTreasure(Double longTreasure) {
+        this.longTreasure = longTreasure;
+    }
+
+    public String getPictureTreasure() {
+        return pictureTreasure;
+    }
+
+    public void setPictureTreasure(String pictureTreasure) {
+        this.pictureTreasure = pictureTreasure;
+    }
+
+    public Adventure getAdventure() {
+        return adventure;
+    }
+
+    public void setAdventure(Adventure adventure) {
+        this.adventure = adventure;
+    }
+
+    public List<UserAdventure> getUserAdventures() {
+        return userAdventures;
+    }
+
+    public void setUserAdventures(List<UserAdventure> userAdventures) {
+        this.userAdventures = userAdventures;
+    }
 }

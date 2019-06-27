@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvDescriptionTreasure"
+        android:id="@+id/etDescriptionTreasure"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -43,7 +43,7 @@
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toBottomOf="@+id/tvDescriptionTreasure"
+        map:layout_constraintTop_toBottomOf="@+id/etDescriptionTreasure"
         tools:context=".activity.TreasureAdventureMapsActivity" />
 
     <Button
