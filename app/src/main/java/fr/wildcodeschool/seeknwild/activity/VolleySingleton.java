@@ -31,7 +31,7 @@ import fr.wildcodeschool.seeknwild.model.Treasure;
 
 public class VolleySingleton {
 
-    private final static String REQUEST_URL = "http://192.168.8.114:8080/";
+    private final static String REQUEST_URL = "http://192.168.1.74:8080/";
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
