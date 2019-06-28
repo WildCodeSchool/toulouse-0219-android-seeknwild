@@ -31,7 +31,7 @@ import fr.wildcodeschool.seeknwild.model.Treasure;
 
 public class VolleySingleton {
 
-    private final static String REQUEST_URL = "http://192.168.8.113:8080/";
+    private final static String REQUEST_URL = "http://192.168.8.114:8080/";
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
@@ -115,7 +115,7 @@ public class VolleySingleton {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        String url = REQUEST_URL + "user/" + "4" + "/adventure";
+        String url = REQUEST_URL + "user/" + "1" + "/adventure";
         final String requestBody = gson.toJson(adventure);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
@@ -150,8 +150,13 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void updateAdventure(Long idAdventure, Adventure adventure, final ResponseListener<Adventure> listener) {
+    //TODO méthode à vérifier + récupérer l'ensemble des trésors sur l'aventure
+    public void updateAdventure(final Long idAdventure, Adventure adventure, final ResponseListener<Adventure> listener) {
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
         String url = REQUEST_URL + "adventure/" + idAdventure;
+        final String requestBody = gson.toJson(adventure);
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.PUT, url, null,
@@ -164,17 +169,30 @@ public class VolleySingleton {
                         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
                         Gson gson = gsonBuilder.create();
                         Adventure adventure = (gson.fromJson(response.toString(), Adventure.class));
+
                         listener.finished(adventure);
                     }
-                },
-                new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
-                    }
+            @Override
+            public byte[] getBody() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
                 }
-        );
+                return null;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -202,6 +220,7 @@ public class VolleySingleton {
                         Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
                     }
                 }
+
         );
         requestQueue.add(jsonObjectRequest);
     }

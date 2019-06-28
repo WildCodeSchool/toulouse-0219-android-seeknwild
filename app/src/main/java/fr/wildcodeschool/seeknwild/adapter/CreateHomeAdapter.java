@@ -2,11 +2,14 @@ package fr.wildcodeschool.seeknwild.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,7 +21,7 @@ import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.activity.CreateAdventureActivity;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 
-public class CreateHomeAdapter extends  RecyclerView.Adapter<CreateHomeAdapter.IdviewHolder>{
+public class CreateHomeAdapter extends RecyclerView.Adapter<CreateHomeAdapter.IdviewHolder> {
 
     private static Context context;
     private List<Adventure> listAdventure;
@@ -36,9 +39,19 @@ public class CreateHomeAdapter extends  RecyclerView.Adapter<CreateHomeAdapter.I
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IdviewHolder idviewHolder, int i) {
+    public void onBindViewHolder(@NonNull final IdviewHolder idviewHolder, final int i) {
         idviewHolder.title.setText(listAdventure.get(i).getTitle());
         Glide.with(context).load(listAdventure.get(i).getAdventurePicture()).into(idviewHolder.adventureImage);
+        idviewHolder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == idviewHolder.edit.getId()) {
+                    Intent intentCreateAdv = new Intent(v.getContext(), CreateAdventureActivity.class);
+                    intentCreateAdv.putExtra("idAdventure", listAdventure.get(i).getIdAdventure());
+                    v.getContext().startActivity(intentCreateAdv);
+                }
+            }
+        });
 
     }
 
@@ -48,31 +61,23 @@ public class CreateHomeAdapter extends  RecyclerView.Adapter<CreateHomeAdapter.I
     }
 
     public static class IdviewHolder extends RecyclerView.ViewHolder {
+        public View container;
         public TextView title;
         public TextView inProcess;
         public TextView publish;
-        public TextView delete;
-        public TextView edit;
-
+        public ImageButton delete;
+        public ImageButton edit;
         public ImageView adventureImage;
-
 
         public IdviewHolder(View favoritesView) {
             super(favoritesView);
+            container = favoritesView;
             title = favoritesView.findViewById(R.id.tvAdventureName);
             inProcess = favoritesView.findViewById(R.id.tvInProcess);
             publish = favoritesView.findViewById(R.id.tvPublish);
             delete = favoritesView.findViewById(R.id.btDelete);
             edit = favoritesView.findViewById(R.id.btEdit);
             adventureImage = favoritesView.findViewById(R.id.ivAdventurePhoto);
-
-            itemView.setOnClickListener((new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context, CreateAdventureActivity.class);
-                    v.getContext().startActivity(i);
-                }
-            }));
         }
     }
 }
