@@ -90,4 +90,6 @@
     <string name="warningError">ATTENTION</string>
     <string name="messageErrorEmptyFile">Vous devez remplir tous les champs avant de pouvoir créer un trésor</string>
     <string name="ok">OK</string>
+    <string name="en_cours">En Cours</string>
+    <string name="homecreate">HomeCreate</string>
 </resources>
