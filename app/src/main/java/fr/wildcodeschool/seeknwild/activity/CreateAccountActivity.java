@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
+
+import java.nio.charset.Charset;
+
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.User;
 
@@ -34,13 +39,15 @@ public class CreateAccountActivity extends AppCompatActivity {
                 EditText etPseudo = findViewById(R.id.etPseudo);
                 EditText etMail = findViewById(R.id.etMail);
                 EditText etPw = findViewById(R.id.etPw);
-                User newUser = new User();
-                newUser.setPseudo(etPseudo.getText().toString());
-                newUser.setEmail(etMail.getText().toString());
-                newUser.setPassword(etPw.getText().toString());
                 if (!etPseudo.getText().toString().isEmpty()
                         && !etMail.getText().toString().isEmpty()
                         && !etPw.getText().toString().isEmpty()) {
+                    User newUser = new User();
+                    newUser.setPseudo(etPseudo.getText().toString());
+                    newUser.setEmail(etMail.getText().toString());
+                    String password = etPw.getText().toString();
+                    HashCode hashCode = Hashing.sha256().hashString(password, Charset.defaultCharset());
+                    newUser.setPassword(hashCode.toString());
                     VolleySingleton.getInstance(getApplicationContext()).createUser(newUser, new Consumer<User>() {
                         @Override
                         public void accept(User user) {
