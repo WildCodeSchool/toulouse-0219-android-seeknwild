@@ -32,7 +32,7 @@ import fr.wildcodeschool.seeknwild.model.User;
 
 public class VolleySingleton {
 
-    private final static String REQUEST_URL = "http://192.168.8.112:8080/";
+    private final static String REQUEST_URL = "http://192.168.8.113:8080/";
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
@@ -91,6 +91,34 @@ public class VolleySingleton {
                 return null;
             }
         };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void getUsers(final Consumer<List<User>> listener) {
+        String url = REQUEST_URL + "user";
+
+        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("VOLLEY_SUCCESS", response.toString());
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+                        Gson gson = gsonBuilder.create();
+                        List<User> users = Arrays.asList(gson.fromJson(response.toString(), User[].class));
+                        listener.accept(users);
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
+                    }
+                }
+        );
         requestQueue.add(jsonObjectRequest);
     }
 
