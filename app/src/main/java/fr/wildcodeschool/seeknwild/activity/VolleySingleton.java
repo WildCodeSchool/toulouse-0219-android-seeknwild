@@ -28,10 +28,11 @@ import java.util.Map;
 
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.Treasure;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class VolleySingleton {
 
-    private final static String REQUEST_URL = "http://192.168.1.74:8080/";
+    private final static String REQUEST_URL = "http://192.168.8.112:8080/";
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
@@ -55,6 +56,45 @@ public class VolleySingleton {
         return requestQueue;
     }
 
+    public void createUser(final User user, final Consumer<User> listener) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
+        String url = REQUEST_URL + "user";
+        final String requestBody = gson.toJson(user);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("VOLLEY_SUCCESS", response.toString());
+                User user = gson.fromJson(response.toString(), User.class);
+                listener.accept(user);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+            @Override
+            public byte[] getBody() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
+                }
+                return null;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    //TODO: autres appels API + ATTENTION AU CONSUMER
     public void getAdventures(final Consumer<List<Adventure>> listener) {
         String url = REQUEST_URL + "adventure";
 
@@ -115,7 +155,7 @@ public class VolleySingleton {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        String url = REQUEST_URL + "user/" + "1" + "/adventure";
+        String url = REQUEST_URL + "user/" + "4" + "/adventure";
         final String requestBody = gson.toJson(adventure);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
@@ -263,6 +303,7 @@ public class VolleySingleton {
         };
         requestQueue.add(jsonObjectRequest);
     }
+
 
     interface ResponseListener<T> {
         void finished(T response);
