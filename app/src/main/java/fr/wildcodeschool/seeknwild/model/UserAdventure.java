@@ -9,6 +9,8 @@ public class UserAdventure {
 
     private Long idUserAdventure;
 
+    private boolean alreadyDone;
+
     private User user;
 
     private Adventure adventure;
@@ -48,5 +50,13 @@ public class UserAdventure {
 
     public void setTreasures(List<Treasure> treasures) {
         this.treasures = treasures;
+    }
+
+    public boolean isAlreadyDone() {
+        return alreadyDone;
+    }
+
+    public void setAlreadyDone(boolean alreadyDone) {
+        this.alreadyDone = alreadyDone;
     }
 }
