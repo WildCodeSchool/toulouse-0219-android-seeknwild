@@ -4,13 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Picture {
 
-    @SerializedName("idPicture")
     private Long idPicture;
 
-    @SerializedName("urlPicture")
     private String urlPicture;
 
-    @SerializedName("user")
     private User user;
 
     public Picture() {}

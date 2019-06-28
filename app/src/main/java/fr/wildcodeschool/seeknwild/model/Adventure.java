@@ -22,6 +22,8 @@ public class Adventure {
 
     private UserAdventure userAdventure;
 
+    private boolean published;
+
     public Adventure() {
     }
 
@@ -100,5 +102,13 @@ public class Adventure {
 
     public void setUserAdventure(UserAdventure userAdventure) {
         this.userAdventure = userAdventure;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
     }
 }

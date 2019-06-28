@@ -7,16 +7,12 @@ import java.util.List;
 
 public class UserAdventure {
 
-    @SerializedName("idUserAdventure")
     private Long idUserAdventure;
 
-    @SerializedName("user")
     private User user;
 
-    @SerializedName("adventure")
     private Adventure adventure;
 
-    @SerializedName("treasures")
     private List<Treasure> treasures = new ArrayList<>();
 
     public UserAdventure() {
