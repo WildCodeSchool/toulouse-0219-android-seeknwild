@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.User;
@@ -19,6 +20,13 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+        TextView tvAlreadyUser = findViewById(R.id.tvAlreadyUser);
+        tvAlreadyUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateAccountActivity.this, SignInActivity.class));
+            }
+        });
         Button btCreate = findViewById(R.id.btCreate);
         btCreate.setOnClickListener(new View.OnClickListener() {
             @Override
