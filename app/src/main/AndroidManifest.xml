@@ -26,14 +26,15 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.CreateAdventureHomeActivity"></activity>
         <activity android:name=".activity.CreateAdventureActivity" />
-        <activity android:name=".activity.NoteActivity" />
-        <activity android:name=".activity.SignInActivity" />
-        <activity android:name=".activity.CreateAccountActivity">
+        <activity android:name=".activity.NoteActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activity.SignInActivity" />
+        <activity android:name=".activity.CreateAccountActivity">
         </activity>
         <activity android:name=".activity.TakePictureActivity" />
         <activity android:name=".activity.StartAdventureActivity" />
