@@ -94,31 +94,41 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getUsers(final Consumer<List<User>> listener) {
-        String url = REQUEST_URL + "user";
+    public void getUserByEmail(User user ,final Consumer<User> listener) {
+        String url = REQUEST_URL + "user/search";
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
+        final String requestBody = gson.toJson(user);
 
-        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
-                Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("VOLLEY_SUCCESS", response.toString());
+                User user = gson.fromJson(response.toString(), User.class);
+                listener.accept(user);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
 
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d("VOLLEY_SUCCESS", response.toString());
-                        GsonBuilder gsonBuilder = new GsonBuilder();
-                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
-                        Gson gson = gsonBuilder.create();
-                        List<User> users = Arrays.asList(gson.fromJson(response.toString(), User[].class));
-                        listener.accept(users);
-                    }
-                },
-                new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
-                    }
+            @Override
+            public byte[] getBody() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
                 }
-        );
+                return null;
+            }
+        };
         requestQueue.add(jsonObjectRequest);
     }
 

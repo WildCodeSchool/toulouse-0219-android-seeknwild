@@ -1,5 +1,6 @@
 package fr.wildcodeschool.seeknwild.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.util.Consumer;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.Volley;
 import com.google.common.hash.HashCode;
@@ -31,29 +33,22 @@ public class SignInActivity extends AppCompatActivity {
         btConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                VolleySingleton.getInstance(getApplicationContext()).getUsers(new Consumer<List<User>>() {
+                EditText etMail = findViewById(R.id.etMailSign);
+                EditText etPw = findViewById(R.id.etPwSign);
+                HashCode hashCode = Hashing.sha256().hashString(etPw.getText().toString(), Charset.defaultCharset());
+                final User newUser = new User();
+                newUser.setEmail(etMail.getText().toString());
+                newUser.setPassword(etPw.getText().toString());
+                newUser.setPassword(hashCode.toString());
+                VolleySingleton.getInstance(getApplicationContext()).getUserByEmail(newUser, new Consumer<User>() {
                     @Override
-                    public void accept(List<User> users) {
-                        EditText email = findViewById(R.id.etMailSign);
-                        EditText pwd = findViewById(R.id.etPwSign);
-
-                        HashCode hashCode = Hashing.sha256().hashString(pwd.getText().toString(), Charset.defaultCharset());
-                        for (int i = 0 ; i < users.size() ; i++) {
-                            String emailUser = users.get(i).getEmail();
-                            if (emailUser.equals(email.getText().toString())) {
-                                String password = users.get(i).getPassword();
-                                if (password.equals(hashCode.toString())) {
-                                    startActivity(new Intent(SignInActivity.this, HomeActivity.class));
-                                }
-                            }
-                        }
-
+                    public void accept(User user) {
+                        Toast.makeText(SignInActivity.this, "compte connecté", Toast.LENGTH_LONG).show();
                     }
                 });
             }
         });
 
     }
+
 }
