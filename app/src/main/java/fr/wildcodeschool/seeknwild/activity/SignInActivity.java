@@ -8,14 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.android.volley.toolbox.Volley;
+import com.android.volley.VolleyLog;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
 
 import java.nio.charset.Charset;
-import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.User;
@@ -35,20 +33,28 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText etMail = findViewById(R.id.etMailSign);
                 EditText etPw = findViewById(R.id.etPwSign);
-                HashCode hashCode = Hashing.sha256().hashString(etPw.getText().toString(), Charset.defaultCharset());
-                final User newUser = new User();
-                newUser.setEmail(etMail.getText().toString());
-                newUser.setPassword(etPw.getText().toString());
-                newUser.setPassword(hashCode.toString());
-                VolleySingleton.getInstance(getApplicationContext()).getUserByEmail(newUser, new Consumer<User>() {
-                    @Override
-                    public void accept(User user) {
-                        Toast.makeText(SignInActivity.this, "compte connecté", Toast.LENGTH_LONG).show();
-                    }
-                });
+                if (!etMail.getText().toString().isEmpty() && !etPw.getText().toString().isEmpty()) {
+                    HashCode hashCode = Hashing.sha256().hashString(etPw.getText().toString(), Charset.defaultCharset());
+                    final User newUser = new User();
+                    newUser.setEmail(etMail.getText().toString());
+                    newUser.setPassword(etPw.getText().toString());
+                    newUser.setPassword(hashCode.toString());
+                    VolleySingleton.getInstance(getApplicationContext()).getUserByEmail(newUser, new Consumer<User>() {
+                        @Override
+                        public void accept(User user) {
+                            startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+
+                        }
+                    });
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
+                    builder.setTitle(getString(R.string.votreEmail));
+                    builder.setMessage(getString(R.string.veuillezRenseigner));
+                    builder.setPositiveButton(getString(R.string.ok), null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
             }
         });
-
     }
-
 }

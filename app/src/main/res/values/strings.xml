@@ -91,4 +91,6 @@
     <string name="messageErrorEmptyFile">Vous devez remplir tous les champs avant de pouvoir créer un trésor</string>
     <string name="ok">OK</string>
     <string name="renseignez">Veuillez renseigner votre email et votre mot de passe pour vous connecter</string>
+    <string name="votreEmail">Votre Email et mot de passe</string>
+    <string name="veuillezRenseigner">Veuillez renseigner votre Email et votre mot de passe.</string>
 </resources>
