@@ -18,9 +18,7 @@ import java.nio.charset.Charset;
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.User;
 
-
 public class SignInActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +54,6 @@ public class SignInActivity extends AppCompatActivity {
                                 UserSingleton.getInstance().setUser(user);
                                 startActivity(new Intent(SignInActivity.this, HomeActivity.class));
                             }
-
-
                         }
                     });
                 } else {

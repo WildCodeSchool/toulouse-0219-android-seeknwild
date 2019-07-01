@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -25,7 +24,6 @@ import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.Adventure;
-import fr.wildcodeschool.seeknwild.model.User;
 
 public class CreateAdventureActivity extends AppCompatActivity {
 
@@ -33,7 +31,6 @@ public class CreateAdventureActivity extends AppCompatActivity {
     // chemin de la photo dans le téléphone
     private Uri mFileUri = null;
     private Long idAdventure;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
