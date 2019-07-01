@@ -105,7 +105,6 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                                 VolleySingleton.getInstance(getApplicationContext()).publishedAdventure(idAdventure, new VolleySingleton.ResponseListener<Adventure>() {
                                     @Override
                                     public void finished(Adventure adventure) {
-                                        //TODO rediriger l'utilisateur vers sa liste d'aventure
                                         Intent intentList = new Intent(TreasureAdventureMapsActivity.this, HomeActivity.class);
                                         startActivity(intentList);
                                     }

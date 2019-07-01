@@ -20,16 +20,9 @@ public class Adventure {
 
     private List<Treasure> treasures;
 
-    private UserAdventure userAdventure;
-
     private boolean published;
 
     public Adventure() {
-    }
-
-    public boolean getAlreadyDone() {
-        //TODO: vérifier si l'aventure  à déjà été faite
-        return true;
     }
 
     public Long getIdAdventure() {
@@ -94,14 +87,6 @@ public class Adventure {
 
     public void setTreasures(List<Treasure> treasures) {
         this.treasures = treasures;
-    }
-
-    public UserAdventure getUserAdventure() {
-        return userAdventure;
-    }
-
-    public void setUserAdventure(UserAdventure userAdventure) {
-        this.userAdventure = userAdventure;
     }
 
     public boolean isPublished() {

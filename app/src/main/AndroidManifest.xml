@@ -24,21 +24,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CreateAdventureHomeActivity"></activity>
+        <activity android:name=".activity.StartAdventureDescription"></activity>
+        <activity android:name=".activity.CreateAdventureHomeActivity" />
         <activity android:name=".activity.CreateAdventureActivity" />
         <activity android:name=".activity.NoteActivity" />
         <activity android:name=".activity.SignInActivity" />
-        <activity android:name=".activity.CreateAccountActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activity.CreateAccountActivity"></activity>
         <activity android:name=".activity.TakePictureActivity" />
         <activity android:name=".activity.StartAdventureActivity" />
-        <activity android:name=".activity.TutorialActivity">
-        </activity>
+        <activity android:name=".activity.TutorialActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -51,8 +45,14 @@
             android:name=".activity.MenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.MainActivity" >
+        <activity android:name=".activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="fr.wildcodeschool.seeknwild.fileprovider"

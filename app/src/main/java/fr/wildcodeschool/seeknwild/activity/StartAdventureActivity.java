@@ -13,6 +13,7 @@ import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Consumer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -34,9 +35,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.SphericalUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.Treasure;
+import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 import static java.lang.Thread.sleep;
 
@@ -53,11 +59,18 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
     private static final int TIME_VIBRATION = 1500;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
+    private Long idAdventure;
+    private Long idTreasure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_adventure);
+
+        final Intent intent = getIntent();
+        idAdventure = intent.getLongExtra("idAdventure", 0);
+        final Adventure adventure = new Adventure();
+        final UserAdventure userAdventure = new UserAdventure();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -159,7 +172,15 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
                 StartAdventureActivity.this, R.raw.stylemap));
-        //TODO : récupérer latlng du trésor crée dans l'aventure
+        //TODO : récupérer latlng du trésor crée dans l'aventure par userAdventure
+        Treasure treasure = new Treasure();
+        VolleySingleton.getInstance(getApplicationContext()).getTreasureById(idAdventure, idTreasure, new Consumer<Treasure>() {
+            @Override
+            public void accept(Treasure treasure) {
+
+            }
+        });
+
         LatLng toulouse = new LatLng(43.597442, 1.4300557);
         final MarkerOptions markerOptions = new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
@@ -183,6 +204,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 mMap.clear();
                 mMap.addMarker(markerOptions);
                 btTakePicture.setVisibility(View.VISIBLE);
+                //TODO: initier les methodes pour update userAdventure + trésor si c'est posssible
             }
         });
 
@@ -192,6 +214,5 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 startActivity(new Intent(StartAdventureActivity.this, TakePictureActivity.class));
             }
         });
-
     }
 }

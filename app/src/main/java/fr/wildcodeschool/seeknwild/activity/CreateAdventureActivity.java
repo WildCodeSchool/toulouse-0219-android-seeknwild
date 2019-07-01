@@ -28,9 +28,9 @@ import fr.wildcodeschool.seeknwild.model.Adventure;
 public class CreateAdventureActivity extends AppCompatActivity {
 
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
-    // chemin de la photo dans le téléphone
     private Uri mFileUri = null;
     private Long idAdventure;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,6 @@ public class CreateAdventureActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        //TODO mettre à jour l'aventure et aller à la fin de la liste des trésors
                         VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, newAdventure, new VolleySingleton.ResponseListener<Adventure>() {
                             @Override
                             public void finished(Adventure response) {
