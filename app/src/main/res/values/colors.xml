@@ -11,4 +11,5 @@
 <color name="secondaryYellow">#FFD64F</color>
 <color name="secondaryBlack">#3B424E</color>
 <color name = "secondaryGrey">#F6F6F6</color>
+    <color name="colorButtonDefault">#E91E63</color>
 </resources>

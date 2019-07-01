@@ -20,19 +20,16 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:networkSecurityConfig="@xml/network_security_config">
-        <activity android:name=".activity.CreateAdventureActivity"></activity>
-        <activity android:name=".activity.NoteActivity" />
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.CreateAdventureHomeActivity"></activity>
+        <activity android:name=".activity.CreateAdventureActivity" />
+        <activity android:name=".activity.NoteActivity">
+        </activity>
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.CreateAccountActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity.TakePictureActivity" />
         <activity android:name=".activity.StartAdventureActivity" />
@@ -51,6 +48,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
