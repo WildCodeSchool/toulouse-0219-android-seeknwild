@@ -5,6 +5,7 @@ import android.support.v4.util.Consumer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.adapter.HomeAdapter;
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -19,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Toast.makeText(HomeActivity.this, UserSingleton.getInstance().getUser().getEmail(), Toast.LENGTH_SHORT).show();;
 
         final RecyclerView rvHome = findViewById(R.id.rvAccueil);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
