@@ -20,7 +20,6 @@
         android:textSize="23dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,7 +61,6 @@
         android:text="@string/tu_peux_consulter_ta_galerie_photos_ou_d_marrer_une_nouvelle_aventure"
         app:layout_constraintBottom_toTopOf="@+id/btGalery"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -102,7 +100,6 @@
         android:layout_marginRight="8dp"
         android:numStars="5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTreasureFInd"
         android:theme="@style/RatingBar"/>
