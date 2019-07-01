@@ -73,6 +73,7 @@ public class VolleySingleton {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                listener.accept(null);
                 VolleyLog.e("Error: ", error.getMessage());
             }
         }) {
@@ -111,6 +112,7 @@ public class VolleySingleton {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                listener.accept(null);
                 VolleyLog.e("Error: ", error.getMessage());
             }
         }) {

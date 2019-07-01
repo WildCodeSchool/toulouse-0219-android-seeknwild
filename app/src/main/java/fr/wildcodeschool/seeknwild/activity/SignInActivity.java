@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import com.android.volley.VolleyLog;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
 
@@ -27,6 +27,14 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        TextView tvCreateAccount = findViewById(R.id.tvHaveAccount);
+        tvCreateAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignInActivity.this, CreateAccountActivity.class));
+            }
+        });
+
         Button btConnect = findViewById(R.id.btSignIn);
         btConnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +50,13 @@ public class SignInActivity extends AppCompatActivity {
                     VolleySingleton.getInstance(getApplicationContext()).getUserByEmail(newUser, new Consumer<User>() {
                         @Override
                         public void accept(User user) {
-                            startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+                            if (user == null) {
+                                //TODO afficher message d'erreur
+                            } else {
+                                UserSingleton.getInstance().setUser(user);
+                                startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+                            }
+
 
                         }
                     });

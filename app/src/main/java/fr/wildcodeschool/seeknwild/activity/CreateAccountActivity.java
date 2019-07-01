@@ -51,8 +51,13 @@ public class CreateAccountActivity extends AppCompatActivity {
                     VolleySingleton.getInstance(getApplicationContext()).createUser(newUser, new Consumer<User>() {
                         @Override
                         public void accept(User user) {
-                            Intent intent = new Intent(CreateAccountActivity.this, HomeActivity.class);
-                            startActivity(intent);
+                            if (user == null ) {
+                                //TODO afficher un message d'erreur
+                            } else {
+                                UserSingleton.getInstance().setUser(user);
+                                startActivity(new Intent(CreateAccountActivity.this, HomeActivity.class));
+                            }
+
                         }
                     });
                 }
