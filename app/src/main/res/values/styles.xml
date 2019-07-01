@@ -14,4 +14,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/secondaryBlack</item>
+        <item name="colorControlActivated">@color/colorPrimaryMaquette</item>
+    </style>
+
 </resources>
