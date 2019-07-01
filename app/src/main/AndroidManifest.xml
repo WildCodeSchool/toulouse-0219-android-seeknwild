@@ -27,7 +27,8 @@
         <activity android:name=".activity.StartAdventureDescription"></activity>
         <activity android:name=".activity.CreateAdventureHomeActivity" />
         <activity android:name=".activity.CreateAdventureActivity" />
-        <activity android:name=".activity.NoteActivity" />
+        <activity android:name=".activity.NoteActivity">
+        </activity>
         <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.CreateAccountActivity"></activity>
         <activity android:name=".activity.TakePictureActivity" />
