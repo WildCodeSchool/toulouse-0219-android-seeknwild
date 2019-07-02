@@ -56,7 +56,6 @@ public class SignInActivity extends AppCompatActivity {
                         @Override
                         public void accept(Authentication authentication) {
                             if (authentication == null) {
-                                //TODO afficher une erreur de connexion
                                 AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
                                 builder.setTitle(getString(R.string.vérifier_connexion));
                                 builder.setMessage(getString(R.string.veuillez_verifier_connexion));
