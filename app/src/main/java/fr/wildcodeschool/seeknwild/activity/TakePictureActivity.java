@@ -2,12 +2,12 @@ package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -33,6 +33,7 @@ public class TakePictureActivity extends AppCompatActivity {
     private Long idUserAdventure;
     private Long iduser;
     private User user;
+    private Uri mFileUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class TakePictureActivity extends AppCompatActivity {
         treasure = treasures.get(userAdventure.getCurrentTreasure());
 
         //TODO: Associer la photo à un User + renvoyer l'uri dans la base etc.
+        //TODO: update user pour lui ajouter les photos !
 
         ImageView ivLogo = findViewById(R.id.ivTreasureToModify);
         String url = "https://i.goopics.net/kwb0o.jpg";
@@ -57,14 +59,38 @@ public class TakePictureActivity extends AppCompatActivity {
         actionFloattingButton();
 
         Button btNext = findViewById(R.id.btNext);
-        btNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
-                UserSingleton.getInstance().setUser(user);
-                startActivity(new Intent(TakePictureActivity.this, SearchTreasureActivity.class));
+
+        if (userAdventure.getNbTreasure() == 4) {
+            btNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                    UserSingleton.getInstance().setUser(user);
+                    startActivity(new Intent(TakePictureActivity.this, RateActivity.class));
+                }
+            });
+
+        } else {
+            if (userAdventure.getNbTreasure() >= treasures.size()) {
+                btNext.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                        UserSingleton.getInstance().setUser(user);
+                        startActivity(new Intent(TakePictureActivity.this, SearchTreasureActivity.class));
+                    }
+                });
+            } else {
+                btNext.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                        UserSingleton.getInstance().setUser(user);
+                        startActivity(new Intent(TakePictureActivity.this, SearchTreasureActivity.class));
+                    }
+                });
             }
-        });
+        }
     }
 
     private void actionFloattingButton() {
@@ -85,8 +111,6 @@ public class TakePictureActivity extends AppCompatActivity {
         File image = java.io.File.createTempFile(imgFileName, ".jpg", storageDir);
         return image;
     }
-    // chemin de la photo dans le téléphone
-    private Uri mFileUri = null;
 
     private void dispatchTakePictureIntent() {
         // ouvrir l'application de prise de photo
@@ -113,6 +137,7 @@ public class TakePictureActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView ivRecupPic = findViewById(R.id.ivTreasureToModify);

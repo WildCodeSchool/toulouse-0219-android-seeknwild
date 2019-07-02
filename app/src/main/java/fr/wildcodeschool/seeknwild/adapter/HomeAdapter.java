@@ -37,7 +37,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> 
     public void onBindViewHolder(@NonNull final IdviewHolder idviewHolder, final int i) {
         idviewHolder.title.setText(listAdventure.get(i).getTitle());
         idviewHolder.distance.setText(String.valueOf(listAdventure.get(i).getDistance()));
-       //idviewHolder.done.setText(listAdventure.get(i).getAlreadyDone() ? context.getString(R.string.already_done) : "");
+        //TODO: set already done if user got userAdv on this adv.
+        //idviewHolder.done.setText(listAdventure.get(i).getAlreadyDone() ? context.getString(R.string.already_done) : "");
         idviewHolder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

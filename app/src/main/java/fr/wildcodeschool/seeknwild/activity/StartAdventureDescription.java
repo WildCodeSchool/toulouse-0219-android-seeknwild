@@ -22,6 +22,9 @@ public class StartAdventureDescription extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_aventure_description);
 
+        //TODO: Photo de l'aventure associé.
+
+
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
         final Long userId = userSingleton.getUserId();

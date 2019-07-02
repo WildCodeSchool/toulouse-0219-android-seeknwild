@@ -21,6 +21,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        //TODO: Photo du trésor associé.
+
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
         final Long userId = userSingleton.getUserId();

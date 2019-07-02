@@ -34,7 +34,7 @@ import fr.wildcodeschool.seeknwild.model.UserAdventure;
 public class VolleySingleton {
 
     private final static String REQUEST_URL = "http://192.168.8.117:8080/";
-  
+
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
@@ -114,9 +114,9 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void createUserAdventure (final Long idUser,
-                                     final Long idAdventure,
-                                     final Consumer<UserAdventure> listener) {
+    public void createUserAdventure(final Long idUser,
+                                    final Long idAdventure,
+                                    final Consumer<UserAdventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
@@ -138,16 +138,14 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void updateUserAdventure (final Long idAdventure,
-                                     final Long idUserAdventure,
-                                     final Long idUser,
-                                     final Consumer<UserAdventure> listener) {
+    public void updateUserAdventure(final Long idUser,
+                                    final Long idUserAdventure,
+                                    final Long idAdventure,
+                                    final Consumer<UserAdventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
         String url = REQUEST_URL + "user/" + idUser + idUserAdventure + idAdventure;
-
-
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.PUT, url, null,
                 new Response.Listener<JSONObject>() {
@@ -210,7 +208,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getUserByEmail(User user ,final Consumer<User> listener) {
+    public void getUserByEmail(User user, final Consumer<User> listener) {
         String url = REQUEST_URL + "user/search";
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
@@ -306,7 +304,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void createAdventure(Adventure adventure,  Long userId,
+    public void createAdventure(Adventure adventure, Long userId,
                                 final Consumer<Adventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -459,7 +457,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getTreasureById(Long idAdventure,Long idTreasure, final Consumer<Treasure> listener) {
+    public void getTreasureById(Long idAdventure, Long idTreasure, final Consumer<Treasure> listener) {
         String url = REQUEST_URL + "adventure/" + idAdventure + "/treasure/" + idTreasure;
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(

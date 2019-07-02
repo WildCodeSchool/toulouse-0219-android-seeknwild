@@ -16,6 +16,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Consumer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -41,8 +43,6 @@ import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
-import static java.lang.Thread.sleep;
-
 public class SearchTreasureActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
@@ -63,11 +63,10 @@ public class SearchTreasureActivity extends FragmentActivity implements OnMapRea
     private Long iduser;
     private User user;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_adventure);
+        setContentView(R.layout.activity_search_adventure);
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         user = userSingleton.getUser();
@@ -79,13 +78,17 @@ public class SearchTreasureActivity extends FragmentActivity implements OnMapRea
         List<Treasure> treasures = userAdventure.getAdventure().getTreasures();
         treasure = treasures.get(userAdventure.getCurrentTreasure());
 
+        TextView etDescriptionTreasure = findViewById(R.id.etDescriptionTreasure);
+        etDescriptionTreasure.setText(treasure.getDescription());
+
+        //TODO: Photo du trésor associé.
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         askLocationPermission();
-        //ImageView ivLogo = findViewById(R.id.ivTreasure);
+        ImageView ivLogo = findViewById(R.id.ivTreasure);
         //Glide.with(this).load(IMAGE_TEST).into(ivLogo);
     }
 
@@ -204,15 +207,15 @@ public class SearchTreasureActivity extends FragmentActivity implements OnMapRea
                 mMap.addMarker(markerOptions);
                 VolleySingleton.getInstance(getApplicationContext()).updateUserAdventure(idAdventure, idUserAdventure, iduser,
                         new Consumer<UserAdventure>() {
-                    @Override
-                    public void accept(UserAdventure userAdventure) {
-                        userAdventure.setCurrentTreasure(userAdventure.getCurrentTreasure() + 1);
-                        userAdventure.setNbTreasure(userAdventure.getNbTreasure() + 1);
-                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
-                        Intent intent = new Intent(SearchTreasureActivity.this, TakePictureActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                            @Override
+                            public void accept(UserAdventure userAdventure) {
+                                userAdventure.setCurrentTreasure(userAdventure.getCurrentTreasure() + 1);
+                                userAdventure.setNbTreasure(userAdventure.getNbTreasure() + 1);
+                                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                                Intent intent = new Intent(SearchTreasureActivity.this, TakePictureActivity.class);
+                                startActivity(intent);
+                            }
+                        });
             }
         });
     }
