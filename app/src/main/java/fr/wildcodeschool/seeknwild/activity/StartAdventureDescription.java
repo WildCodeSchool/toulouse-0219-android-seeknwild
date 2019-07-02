@@ -50,7 +50,7 @@ public class StartAdventureDescription extends AppCompatActivity {
                             @Override
                             public void accept(UserAdventure userAdventure) {
                                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
-                                Intent intent = new Intent(StartAdventureDescription.this, StartAdventureActivity.class);
+                                Intent intent = new Intent(StartAdventureDescription.this, SearchTreasureActivity.class);
                                 startActivity(intent);
                             }
                         });

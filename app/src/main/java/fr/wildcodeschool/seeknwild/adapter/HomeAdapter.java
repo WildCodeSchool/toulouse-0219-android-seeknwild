@@ -13,8 +13,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.CreateAdventureActivity;
-import fr.wildcodeschool.seeknwild.activity.StartAdventureActivity;
 import fr.wildcodeschool.seeknwild.activity.StartAdventureDescription;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 

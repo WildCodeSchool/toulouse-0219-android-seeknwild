@@ -18,12 +18,21 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
+import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class TakePictureActivity extends AppCompatActivity {
+
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
+    private Treasure treasure;
+    private UserAdventure userAdventure;
+    private Long idUserAdventure;
+    private Long iduser;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +40,16 @@ public class TakePictureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_take_pic_moment);
 
         UserSingleton userSingleton = UserSingleton.getInstance();
-        User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        user = userSingleton.getUser();
+        iduser = userSingleton.getUserId();
+
+        UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
+        userAdventure = userAdventureSingleton.getUserAdventure();
+        idUserAdventure = userAdventureSingleton.getUserAdventureId();
+        List<Treasure> treasures = userAdventure.getAdventure().getTreasures();
+        treasure = treasures.get(userAdventure.getCurrentTreasure());
+
+        //TODO: Associer la photo à un User + renvoyer l'uri dans la base etc.
 
         ImageView ivLogo = findViewById(R.id.ivTreasureToModify);
         String url = "https://i.goopics.net/kwb0o.jpg";
@@ -43,7 +60,9 @@ public class TakePictureActivity extends AppCompatActivity {
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TakePictureActivity.this, NoteActivity.class));
+                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                UserSingleton.getInstance().setUser(user);
+                startActivity(new Intent(TakePictureActivity.this, SearchTreasureActivity.class));
             }
         });
     }

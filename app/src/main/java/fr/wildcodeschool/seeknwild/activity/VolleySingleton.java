@@ -140,11 +140,12 @@ public class VolleySingleton {
 
     public void updateUserAdventure (final Long idAdventure,
                                      final Long idUserAdventure,
-                                     final ResponseListener<UserAdventure> listener) {
+                                     final Long idUser,
+                                     final Consumer<UserAdventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        String url = REQUEST_URL + "adventure/" + idAdventure + "userAdventure/" + idUserAdventure;
+        String url = REQUEST_URL + "user/" + idUser + idUserAdventure + idAdventure;
 
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -159,7 +160,7 @@ public class VolleySingleton {
                         Gson gson = gsonBuilder.create();
                         UserAdventure userAdventure = (gson.fromJson(response.toString(), UserAdventure.class));
 
-                        listener.finished(userAdventure);
+                        listener.accept(userAdventure);
                     }
                 }, new Response.ErrorListener() {
             @Override

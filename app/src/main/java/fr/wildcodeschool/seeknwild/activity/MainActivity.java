@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         btStartAdventure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, StartAdventureActivity.class));
+                startActivity(new Intent(MainActivity.this, SearchTreasureActivity.class));
             }
         });
 

@@ -16,10 +16,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Consumer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -45,7 +43,7 @@ import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 import static java.lang.Thread.sleep;
 
-public class StartAdventureActivity extends FragmentActivity implements OnMapReadyCallback {
+public class SearchTreasureActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
     private static final int MIN_DISTANCE = 1;
@@ -61,6 +59,9 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
     private Long idAdventure;
     private Treasure treasure;
     private UserAdventure userAdventure;
+    private Long idUserAdventure;
+    private Long iduser;
+    private User user;
 
 
     @Override
@@ -69,11 +70,12 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         setContentView(R.layout.activity_start_adventure);
 
         UserSingleton userSingleton = UserSingleton.getInstance();
-        User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        user = userSingleton.getUser();
+        iduser = userSingleton.getUserId();
 
         UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
         userAdventure = userAdventureSingleton.getUserAdventure();
+        idUserAdventure = userAdventureSingleton.getUserAdventureId();
         List<Treasure> treasures = userAdventure.getAdventure().getTreasures();
         treasure = treasures.get(userAdventure.getCurrentTreasure());
 
@@ -112,7 +114,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 } else {
-                    Toast.makeText(StartAdventureActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SearchTreasureActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -178,10 +180,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
-                StartAdventureActivity.this, R.raw.stylemap));
-        //TODO : récupérer latlng du trésor crée dans l'aventure par userAdventure
-
-
+                SearchTreasureActivity.this, R.raw.stylemap));
         LatLng latLongTreasure = new LatLng(treasure.getLatTreasure(), treasure.getLongTreasure());
         final MarkerOptions markerOptions = new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
@@ -198,22 +197,22 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 .fillColor(Color.LTGRAY));
 
         final Button btFoundIt = findViewById(R.id.btFoundIt);
-        final Button btTakePicture = findViewById(R.id.btRendCemomentInoubliable);
         btFoundIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMap.clear();
                 mMap.addMarker(markerOptions);
-                btTakePicture.setVisibility(View.VISIBLE);
-                //TODO: initier les methodes pour update userAdventure + trésor si c'est posssible
-            }
-        });
-
-        btTakePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO: faire sauter le boutton et tout mettre sur un seul j'ai trouvé
-                startActivity(new Intent(StartAdventureActivity.this, TakePictureActivity.class));
+                VolleySingleton.getInstance(getApplicationContext()).updateUserAdventure(idAdventure, idUserAdventure, iduser,
+                        new Consumer<UserAdventure>() {
+                    @Override
+                    public void accept(UserAdventure userAdventure) {
+                        userAdventure.setCurrentTreasure(userAdventure.getCurrentTreasure() + 1);
+                        userAdventure.setNbTreasure(userAdventure.getNbTreasure() + 1);
+                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                        Intent intent = new Intent(SearchTreasureActivity.this, TakePictureActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }
