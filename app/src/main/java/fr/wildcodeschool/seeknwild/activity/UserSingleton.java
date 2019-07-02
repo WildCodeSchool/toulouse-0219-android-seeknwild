@@ -22,6 +22,10 @@ public class UserSingleton {
         return user;
     }
 
+    public Long getUserId() {
+        return user.getIdUser();
+    }
+
     public void setUser(User user) {
         this.user = user;
     }

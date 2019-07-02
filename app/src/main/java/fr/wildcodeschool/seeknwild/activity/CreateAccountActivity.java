@@ -55,7 +55,7 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 //TODO afficher un message d'erreur
                             } else {
                                 UserSingleton.getInstance().setUser(user);
-                                startActivity(new Intent(CreateAccountActivity.this, HomeActivity.class));
+                                startActivity(new Intent(CreateAccountActivity.this, SignInActivity.class));
                             }
 
                         }

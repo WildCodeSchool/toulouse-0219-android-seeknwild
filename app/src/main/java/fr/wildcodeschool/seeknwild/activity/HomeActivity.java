@@ -5,7 +5,6 @@ import android.support.v4.util.Consumer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toast.makeText(HomeActivity.this, UserSingleton.getInstance().getUser().getEmail(), Toast.LENGTH_SHORT).show();;
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long userId = userSingleton.getUserId();
 
         final RecyclerView rvHome = findViewById(R.id.rvAccueil);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

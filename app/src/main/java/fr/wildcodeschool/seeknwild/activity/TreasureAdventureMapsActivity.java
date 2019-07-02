@@ -46,6 +46,7 @@ import java.util.Date;
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.Treasure;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class TreasureAdventureMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -72,6 +73,10 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teasure_adventure_maps);
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long userId = userSingleton.getUserId();
 
         Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", 0);
@@ -131,6 +136,12 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
 
         if (sizeTreasure == 4) {
             btCreateTresure.setText(R.string.publier);
+            btCreateTresure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(TreasureAdventureMapsActivity.this, HomeActivity.class);
+                }
+            });
         }
     }
 

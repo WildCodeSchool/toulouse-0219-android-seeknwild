@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class TakePictureActivity extends AppCompatActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
@@ -28,6 +29,10 @@ public class TakePictureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_pic_moment);
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long userId = userSingleton.getUserId();
 
         ImageView ivLogo = findViewById(R.id.ivTreasureToModify);
         String url = "https://i.goopics.net/kwb0o.jpg";

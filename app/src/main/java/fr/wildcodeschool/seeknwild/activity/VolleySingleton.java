@@ -33,7 +33,7 @@ import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class VolleySingleton {
 
-    private final static String REQUEST_URL = "http://192.168.8.113:8080/";
+    private final static String REQUEST_URL = "http://192.168.8.117:8080/";
   
     private static VolleySingleton instance;
     private static Context ctx;
@@ -114,15 +114,13 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void createUserAdventure (final UserAdventure userAdventure,
-                                     final Long idUser,
+    public void createUserAdventure (final Long idUser,
                                      final Long idAdventure,
                                      final Consumer<UserAdventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
         String url = REQUEST_URL + "user/" + idUser + "/userAdventure/" + idAdventure;
-        final String requestBody = gson.toJson(userAdventure);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
                 url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -136,34 +134,18 @@ public class VolleySingleton {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("Error: ", error.getMessage());
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
-
-            @Override
-            public byte[] getBody() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
-                }
-                return null;
-            }
-        };
+        });
         requestQueue.add(jsonObjectRequest);
     }
 
     public void updateUserAdventure (final Long idAdventure,
-                                     final UserAdventure userAdventure,
                                      final Long idUserAdventure,
                                      final ResponseListener<UserAdventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
         String url = REQUEST_URL + "adventure/" + idAdventure + "userAdventure/" + idUserAdventure;
-        final String requestBody = gson.toJson(userAdventure);
+
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.PUT, url, null,
@@ -184,22 +166,7 @@ public class VolleySingleton {
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("Error: ", error.getMessage());
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json");
-                return headers;
-            }
-
-            @Override
-            public byte[] getBody() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
-                }
-                return null;
-            }
-        };
+        });
         requestQueue.add(jsonObjectRequest);
     }
 
@@ -338,11 +305,12 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void createAdventure(Adventure adventure, final Consumer<Adventure> listener) {
+    public void createAdventure(Adventure adventure,  Long userId,
+                                final Consumer<Adventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        String url = REQUEST_URL + "user/" + "1" + "/adventure";
+        String url = REQUEST_URL + "user/" + userId + "/adventure";
         final String requestBody = gson.toJson(adventure);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,

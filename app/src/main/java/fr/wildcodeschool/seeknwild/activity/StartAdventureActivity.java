@@ -35,13 +35,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.SphericalUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.Treasure;
+import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 import static java.lang.Thread.sleep;
@@ -60,24 +59,28 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     private Long idAdventure;
-    private Long idTreasure;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_adventure);
 
-        final Intent intent = getIntent();
-        idAdventure = intent.getLongExtra("idAdventure", 0);
-        final Adventure adventure = new Adventure();
-        final UserAdventure userAdventure = new UserAdventure();
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long userId = userSingleton.getUserId();
+
+        UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
+        UserAdventure userAdventure = userAdventureSingleton.getUserAdventure();
+        List<Treasure> treasure = userAdventure.getAdventure().getTreasures();
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         askLocationPermission();
-        ImageView ivLogo = findViewById(R.id.ivTreasure);
-        Glide.with(this).load(IMAGE_TEST).into(ivLogo);
+        //ImageView ivLogo = findViewById(R.id.ivTreasure);
+        //Glide.with(this).load(IMAGE_TEST).into(ivLogo);
     }
 
     private void askLocationPermission() {
@@ -173,13 +176,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
                 StartAdventureActivity.this, R.raw.stylemap));
         //TODO : récupérer latlng du trésor crée dans l'aventure par userAdventure
-        Treasure treasure = new Treasure();
-        VolleySingleton.getInstance(getApplicationContext()).getTreasureById(idAdventure, idTreasure, new Consumer<Treasure>() {
-            @Override
-            public void accept(Treasure treasure) {
 
-            }
-        });
 
         LatLng toulouse = new LatLng(43.597442, 1.4300557);
         final MarkerOptions markerOptions = new MarkerOptions()

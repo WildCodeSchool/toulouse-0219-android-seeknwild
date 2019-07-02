@@ -24,6 +24,7 @@ import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class CreateAdventureActivity extends AppCompatActivity {
 
@@ -36,6 +37,11 @@ public class CreateAdventureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_adventure);
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long userId = userSingleton.getUserId();
+
         Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", -1);
         ImageView ivLogo = findViewById(R.id.ivAdventure);
@@ -54,7 +60,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
                 if (!etNameAdventure.getText().toString().isEmpty()
                         && !etDescriptionAdventure.getText().toString().isEmpty()) {
                     if (idAdventure == -1) {
-                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
+                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, userId,  new Consumer<Adventure>() {
                             @Override
                             public void accept(Adventure adventure) {
                                 idAdventure = adventure.getIdAdventure();

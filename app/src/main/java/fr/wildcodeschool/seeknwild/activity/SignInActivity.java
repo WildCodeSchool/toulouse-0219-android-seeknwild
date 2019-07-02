@@ -52,7 +52,7 @@ public class SignInActivity extends AppCompatActivity {
                                 //TODO afficher message d'erreur
                             } else {
                                 UserSingleton.getInstance().setUser(user);
-                                startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+                                startActivity(new Intent(SignInActivity.this, MainActivity.class));
                             }
                         }
                     });

@@ -12,6 +12,7 @@ import java.util.List;
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.adapter.CreateHomeAdapter;
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class CreateAdventureHomeActivity extends AppCompatActivity {
 
@@ -19,6 +20,10 @@ public class CreateAdventureHomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_adventure_home);
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long userId = userSingleton.getUserId();
 
         final RecyclerView rvHomeCreate = findViewById(R.id.rvAdventureHomeCreate);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
