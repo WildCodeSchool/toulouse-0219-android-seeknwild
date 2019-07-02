@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
@@ -19,6 +20,7 @@ import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.User;
 
 public class SignInActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText etMail = findViewById(R.id.etMailSign);
                 EditText etPw = findViewById(R.id.etPwSign);
+
                 if (!etMail.getText().toString().isEmpty() && !etPw.getText().toString().isEmpty()) {
                     HashCode hashCode = Hashing.sha256().hashString(etPw.getText().toString(), Charset.defaultCharset());
                     final User newUser = new User();
@@ -49,7 +52,13 @@ public class SignInActivity extends AppCompatActivity {
                         @Override
                         public void accept(User user) {
                             if (user == null) {
-                                //TODO afficher message d'erreur
+                                //TODO gérer l'erreur
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
+                                builder.setTitle(getString(R.string.erreurEmail));
+                                builder.setMessage(getString(R.string.emailOuMdpPasValide));
+                                builder.setPositiveButton(getString(R.string.ok), null);
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
                             } else {
                                 UserSingleton.getInstance().setUser(user);
                                 startActivity(new Intent(SignInActivity.this, HomeActivity.class));
