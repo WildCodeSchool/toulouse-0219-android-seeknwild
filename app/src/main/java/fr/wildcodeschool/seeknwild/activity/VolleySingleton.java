@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.Authentication;
 import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 
@@ -37,6 +38,8 @@ public class VolleySingleton {
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
+    public static final String ERROR_EMAIL = "ERROR_EMAIL";
+    public static final String ERROR_PASSWORD = "ERROR_PASSWORD";
 
     private VolleySingleton(Context context) {
         ctx = context;
@@ -96,7 +99,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getUserByEmail(User user ,final Consumer<User> listener) {
+    public void getUserByEmail(User user ,final Consumer<Authentication> listener) {
         String url = REQUEST_URL + "user/search";
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
@@ -107,8 +110,8 @@ public class VolleySingleton {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("VOLLEY_SUCCESS", response.toString());
-                User user = gson.fromJson(response.toString(), User.class);
-                listener.accept(user);
+                Authentication authentication = gson.fromJson(response.toString(), Authentication.class);
+                listener.accept(authentication);
             }
         }, new Response.ErrorListener() {
             @Override
