@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.common.hash.HashCode;
 import com.google.common.hash.Hashing;
@@ -23,8 +22,6 @@ import fr.wildcodeschool.seeknwild.model.User;
 import static fr.wildcodeschool.seeknwild.activity.VolleySingleton.ERROR_EMAIL;
 
 public class SignInActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
