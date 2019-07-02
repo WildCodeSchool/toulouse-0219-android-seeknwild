@@ -59,6 +59,8 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
     private Long idAdventure;
+    private Treasure treasure;
+    private UserAdventure userAdventure;
 
 
     @Override
@@ -71,8 +73,10 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         final Long userId = userSingleton.getUserId();
 
         UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
-        UserAdventure userAdventure = userAdventureSingleton.getUserAdventure();
-        List<Treasure> treasure = userAdventure.getAdventure().getTreasures();
+        userAdventure = userAdventureSingleton.getUserAdventure();
+        List<Treasure> treasures = userAdventure.getAdventure().getTreasures();
+        treasure = treasures.get(userAdventure.getCurrentTreasure());
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -131,8 +135,8 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 moveCameraOnUser(location);
                 //TODO : récupérer la distance entre le marqueur et la position de l'utilisateur
                 Location newLocation = new Location("newLocation");
-                newLocation.setLatitude(43.597442);
-                newLocation.setLongitude(1.4300557);
+                newLocation.setLatitude(treasure.getLatTreasure());
+                newLocation.setLongitude(treasure.getLongTreasure());
                 double distance = location.distanceTo(newLocation);
                 if (distance < DISTANCE_USER_BETWEEN_TREASURE) {
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -178,15 +182,15 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         //TODO : récupérer latlng du trésor crée dans l'aventure par userAdventure
 
 
-        LatLng toulouse = new LatLng(43.597442, 1.4300557);
+        LatLng latLongTreasure = new LatLng(treasure.getLatTreasure(), treasure.getLongTreasure());
         final MarkerOptions markerOptions = new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
-        markerOptions.position(toulouse);
+        markerOptions.position(latLongTreasure);
 
         Random r = new Random();
         int randomHeading = r.nextInt(RANDOM_HEADING);
         int randomDistance = r.nextInt(RANDOM_DISTANCE);
-        LatLng positionAleatoire = SphericalUtil.computeOffset(toulouse, randomDistance, randomHeading);
+        LatLng positionAleatoire = SphericalUtil.computeOffset(latLongTreasure, randomDistance, randomHeading);
         mMap.addCircle(new CircleOptions()
                 .center(positionAleatoire)
                 .radius(RADIUS_RANDOM_CIRCLE)
@@ -208,6 +212,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
         btTakePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO: faire sauter le boutton et tout mettre sur un seul j'ai trouvé
                 startActivity(new Intent(StartAdventureActivity.this, TakePictureActivity.class));
             }
         });

@@ -49,6 +49,7 @@ public class StartAdventureDescription extends AppCompatActivity {
                         new Consumer<UserAdventure>() {
                             @Override
                             public void accept(UserAdventure userAdventure) {
+                                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
                                 Intent intent = new Intent(StartAdventureDescription.this, StartAdventureActivity.class);
                                 startActivity(intent);
                             }

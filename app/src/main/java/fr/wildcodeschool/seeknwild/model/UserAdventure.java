@@ -11,7 +11,7 @@ public class UserAdventure {
 
     private int nbTreasure;
 
-    private Long currentTreasure;
+    private int currentTreasure;
 
     private User user;
 
@@ -62,11 +62,11 @@ public class UserAdventure {
         this.nbTreasure = nbTreasure;
     }
 
-    public Long getCurrentTreasure() {
+    public int getCurrentTreasure() {
         return currentTreasure;
     }
 
-    public void setCurrentTreasure(Long currentTreasure) {
+    public void setCurrentTreasure(int currentTreasure) {
         this.currentTreasure = currentTreasure;
     }
 }

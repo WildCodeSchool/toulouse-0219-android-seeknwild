@@ -25,7 +25,8 @@ public class UserAdventureSingleton {
         return userAdventure.getIdUserAdventure();
     }
 
-    public void setUser(UserAdventure userAdventure) {
+    public void setUserAdventure(UserAdventure userAdventure) {
         this.userAdventure = userAdventure;
     }
+
 }
