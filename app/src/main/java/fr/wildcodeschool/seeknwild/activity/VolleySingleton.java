@@ -246,7 +246,7 @@ public class VolleySingleton {
         };
         requestQueue.add(jsonObjectRequest);
     }
-
+    //TODO: Create updateUser
 
     public void getAdventures(final Consumer<List<Adventure>> listener) {
         String url = REQUEST_URL + "adventure";
