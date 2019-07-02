@@ -38,6 +38,13 @@ public class TakePictureActivity extends AppCompatActivity {
         btNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mFileUri != null) {
+                    try {
+                        VolleySingleton.getInstance(TakePictureActivity.this).uploadPicture(mFileUri, "df.jpg");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 startActivity(new Intent(TakePictureActivity.this, NoteActivity.class));
             }
         });
