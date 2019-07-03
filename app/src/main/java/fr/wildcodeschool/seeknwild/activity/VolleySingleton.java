@@ -60,62 +60,6 @@ public class VolleySingleton {
         return requestQueue;
     }
 
-    public void getUserAdventureById(Long idUserAdventure, final Consumer<UserAdventure> listener) {
-        String url = REQUEST_URL + "userAdventure/" + idUserAdventure;
-
-        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("VOLLEY_SUCCESS", response.toString());
-                        GsonBuilder gsonBuilder = new GsonBuilder();
-                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
-                        Gson gson = gsonBuilder.create();
-                        UserAdventure userAdventure = (gson.fromJson(response.toString(), UserAdventure.class));
-                        listener.accept(userAdventure);
-                    }
-                },
-                new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
-                    }
-                }
-        );
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    public void getUserAdventure(final Consumer<List<UserAdventure>> listener) {
-        String url = REQUEST_URL + "adventure";
-
-        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
-                Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d("VOLLEY_SUCCESS", response.toString());
-                        GsonBuilder gsonBuilder = new GsonBuilder();
-                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
-                        Gson gson = gsonBuilder.create();
-                        List<UserAdventure> userAdventures = Arrays.asList(gson.fromJson(response.toString(), UserAdventure[].class));
-                        listener.accept(userAdventures);
-                    }
-                },
-                new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
-                    }
-                }
-        );
-        requestQueue.add(jsonObjectRequest);
-    }
-
     public void createUserAdventure(final Long idUser,
                                     final Long idAdventure,
                                     final Consumer<UserAdventure> listener) {

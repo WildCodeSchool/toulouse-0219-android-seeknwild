@@ -40,7 +40,7 @@ public class RateActivity extends AppCompatActivity {
         btContinued.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: update User ?
+                //TODO: update photo & user
                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
                 UserSingleton.getInstance().setUser(user);
                 startActivity(new Intent(RateActivity.this, HomeActivity.class));
