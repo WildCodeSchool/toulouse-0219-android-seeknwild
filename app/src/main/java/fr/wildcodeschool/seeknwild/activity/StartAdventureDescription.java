@@ -1,9 +1,9 @@
 package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.util.Consumer;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,7 +27,7 @@ public class StartAdventureDescription extends AppCompatActivity {
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        final Long userId = user.getIdUser();
 
         final Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", 0);
@@ -48,7 +48,7 @@ public class StartAdventureDescription extends AppCompatActivity {
         startAdv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VolleySingleton.getInstance(getApplicationContext()).createUserAdventure( userId, idAdventure,
+                VolleySingleton.getInstance(getApplicationContext()).createUserAdventure(userId, idAdventure,
                         new Consumer<UserAdventure>() {
                             @Override
                             public void accept(UserAdventure userAdventure) {

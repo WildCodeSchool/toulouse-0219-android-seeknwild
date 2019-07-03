@@ -38,7 +38,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        final Long idUser = user.getIdUser();
 
         Button btSignOut = findViewById(R.id.btn_sing_out);
         btSignOut.setOnClickListener(new View.OnClickListener() {

@@ -25,7 +25,7 @@ public class HomeActivity extends AppCompatActivity {
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        final Long idUser = user.getIdUser();
 
         final RecyclerView rvHome = findViewById(R.id.rvAccueil);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

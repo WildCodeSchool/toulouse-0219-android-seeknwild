@@ -23,7 +23,7 @@ public class CreateAdventureHomeActivity extends AppCompatActivity {
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        final Long idUser = user.getIdUser();
 
         final RecyclerView rvHomeCreate = findViewById(R.id.rvAdventureHomeCreate);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

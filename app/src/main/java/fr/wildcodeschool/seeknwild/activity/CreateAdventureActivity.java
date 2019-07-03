@@ -40,7 +40,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        final Long idUser = user.getIdUser();
 
         Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", -1);
@@ -60,7 +60,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
                 if (!etNameAdventure.getText().toString().isEmpty()
                         && !etDescriptionAdventure.getText().toString().isEmpty()) {
                     if (idAdventure == -1) {
-                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, userId,  new Consumer<Adventure>() {
+                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, idUser, new Consumer<Adventure>() {
                             @Override
                             public void accept(Adventure adventure) {
                                 idAdventure = adventure.getIdAdventure();

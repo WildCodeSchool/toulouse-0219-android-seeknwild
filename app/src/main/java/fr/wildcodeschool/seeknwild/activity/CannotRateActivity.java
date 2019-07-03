@@ -1,8 +1,8 @@
 package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,7 +18,7 @@ public class CannotRateActivity extends AppCompatActivity {
     private Treasure treasure;
     private UserAdventure userAdventure;
     private Long idUserAdventure;
-    private Long iduser;
+    private Long idUser;
     private User user;
 
     @Override
@@ -28,7 +28,7 @@ public class CannotRateActivity extends AppCompatActivity {
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         user = userSingleton.getUser();
-        iduser = userSingleton.getUserId();
+        idUser = user.getIdUser();
 
         UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
         userAdventure = userAdventureSingleton.getUserAdventure();

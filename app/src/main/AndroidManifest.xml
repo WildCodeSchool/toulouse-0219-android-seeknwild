@@ -28,6 +28,7 @@
         <activity android:name=".activity.StartAdventureDescription" />
         <activity android:name=".activity.CreateAdventureHomeActivity" />
         <activity android:name=".activity.CreateAdventureActivity" />
+        <activity android:name=".activity.CreateAccountActivity"/>
         <activity android:name=".activity.RateActivity"></activity>
         <activity android:name=".activity.SignInActivity">
             <intent-filter>
@@ -36,7 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.CreateAccountActivity"></activity>
         <activity android:name=".activity.TakePictureActivity" />
         <activity android:name=".activity.SearchTreasureActivity" />
         <activity android:name=".activity.TutorialActivity" />
@@ -52,8 +52,9 @@
             android:name=".activity.MenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.MainActivity"></activity>
+        <activity android:name=".activity.MainActivity" >
 
+        </activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="fr.wildcodeschool.seeknwild.fileprovider"

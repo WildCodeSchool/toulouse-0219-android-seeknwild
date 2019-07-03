@@ -99,5 +99,20 @@
     <string name="adv">TextView</string>
     <string name="todo">TODO</string>
     <string name="tv">TextView</string>
+    <string name="erreurEmail">Une erreur est survenue.</string>
+    <string name="emailOuMdpPasValide">Votre Email ou votre mot de passe n\'est pas valide</string>
+    <string name="formatEmailInvalide">Format de l\'Email invalide</string>
+    <string name="adresseEmailPasCorrectementFormatee">L’adresse email n’est pas correctement formatée.</string>
+    <string name="error_password">Votre mot de passe est incorrect</string>
+    <string name="error_email">Votre email est incorrect</string>
+    <string name="vérifier_connexion">Probléme de connexion.</string>
+    <string name="veuillez_verifier_connexion">Veuillez vérifier votre connexion au réseau.</string>
+    <string name="compte_deja_existant">Un compte utilisant cet email existe déja.</string>
+    <string name="voulez_vous_vous_connecter">Voulez vous vous connecter?</string>
+    <string name="non">Non</string>
+    <string name="oui">Oui</string>
+    <string name="votre_mot_de_passe">Votre mot de passe doit contenir au mois 8 caractéres.</string>
+    <string name="mot_de_passe">Mot de passe.</string>
+    <string name="veuillez_renseigner_ensemble_des_champs">Veuillez renseigner l\'ensemble des champs.</string>
 
 </resources>

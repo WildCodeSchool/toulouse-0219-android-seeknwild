@@ -8,8 +8,8 @@
 
     <Button
         android:id="@+id/btStartAdventure"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="246dp"
+        android:layout_height="69dp"
         android:layout_marginTop="160dp"
         android:background="@drawable/oval"
         android:text="@string/commencer_l_aventure"

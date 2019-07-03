@@ -76,7 +76,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        final Long idUser = user.getIdUser();
 
         Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", 0);

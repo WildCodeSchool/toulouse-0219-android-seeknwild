@@ -27,14 +27,16 @@ import java.util.List;
 import java.util.Map;
 
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.Authentication;
 import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class VolleySingleton {
 
-    private final static String REQUEST_URL = "http://192.168.8.117:8080/";
-
+    public static final String ERROR_EMAIL = "ERROR_EMAIL";
+    public static final String ERROR_PASSWORD = "ERROR_PASSWORD";
+    private final static String REQUEST_URL = "http://192.168.8.116:8080/";
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
@@ -140,12 +142,12 @@ public class VolleySingleton {
 
     public void updateUserAdventure(final Long idUser,
                                     final Long idUserAdventure,
-                                    final Long idAdventure,
+                                    final Boolean found,
                                     final Consumer<UserAdventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        String url = REQUEST_URL + "user/" + idUser + idUserAdventure + idAdventure;
+        String url = REQUEST_URL + "user/" + idUser + "/" + idUserAdventure + "/" + found;
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.PUT, url, null,
                 new Response.Listener<JSONObject>() {
@@ -208,7 +210,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getUserByEmail(User user, final Consumer<User> listener) {
+    public void getUserByEmail(User user, final Consumer<Authentication> listener) {
         String url = REQUEST_URL + "user/search";
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
@@ -219,8 +221,8 @@ public class VolleySingleton {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("VOLLEY_SUCCESS", response.toString());
-                User user = gson.fromJson(response.toString(), User.class);
-                listener.accept(user);
+                Authentication authentication = gson.fromJson(response.toString(), Authentication.class);
+                listener.accept(authentication);
             }
         }, new Response.ErrorListener() {
             @Override

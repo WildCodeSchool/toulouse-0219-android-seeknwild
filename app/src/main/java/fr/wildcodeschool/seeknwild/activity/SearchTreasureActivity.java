@@ -16,7 +16,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Consumer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,11 +55,10 @@ public class SearchTreasureActivity extends FragmentActivity implements OnMapRea
     private static final int TIME_VIBRATION = 1500;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
-    private Long idAdventure;
     private Treasure treasure;
     private UserAdventure userAdventure;
     private Long idUserAdventure;
-    private Long iduser;
+    private Long idUser;
     private User user;
 
     @Override
@@ -70,7 +68,7 @@ public class SearchTreasureActivity extends FragmentActivity implements OnMapRea
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         user = userSingleton.getUser();
-        iduser = userSingleton.getUserId();
+        idUser = user.getIdUser();
 
         UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
         userAdventure = userAdventureSingleton.getUserAdventure();
@@ -88,7 +86,7 @@ public class SearchTreasureActivity extends FragmentActivity implements OnMapRea
         mapFragment.getMapAsync(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         askLocationPermission();
-        ImageView ivLogo = findViewById(R.id.ivTreasure);
+        //ImageView ivLogo = findViewById(R.id.ivTreasure);
         //Glide.with(this).load(IMAGE_TEST).into(ivLogo);
     }
 
@@ -205,12 +203,10 @@ public class SearchTreasureActivity extends FragmentActivity implements OnMapRea
             public void onClick(View v) {
                 mMap.clear();
                 mMap.addMarker(markerOptions);
-                VolleySingleton.getInstance(getApplicationContext()).updateUserAdventure(idAdventure, idUserAdventure, iduser,
+                VolleySingleton.getInstance(getApplicationContext()).updateUserAdventure(idUser, idUserAdventure, true,
                         new Consumer<UserAdventure>() {
                             @Override
                             public void accept(UserAdventure userAdventure) {
-                                userAdventure.setCurrentTreasure(userAdventure.getCurrentTreasure() + 1);
-                                userAdventure.setNbTreasure(userAdventure.getNbTreasure() + 1);
                                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
                                 Intent intent = new Intent(SearchTreasureActivity.this, TakePictureActivity.class);
                                 startActivity(intent);

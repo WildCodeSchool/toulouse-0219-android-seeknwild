@@ -1,8 +1,8 @@
 package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long userId = userSingleton.getUserId();
+        final Long userId = user.getIdUser();
 
         Button btAddStudent = findViewById(R.id.accueil);
         btAddStudent.setOnClickListener(new View.OnClickListener() {

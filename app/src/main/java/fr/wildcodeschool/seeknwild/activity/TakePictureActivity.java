@@ -31,7 +31,7 @@ public class TakePictureActivity extends AppCompatActivity {
     private Treasure treasure;
     private UserAdventure userAdventure;
     private Long idUserAdventure;
-    private Long iduser;
+    private Long idUser;
     private User user;
     private Uri mFileUri = null;
 
@@ -42,7 +42,7 @@ public class TakePictureActivity extends AppCompatActivity {
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         user = userSingleton.getUser();
-        iduser = userSingleton.getUserId();
+        idUser = user.getIdUser();
 
         UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
         userAdventure = userAdventureSingleton.getUserAdventure();
