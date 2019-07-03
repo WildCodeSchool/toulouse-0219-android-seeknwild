@@ -7,10 +7,12 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
+import android.support.v4.util.Consumer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -21,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.Picture;
 import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
@@ -50,13 +53,33 @@ public class TakePictureActivity extends AppCompatActivity {
         List<Treasure> treasures = userAdventure.getAdventure().getTreasures();
         treasure = treasures.get(userAdventure.getCurrentTreasure());
 
-        //TODO: Associer la photo à un User + renvoyer l'uri dans la base etc.
-        //TODO: update user pour lui ajouter les photos !
-
         ImageView ivLogo = findViewById(R.id.ivTreasureToModify);
         String url = "https://i.goopics.net/kwb0o.jpg";
         Glide.with(this).load(url).into(ivLogo);
         actionFloattingButton();
+        //TODO: Associer la photo à un User + renvoyer l'uri dans la base etc.
+        //TODO: update user pour lui ajouter les photos !
+        Picture pictureCurrent = new Picture();
+
+        try {
+            VolleySingleton.getInstance(getApplicationContext()).uploadUserCurrentPicture(idUser, mFileUri, "", new Consumer<String>() {
+                @Override
+                public void accept(String filePath) {
+                    if (filePath == null) {
+                        Toast.makeText(TakePictureActivity.this, "prendre une photo", Toast.LENGTH_SHORT).show();
+                    } else {
+                        VolleySingleton.getInstance(getApplicationContext()).createPicture(idUser, new Consumer<Picture>() {
+                            @Override
+                            public void accept(Picture picture) {
+
+                            }
+                        });
+                    }
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Button btNext = findViewById(R.id.btNext);
 
