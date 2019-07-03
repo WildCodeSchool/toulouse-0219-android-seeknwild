@@ -36,15 +36,19 @@ import java.util.List;
 import java.util.Map;
 
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.Authentication;
 import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 
 public class VolleySingleton {
 
     private final static String REQUEST_URL = "http://192.168.8.114:8080/";
+  
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
+    public static final String ERROR_EMAIL = "ERROR_EMAIL";
+    public static final String ERROR_PASSWORD = "ERROR_PASSWORD";
 
     private VolleySingleton(Context context) {
         ctx = context;
@@ -82,6 +86,46 @@ public class VolleySingleton {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                listener.accept(null);
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+            @Override
+            public byte[] getBody() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    return requestBody == null ? null : requestBody.getBytes(StandardCharsets.UTF_8);
+                }
+                return null;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void getUserByEmail(User user ,final Consumer<Authentication> listener) {
+        String url = REQUEST_URL + "user/search";
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
+        final String requestBody = gson.toJson(user);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("VOLLEY_SUCCESS", response.toString());
+                Authentication authentication = gson.fromJson(response.toString(), Authentication.class);
+                listener.accept(authentication);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                listener.accept(null);
                 VolleyLog.e("Error: ", error.getMessage());
             }
         }) {
@@ -325,7 +369,7 @@ public class VolleySingleton {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
         final byte[] bytes = byteArrayOutputStream.toByteArray();
 
-        String url = ""; // TODO : replace with your url request
+        String url = "/uploadFile"; // TODO : replace with your url request
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new Response.Listener<NetworkResponse>() {
                     @Override
