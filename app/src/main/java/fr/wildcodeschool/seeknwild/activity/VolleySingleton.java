@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -29,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -42,7 +44,7 @@ import fr.wildcodeschool.seeknwild.model.User;
 
 public class VolleySingleton {
 
-    private final static String REQUEST_URL = "http://192.168.8.114:8080/";
+    private final static String REQUEST_URL = "http://192.168.8.113:8080/";
   
     private static VolleySingleton instance;
     private static Context ctx;
@@ -362,19 +364,27 @@ public class VolleySingleton {
         void finished(T response);
     }
 
-    public void uploadPicture(Uri pictureURI, final String filename) throws IOException {
+    public void uploadPicture(Uri pictureURI, final String filename, final Consumer<String> listener) throws IOException {
         Bitmap bitmap = MediaStore.Images.Media.getBitmap(ctx.getContentResolver(), pictureURI);
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
         final byte[] bytes = byteArrayOutputStream.toByteArray();
 
-        String url = "/uploadFile"; // TODO : replace with your url request
+        String url = REQUEST_URL + "uploadFile"; // TODO : replace with your url request
         VolleyMultipartRequest multipartRequest = new VolleyMultipartRequest(Request.Method.POST, url,
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
                         //  TODO : photo uploaded
+                        String filePath = null;
+                        try {
+                            filePath = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        }
+                        listener.accept(filePath);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -412,6 +422,7 @@ public class VolleySingleton {
                 }
                 Log.i("Error", errorMessage);
                 error.printStackTrace();
+                listener.accept(null);
             }
         }) {
             @Override

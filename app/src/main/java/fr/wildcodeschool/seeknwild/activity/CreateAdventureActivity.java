@@ -39,6 +39,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
         Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", -1);
         ImageView ivLogo = findViewById(R.id.ivAdventure);
+        //TODO remplacer String url
         String url = "https://i.goopics.net/5DbkX.jpg";
         Glide.with(this).load(url).into(ivLogo);
         actionFloattingButton();
@@ -54,15 +55,38 @@ public class CreateAdventureActivity extends AppCompatActivity {
                 if (!etNameAdventure.getText().toString().isEmpty()
                         && !etDescriptionAdventure.getText().toString().isEmpty()) {
                     if (idAdventure == -1) {
-                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
-                            @Override
-                            public void accept(Adventure adventure) {
-                                idAdventure = adventure.getIdAdventure();
-                                Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
-                                intent.putExtra("idAdventure", idAdventure);
-                                startActivity(intent);
-                            }
-                        });
+                        if (mFileUri == null) {
+                            //TODO Afficher un message d'erreur
+                            return;
+                        }
+                        try {
+                            //TODO Afficher une fenêtre de chargement
+                            VolleySingleton.getInstance(getApplicationContext()).uploadPicture(mFileUri, "dfd.jpg",
+                                    new Consumer<String>() {
+                                        @Override
+                                        public void accept(String filePath) {
+                                            //TODO Fermer la fenêtre de chargement
+                                            if (filePath == null) {
+                                                //TODO Afficher un message d'erreur
+                                            } else {
+                                                newAdventure.setAdventurePicture(filePath);
+                                                VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
+                                                    @Override
+                                                    public void accept(Adventure adventure) {
+                                                        idAdventure = adventure.getIdAdventure();
+                                                        Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
+                                                        intent.putExtra("idAdventure", idAdventure);
+                                                        startActivity(intent);
+                                                    }
+                                                });
+                                            }
+                                        }
+                                    });
+                            return;
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
                     } else {
                         //TODO mettre à jour l'aventure et aller à la fin de la liste des trésors
                         VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, newAdventure, new VolleySingleton.ResponseListener<Adventure>() {
