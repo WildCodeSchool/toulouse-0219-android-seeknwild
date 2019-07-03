@@ -54,11 +54,12 @@ public class RateActivity extends AppCompatActivity {
                     @Override
                     public void finished(Adventure response) {
                         adventure.setRate(ratingBar.getRating());
+                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                        UserSingleton.getInstance().setUser(user);
+                        startActivity(new Intent(RateActivity.this, HomeActivity.class));
                     }
                 });
-                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
-                UserSingleton.getInstance().setUser(user);
-                startActivity(new Intent(RateActivity.this, HomeActivity.class));
+
             }
         });
     }
