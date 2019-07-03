@@ -132,9 +132,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                                                 intent.putExtra("sizeTreasure", sizeTreasure + 1);
                                                 mMap.clear();
                                                 startActivity(intent);
-
                                             }
-
                                         }
                                     }
                                 });
