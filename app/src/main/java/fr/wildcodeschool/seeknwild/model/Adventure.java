@@ -12,7 +12,7 @@ public class Adventure {
 
     private Double distance;
 
-    private Double rate;
+    private Float rate;
 
     private String adventurePicture;
 
@@ -57,14 +57,6 @@ public class Adventure {
         this.distance = distance;
     }
 
-    public Double getRate() {
-        return rate;
-    }
-
-    public void setRate(Double rate) {
-        this.rate = rate;
-    }
-
     public String getAdventurePicture() {
         return adventurePicture;
     }
@@ -95,5 +87,13 @@ public class Adventure {
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    public Float getRate() {
+        return rate;
+    }
+
+    public void setRate(Float rate) {
+        this.rate = rate;
     }
 }
