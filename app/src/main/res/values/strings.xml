@@ -114,5 +114,7 @@
     <string name="votre_mot_de_passe">Votre mot de passe doit contenir au mois 8 caractéres.</string>
     <string name="mot_de_passe">Mot de passe.</string>
     <string name="veuillez_renseigner_ensemble_des_champs">Veuillez renseigner l\'ensemble des champs.</string>
+    <string name="photoDeLAventure">Photo de l\'aventure</string>
+    <string name="veuillezPrendreUnePhotoDelavenrture">Veuillez prendre une photo de l\'aventure.</string>
 
 </resources>

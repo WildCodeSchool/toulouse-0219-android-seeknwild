@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
@@ -62,7 +63,12 @@ public class CreateAdventureActivity extends AppCompatActivity {
                         && !etDescriptionAdventure.getText().toString().isEmpty()) {
                     if (idAdventure == -1) {
                         if (mFileUri == null) {
-                            //TODO Afficher un message d'erreur
+                            AlertDialog.Builder builder = new AlertDialog.Builder(CreateAdventureActivity.this);
+                            builder.setTitle(getString(R.string.photoDeLAventure));
+                            builder.setMessage(getString(R.string.veuillezPrendreUnePhotoDelavenrture));
+                            builder.setPositiveButton(getString(R.string.ok), null);
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
                             return;
                         }
                         VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, idUser, new Consumer<Adventure>() {
@@ -71,6 +77,8 @@ public class CreateAdventureActivity extends AppCompatActivity {
                                 idAdventure = adventure.getIdAdventure();
                                 try {
                                     //TODO Afficher une fenêtre de chargement
+                                    ProgressBar pgPicture = findViewById(R.id.pgPicture);
+                                    pgPicture.setVisibility(View.VISIBLE);
                                     VolleySingleton.getInstance(getApplicationContext()).uploadAdventurePicture(idAdventure, mFileUri, "adventure-" + idUser + "-" + idAdventure + ".jpg",
                                             new Consumer<String>() {
                                                 @Override
