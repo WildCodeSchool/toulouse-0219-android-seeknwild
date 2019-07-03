@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.StartAdventureDescription">
+
+    <Button
+        android:id="@+id/btStartAdventure"
+        android:layout_width="246dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="160dp"
+        android:background="@drawable/oval"
+        android:text="@string/commencer_l_aventure"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescriptionAdv" />
+
+    <ImageView
+        android:id="@+id/ivAdventure"
+        android:layout_width="0dp"
+        android:layout_height="118dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@tools:sample/backgrounds/scenic"
+        android:contentDescription="@string/todo" />
+
+    <TextView
+        android:id="@+id/tvTitleAdv"
+        android:layout_width="194dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivAdventure"
+        tools:text="title" />
+
+    <TextView
+        android:id="@+id/tvDescriptionAdv"
+        android:layout_width="382dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleAdv"
+        tools:text="description" />
+</android.support.constraint.ConstraintLayout>

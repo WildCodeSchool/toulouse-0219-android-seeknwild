@@ -95,6 +95,10 @@
     <string name="veuillezRenseigner">Veuillez renseigner votre Email et votre mot de passe.</string>
     <string name="en_cours">En Cours</string>
     <string name="homecreate">HomeCreate</string>
+    <string name="commencer_l_aventure">commencer l\'aventure !</string>
+    <string name="adv">TextView</string>
+    <string name="todo">TODO</string>
+    <string name="tv">TextView</string>
     <string name="erreurEmail">Une erreur est survenue.</string>
     <string name="emailOuMdpPasValide">Votre Email ou votre mot de passe n\'est pas valide</string>
     <string name="formatEmailInvalide">Format de l\'Email invalide</string>

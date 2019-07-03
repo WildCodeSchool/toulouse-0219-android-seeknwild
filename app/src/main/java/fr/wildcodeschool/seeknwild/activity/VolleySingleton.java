@@ -30,16 +30,16 @@ import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.Authentication;
 import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
+import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class VolleySingleton {
 
-    private final static String REQUEST_URL = "http://192.168.8.114:8080/";
-  
+    public static final String ERROR_EMAIL = "ERROR_EMAIL";
+    public static final String ERROR_PASSWORD = "ERROR_PASSWORD";
+    private final static String REQUEST_URL = "http://192.168.8.116:8080/";
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
-    public static final String ERROR_EMAIL = "ERROR_EMAIL";
-    public static final String ERROR_PASSWORD = "ERROR_PASSWORD";
 
     private VolleySingleton(Context context) {
         ctx = context;
@@ -58,6 +58,117 @@ public class VolleySingleton {
             requestQueue = Volley.newRequestQueue(ctx.getApplicationContext());
         }
         return requestQueue;
+    }
+
+    public void getUserAdventureById(Long idUserAdventure, final Consumer<UserAdventure> listener) {
+        String url = REQUEST_URL + "userAdventure/" + idUserAdventure;
+
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("VOLLEY_SUCCESS", response.toString());
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+                        Gson gson = gsonBuilder.create();
+                        UserAdventure userAdventure = (gson.fromJson(response.toString(), UserAdventure.class));
+                        listener.accept(userAdventure);
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
+                    }
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void getUserAdventure(final Consumer<List<UserAdventure>> listener) {
+        String url = REQUEST_URL + "adventure";
+
+        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+                Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("VOLLEY_SUCCESS", response.toString());
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+                        Gson gson = gsonBuilder.create();
+                        List<UserAdventure> userAdventures = Arrays.asList(gson.fromJson(response.toString(), UserAdventure[].class));
+                        listener.accept(userAdventures);
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
+                    }
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void createUserAdventure(final Long idUser,
+                                    final Long idAdventure,
+                                    final Consumer<UserAdventure> listener) {
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
+        String url = REQUEST_URL + "user/" + idUser + "/userAdventure/" + idAdventure;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
+                url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("VOLLEY_SUCCESS", response.toString());
+                UserAdventure userAdventure = gson.fromJson(response.toString(), UserAdventure.class);
+                listener.accept(userAdventure);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void updateUserAdventure(final Long idUser,
+                                    final Long idUserAdventure,
+                                    final Boolean found,
+                                    final Consumer<UserAdventure> listener) {
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        final Gson gson = gsonBuilder.create();
+        String url = REQUEST_URL + "user/" + idUser + "/" + idUserAdventure + "/" + found;
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.PUT, url, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("VOLLEY_SUCCESS", response.toString());
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+                        Gson gson = gsonBuilder.create();
+                        UserAdventure userAdventure = (gson.fromJson(response.toString(), UserAdventure.class));
+
+                        listener.accept(userAdventure);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
     }
 
     public void createUser(final User user, final Consumer<User> listener) {
@@ -99,7 +210,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void getUserByEmail(User user ,final Consumer<Authentication> listener) {
+    public void getUserByEmail(User user, final Consumer<Authentication> listener) {
         String url = REQUEST_URL + "user/search";
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
@@ -137,8 +248,8 @@ public class VolleySingleton {
         };
         requestQueue.add(jsonObjectRequest);
     }
+    //TODO: Create updateUser
 
-    //TODO: autres appels API + ATTENTION AU CONSUMER
     public void getAdventures(final Consumer<List<Adventure>> listener) {
         String url = REQUEST_URL + "adventure";
 
@@ -195,11 +306,12 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void createAdventure(Adventure adventure, final Consumer<Adventure> listener) {
+    public void createAdventure(Adventure adventure, Long userId,
+                                final Consumer<Adventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
-        String url = REQUEST_URL + "user/" + "4" + "/adventure";
+        String url = REQUEST_URL + "user/" + userId + "/adventure";
         final String requestBody = gson.toJson(adventure);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST,
@@ -234,7 +346,6 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    //TODO méthode à vérifier + récupérer l'ensemble des trésors sur l'aventure
     public void updateAdventure(final Long idAdventure, Adventure adventure, final ResponseListener<Adventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -348,6 +459,33 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
+    public void getTreasureById(Long idAdventure, Long idTreasure, final Consumer<Treasure> listener) {
+        String url = REQUEST_URL + "adventure/" + idAdventure + "/treasure/" + idTreasure;
+
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("VOLLEY_SUCCESS", response.toString());
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+                        Gson gson = gsonBuilder.create();
+                        Treasure treasure = (gson.fromJson(response.toString(), Treasure.class));
+                        listener.accept(treasure);
+                    }
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
+                    }
+                }
+        );
+        requestQueue.add(jsonObjectRequest);
+    }
 
     interface ResponseListener<T> {
         void finished(T response);

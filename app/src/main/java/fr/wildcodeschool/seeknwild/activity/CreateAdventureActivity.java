@@ -24,18 +24,24 @@ import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class CreateAdventureActivity extends AppCompatActivity {
 
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
-    // chemin de la photo dans le téléphone
     private Uri mFileUri = null;
     private Long idAdventure;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_adventure);
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long idUser = user.getIdUser();
+
         Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", -1);
         ImageView ivLogo = findViewById(R.id.ivAdventure);
@@ -54,7 +60,7 @@ public class CreateAdventureActivity extends AppCompatActivity {
                 if (!etNameAdventure.getText().toString().isEmpty()
                         && !etDescriptionAdventure.getText().toString().isEmpty()) {
                     if (idAdventure == -1) {
-                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
+                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, idUser, new Consumer<Adventure>() {
                             @Override
                             public void accept(Adventure adventure) {
                                 idAdventure = adventure.getIdAdventure();
@@ -64,7 +70,6 @@ public class CreateAdventureActivity extends AppCompatActivity {
                             }
                         });
                     } else {
-                        //TODO mettre à jour l'aventure et aller à la fin de la liste des trésors
                         VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, newAdventure, new VolleySingleton.ResponseListener<Adventure>() {
                             @Override
                             public void finished(Adventure response) {

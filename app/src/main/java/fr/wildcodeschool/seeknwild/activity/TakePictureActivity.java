@@ -2,12 +2,12 @@ package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,16 +18,40 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.Treasure;
+import fr.wildcodeschool.seeknwild.model.User;
+import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class TakePictureActivity extends AppCompatActivity {
+
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
+    private Treasure treasure;
+    private UserAdventure userAdventure;
+    private Long idUserAdventure;
+    private Long idUser;
+    private User user;
+    private Uri mFileUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_pic_moment);
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        user = userSingleton.getUser();
+        idUser = user.getIdUser();
+
+        UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
+        userAdventure = userAdventureSingleton.getUserAdventure();
+        idUserAdventure = userAdventureSingleton.getUserAdventureId();
+        List<Treasure> treasures = userAdventure.getAdventure().getTreasures();
+        treasure = treasures.get(userAdventure.getCurrentTreasure());
+
+        //TODO: Associer la photo à un User + renvoyer l'uri dans la base etc.
+        //TODO: update user pour lui ajouter les photos !
 
         ImageView ivLogo = findViewById(R.id.ivTreasureToModify);
         String url = "https://i.goopics.net/kwb0o.jpg";
@@ -35,12 +59,38 @@ public class TakePictureActivity extends AppCompatActivity {
         actionFloattingButton();
 
         Button btNext = findViewById(R.id.btNext);
-        btNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(TakePictureActivity.this, NoteActivity.class));
+
+        if (userAdventure.getNbTreasure() == 4) {
+            btNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                    UserSingleton.getInstance().setUser(user);
+                    startActivity(new Intent(TakePictureActivity.this, RateActivity.class));
+                }
+            });
+
+        } else {
+            if (userAdventure.getNbTreasure() >= treasures.size()) {
+                btNext.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                        UserSingleton.getInstance().setUser(user);
+                        startActivity(new Intent(TakePictureActivity.this, SearchTreasureActivity.class));
+                    }
+                });
+            } else {
+                btNext.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                        UserSingleton.getInstance().setUser(user);
+                        startActivity(new Intent(TakePictureActivity.this, SearchTreasureActivity.class));
+                    }
+                });
             }
-        });
+        }
     }
 
     private void actionFloattingButton() {
@@ -61,8 +111,6 @@ public class TakePictureActivity extends AppCompatActivity {
         File image = java.io.File.createTempFile(imgFileName, ".jpg", storageDir);
         return image;
     }
-    // chemin de la photo dans le téléphone
-    private Uri mFileUri = null;
 
     private void dispatchTakePictureIntent() {
         // ouvrir l'application de prise de photo
@@ -89,6 +137,7 @@ public class TakePictureActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView ivRecupPic = findViewById(R.id.ivTreasureToModify);

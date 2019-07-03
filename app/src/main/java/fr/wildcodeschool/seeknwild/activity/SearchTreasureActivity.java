@@ -13,12 +13,12 @@ import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Consumer;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -34,13 +34,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.maps.android.SphericalUtil;
 
+import java.util.List;
 import java.util.Random;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.model.Treasure;
+import fr.wildcodeschool.seeknwild.model.User;
+import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
-import static java.lang.Thread.sleep;
-
-public class StartAdventureActivity extends FragmentActivity implements OnMapReadyCallback {
+public class SearchTreasureActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int MY_PERMISSIONS_REQUEST_FINE_LOCATION = 1034;
     private static final int MIN_DISTANCE = 1;
@@ -53,18 +55,39 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
     private static final int TIME_VIBRATION = 1500;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
+    private Treasure treasure;
+    private UserAdventure userAdventure;
+    private Long idUserAdventure;
+    private Long idUser;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_adventure);
+        setContentView(R.layout.activity_search_adventure);
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        user = userSingleton.getUser();
+        idUser = user.getIdUser();
+
+        UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
+        userAdventure = userAdventureSingleton.getUserAdventure();
+        idUserAdventure = userAdventureSingleton.getUserAdventureId();
+        List<Treasure> treasures = userAdventure.getAdventure().getTreasures();
+        treasure = treasures.get(userAdventure.getCurrentTreasure());
+
+        TextView etDescriptionTreasure = findViewById(R.id.etDescriptionTreasure);
+        etDescriptionTreasure.setText(treasure.getDescription());
+
+        //TODO: Photo du trésor associé.
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         askLocationPermission();
-        ImageView ivLogo = findViewById(R.id.ivTreasure);
-        Glide.with(this).load(IMAGE_TEST).into(ivLogo);
+        //ImageView ivLogo = findViewById(R.id.ivTreasure);
+        //Glide.with(this).load(IMAGE_TEST).into(ivLogo);
     }
 
     private void askLocationPermission() {
@@ -92,7 +115,7 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     getLocation();
                 } else {
-                    Toast.makeText(StartAdventureActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
+                    Toast.makeText(SearchTreasureActivity.this, getString(R.string.gps_non_activee), Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -115,8 +138,8 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 moveCameraOnUser(location);
                 //TODO : récupérer la distance entre le marqueur et la position de l'utilisateur
                 Location newLocation = new Location("newLocation");
-                newLocation.setLatitude(43.597442);
-                newLocation.setLongitude(1.4300557);
+                newLocation.setLatitude(treasure.getLatTreasure());
+                newLocation.setLongitude(treasure.getLongTreasure());
                 double distance = location.distanceTo(newLocation);
                 if (distance < DISTANCE_USER_BETWEEN_TREASURE) {
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -158,17 +181,16 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
-                StartAdventureActivity.this, R.raw.stylemap));
-        //TODO : récupérer latlng du trésor crée dans l'aventure
-        LatLng toulouse = new LatLng(43.597442, 1.4300557);
+                SearchTreasureActivity.this, R.raw.stylemap));
+        LatLng latLongTreasure = new LatLng(treasure.getLatTreasure(), treasure.getLongTreasure());
         final MarkerOptions markerOptions = new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
-        markerOptions.position(toulouse);
+        markerOptions.position(latLongTreasure);
 
         Random r = new Random();
         int randomHeading = r.nextInt(RANDOM_HEADING);
         int randomDistance = r.nextInt(RANDOM_DISTANCE);
-        LatLng positionAleatoire = SphericalUtil.computeOffset(toulouse, randomDistance, randomHeading);
+        LatLng positionAleatoire = SphericalUtil.computeOffset(latLongTreasure, randomDistance, randomHeading);
         mMap.addCircle(new CircleOptions()
                 .center(positionAleatoire)
                 .radius(RADIUS_RANDOM_CIRCLE)
@@ -176,22 +198,21 @@ public class StartAdventureActivity extends FragmentActivity implements OnMapRea
                 .fillColor(Color.LTGRAY));
 
         final Button btFoundIt = findViewById(R.id.btFoundIt);
-        final Button btTakePicture = findViewById(R.id.btRendCemomentInoubliable);
         btFoundIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mMap.clear();
                 mMap.addMarker(markerOptions);
-                btTakePicture.setVisibility(View.VISIBLE);
+                VolleySingleton.getInstance(getApplicationContext()).updateUserAdventure(idUser, idUserAdventure, true,
+                        new Consumer<UserAdventure>() {
+                            @Override
+                            public void accept(UserAdventure userAdventure) {
+                                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                                Intent intent = new Intent(SearchTreasureActivity.this, TakePictureActivity.class);
+                                startActivity(intent);
+                            }
+                        });
             }
         });
-
-        btTakePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(StartAdventureActivity.this, TakePictureActivity.class));
-            }
-        });
-
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.RateActivity">
+    tools:context=".activity.CannotRateActivity">
 
     <TextView
         android:id="@+id/vtCongrat"
@@ -29,10 +29,11 @@
         android:layout_height="21dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="256dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@string/tu_as_trouv_5_tr_sors_sur_6"
+        android:gravity="center"
+        android:text="findtreasure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vtCongrat" />
@@ -88,21 +89,6 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <RatingBar
-        android:id="@+id/rbStar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:numStars="5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTreasureFInd"
-        android:theme="@style/RatingBar"/>
 
 
 </android.support.constraint.ConstraintLayout>
