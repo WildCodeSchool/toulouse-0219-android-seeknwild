@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -50,10 +49,10 @@ public class RateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO: update photo & user
+                adventure.setRate(ratingBar.getRating());
                 VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, adventure, new VolleySingleton.ResponseListener<Adventure>() {
                     @Override
                     public void finished(Adventure response) {
-                        adventure.setRate(ratingBar.getRating());
                         UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
                         UserSingleton.getInstance().setUser(user);
                         startActivity(new Intent(RateActivity.this, HomeActivity.class));

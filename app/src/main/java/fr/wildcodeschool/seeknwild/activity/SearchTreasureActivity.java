@@ -16,9 +16,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Consumer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -78,6 +80,9 @@ public class SearchTreasureActivity extends FragmentActivity implements OnMapRea
 
         TextView etDescriptionTreasure = findViewById(R.id.etDescriptionTreasure);
         etDescriptionTreasure.setText(treasure.getDescription());
+
+        ImageView treasureImg = findViewById(R.id.ivTreasure);
+        Glide.with(this).load(treasure.getPictureTreasure()).into(treasureImg);
 
         //TODO: Photo du trésor associé.
 
