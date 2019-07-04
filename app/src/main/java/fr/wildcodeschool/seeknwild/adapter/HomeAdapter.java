@@ -8,18 +8,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.StartAdventureActivity;
+import fr.wildcodeschool.seeknwild.activity.StartAdventureDescription;
+import fr.wildcodeschool.seeknwild.activity.UserAdventureSingleton;
+import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.Treasure;
+import fr.wildcodeschool.seeknwild.model.User;
+import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> {
 
     private static Context context;
     private List<Adventure> listAdventure;
+    private User user;
+    private Long idUser;
+    private UserAdventure userAdventure;
 
     public HomeAdapter(List<Adventure> listAdventure, Context context) {
         this.listAdventure = listAdventure;
@@ -34,12 +43,30 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull IdviewHolder idviewHolder, int i) {
+    public void onBindViewHolder(@NonNull final IdviewHolder idviewHolder, final int i) {
         idviewHolder.title.setText(listAdventure.get(i).getTitle());
         idviewHolder.distance.setText(String.valueOf(listAdventure.get(i).getDistance()));
-        idviewHolder.done.setText(listAdventure.get(i).getAlreadyDone() ? context.getString(R.string.already_done) : "");
-        //Glide.with(context).load(listAdventure.get(i).getAdventurePicture()).into(idviewHolder.adventureImage);
-        //Glide.with(context).load(listAdventure.get(i).getRate()).into(idviewHolder.starRate);
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        user = userSingleton.getUser();
+        if (listAdventure.get(i).getRate() != null) {
+            idviewHolder.starRate.setRating(listAdventure.get(i).getRate());
+        }
+        //TODO: set already done if user got userAdv on this adv + distance.
+
+       /* if () {
+            idviewHolder.done.setText(listAdventure.get(i).getAlreadyDone() ? context.getString(R.string.already_done) : "");
+        } */
+
+        idviewHolder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == idviewHolder.container.getId()) {
+                    Intent intentCreateAdv = new Intent(v.getContext(), StartAdventureDescription.class);
+                    intentCreateAdv.putExtra("idAdventure", listAdventure.get(i).getIdAdventure());
+                    v.getContext().startActivity(intentCreateAdv);
+                }
+            }
+        });
     }
 
     @Override
@@ -48,26 +75,22 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> 
     }
 
     public static class IdviewHolder extends RecyclerView.ViewHolder {
+        public View container;
         public TextView title;
         public TextView distance;
         public TextView done;
         public ImageView adventureImage;
-        public ImageView starRate;
+        public RatingBar starRate;
 
         public IdviewHolder(View favoritesView) {
             super(favoritesView);
+            container = favoritesView;
             title = favoritesView.findViewById(R.id.tvAdventureName);
             distance = favoritesView.findViewById(R.id.tvAdventureDistance);
             done = favoritesView.findViewById(R.id.tvAlreadyDone);
             adventureImage = favoritesView.findViewById(R.id.ivAdventurePhoto);
             starRate = favoritesView.findViewById(R.id.ivStarRate);
-            itemView.setOnClickListener((new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(context, StartAdventureActivity.class);
-                    v.getContext().startActivity(i);
-                }
-            }));
         }
     }
+
 }

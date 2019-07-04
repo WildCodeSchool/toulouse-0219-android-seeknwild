@@ -9,6 +9,10 @@ public class UserAdventure {
 
     private Long idUserAdventure;
 
+    private int nbTreasure;
+
+    private int currentTreasure;
+
     private User user;
 
     private Adventure adventure;
@@ -48,5 +52,21 @@ public class UserAdventure {
 
     public void setTreasures(List<Treasure> treasures) {
         this.treasures = treasures;
+    }
+
+    public int getNbTreasure() {
+        return nbTreasure;
+    }
+
+    public void setNbTreasure(int nbTreasure) {
+        this.nbTreasure = nbTreasure;
+    }
+
+    public int getCurrentTreasure() {
+        return currentTreasure;
+    }
+
+    public void setCurrentTreasure(int currentTreasure) {
+        this.currentTreasure = currentTreasure;
     }
 }

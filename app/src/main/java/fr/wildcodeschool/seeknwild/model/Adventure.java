@@ -12,7 +12,7 @@ public class Adventure {
 
     private Double distance;
 
-    private Double rate;
+    private Float rate;
 
     private String adventurePicture;
 
@@ -20,16 +20,9 @@ public class Adventure {
 
     private List<Treasure> treasures;
 
-    private UserAdventure userAdventure;
-
     private boolean published;
 
     public Adventure() {
-    }
-
-    public boolean getAlreadyDone() {
-        //TODO: vérifier si l'aventure  à déjà été faite
-        return true;
     }
 
     public Long getIdAdventure() {
@@ -64,14 +57,6 @@ public class Adventure {
         this.distance = distance;
     }
 
-    public Double getRate() {
-        return rate;
-    }
-
-    public void setRate(Double rate) {
-        this.rate = rate;
-    }
-
     public String getAdventurePicture() {
         return adventurePicture;
     }
@@ -96,19 +81,19 @@ public class Adventure {
         this.treasures = treasures;
     }
 
-    public UserAdventure getUserAdventure() {
-        return userAdventure;
-    }
-
-    public void setUserAdventure(UserAdventure userAdventure) {
-        this.userAdventure = userAdventure;
-    }
-
     public boolean isPublished() {
         return published;
     }
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    public Float getRate() {
+        return rate;
+    }
+
+    public void setRate(Float rate) {
+        this.rate = rate;
     }
 }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
@@ -24,21 +25,28 @@ import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class CreateAdventureActivity extends AppCompatActivity {
 
     public static final int REQUEST_IMAGE_CAPTURE = 1234;
-    // chemin de la photo dans le téléphone
     private Uri mFileUri = null;
     private Long idAdventure;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_adventure);
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long idUser = user.getIdUser();
+
         Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", -1);
         ImageView ivLogo = findViewById(R.id.ivAdventure);
+        //TODO remplacer String url
         String url = "https://i.goopics.net/5DbkX.jpg";
         Glide.with(this).load(url).into(ivLogo);
         actionFloattingButton();
@@ -54,17 +62,47 @@ public class CreateAdventureActivity extends AppCompatActivity {
                 if (!etNameAdventure.getText().toString().isEmpty()
                         && !etDescriptionAdventure.getText().toString().isEmpty()) {
                     if (idAdventure == -1) {
-                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, new Consumer<Adventure>() {
+                        if (mFileUri == null) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(CreateAdventureActivity.this);
+                            builder.setTitle(getString(R.string.photoDeLAventure));
+                            builder.setMessage(getString(R.string.veuillezPrendreUnePhotoDelavenrture));
+                            builder.setPositiveButton(getString(R.string.ok), null);
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                            return;
+                        }
+                        VolleySingleton.getInstance(getApplicationContext()).createAdventure(newAdventure, idUser, new Consumer<Adventure>() {
                             @Override
-                            public void accept(Adventure adventure) {
+                            public void accept(final Adventure adventure) {
                                 idAdventure = adventure.getIdAdventure();
-                                Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
-                                intent.putExtra("idAdventure", idAdventure);
-                                startActivity(intent);
+                                try {
+                                    //TODO Afficher une fenêtre de chargement
+                                    ProgressBar pgPicture = findViewById(R.id.pgPicture);
+                                    pgPicture.setVisibility(View.VISIBLE);
+                                    VolleySingleton.getInstance(getApplicationContext()).uploadAdventurePicture(idAdventure, mFileUri, "adventure-" + idUser + "-" + idAdventure + ".jpg",
+                                            new Consumer<String>() {
+                                                @Override
+                                                public void accept(String filePath) {
+                                                    //TODO Fermer la fenêtre de chargement
+                                                    if (filePath == null) {
+                                                        //TODO Afficher un message d'erreur
+                                                    } else {
+                                                        Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
+                                                        intent.putExtra("idAdventure", idAdventure);
+                                                        startActivity(intent);
+                                                    }
+                                                }
+                                            }
+                                    );
+                                    return;
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         });
+
+
                     } else {
-                        //TODO mettre à jour l'aventure et aller à la fin de la liste des trésors
                         VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, newAdventure, new VolleySingleton.ResponseListener<Adventure>() {
                             @Override
                             public void finished(Adventure response) {

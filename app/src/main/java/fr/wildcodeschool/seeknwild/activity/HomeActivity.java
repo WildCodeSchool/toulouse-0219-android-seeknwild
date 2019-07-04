@@ -12,6 +12,7 @@ import java.util.List;
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.adapter.HomeAdapter;
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -19,6 +20,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        //TODO: Photo du trésor associé.
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
 
         final RecyclerView rvHome = findViewById(R.id.rvAccueil);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);

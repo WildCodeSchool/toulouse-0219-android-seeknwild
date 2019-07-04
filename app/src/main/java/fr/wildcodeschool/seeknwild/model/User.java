@@ -22,6 +22,9 @@ public class User {
     public User() {
     }
 
+    public User(Long idUser) {
+      this.idUser = idUser;
+    }
     public Long getIdUser() {
         return idUser;
     }

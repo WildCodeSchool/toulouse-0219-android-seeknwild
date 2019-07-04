@@ -3,7 +3,6 @@ package fr.wildcodeschool.seeknwild.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +22,7 @@ import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.fragment.AdventureChooseFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureEditFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
+import fr.wildcodeschool.seeknwild.model.User;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
@@ -36,6 +35,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         mAuth = FirebaseAuth.getInstance();
+
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        User user = userSingleton.getUser();
+        final Long idUser = user.getIdUser();
 
         Button btSignOut = findViewById(R.id.btn_sing_out);
         btSignOut.setOnClickListener(new View.OnClickListener() {
