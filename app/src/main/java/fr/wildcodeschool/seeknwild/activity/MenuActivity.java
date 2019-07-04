@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,16 +25,16 @@ import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.fragment.AdventureChooseFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureEditFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
-import fr.wildcodeschool.seeknwild.fragment.HomeFragment;
 import fr.wildcodeschool.seeknwild.model.User;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        HomeFragment.HomeListener {
+        AdventureChooseFragment.AdventureChooseListener, AdventureEditFragment.AdventureEditListener {
     private DrawerLayout drawer;
     private TextView tv;
     private FirebaseAuth mAuth;
     private static final String TAG = "EmailPassword";
-    Fragment mHome;
+    Fragment mChooseAdventure;
+    Fragment mEditAdventure;
     Fragment mActive;
     FragmentManager mFragmentManager;
 
@@ -82,16 +81,18 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        mHome = new HomeFragment();
-        mActive = mHome;
+        mChooseAdventure = new AdventureChooseFragment();
+        mEditAdventure = new AdventureEditFragment();
+        mActive = mChooseAdventure;
 
         mFragmentManager = getSupportFragmentManager();
 
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, mHome);
+        fragmentTransaction.replace(R.id.fragment_container, mChooseAdventure);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
+
     }
 
     public void sayHello(View header) {
@@ -104,15 +105,22 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        FragmentTransaction fragmentTransaction;
         switch (menuItem.getItemId()) {
             case R.id.choisi_une_aventures:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new AdventureChooseFragment()).commit();
+                fragmentTransaction = mFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, mChooseAdventure);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 getSupportActionBar().setTitle(R.string.choisiUneAventure);
+
                 break;
             case R.id.edite_tes_aventures:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new AdventureEditFragment()).commit();
+
+                fragmentTransaction = mFragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, mEditAdventure);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
                 getSupportActionBar().setTitle(R.string.editeTesAventures);
                 break;
             case R.id.voir_ta_galerie:
@@ -135,7 +143,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onGalleryClicked() {
+    public void onClicked() {
 
     }
 }
