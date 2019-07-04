@@ -51,7 +51,12 @@ public class AdventureEditFragment extends Fragment {
         VolleySingleton.getInstance(getContext()).getAdventures(new Consumer<List<Adventure>>() {
             @Override
             public void accept(List<Adventure> adventures) {
-                final HomeAdapter adapter = new HomeAdapter(adventures, getContext());
+                final HomeAdapter adapter = new HomeAdapter(adventures, getContext(), new Consumer<Adventure>() {
+                    @Override
+                    public void accept(Adventure adventure) {
+                        //TODO Aller vers l'aventure a éditer.
+                    }
+                });
                 rvHomeCreate.setAdapter(adapter);
             }
         });

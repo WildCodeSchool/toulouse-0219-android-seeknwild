@@ -3,6 +3,7 @@ package fr.wildcodeschool.seeknwild.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Consumer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> 
 
     private static Context context;
     private List<Adventure> listAdventure;
+    private Consumer<Adventure> listener;
 
-    public HomeAdapter(List<Adventure> listAdventure, Context context) {
+    public HomeAdapter(List<Adventure> listAdventure, Context context, Consumer<Adventure> listener) {
         this.listAdventure = listAdventure;
         HomeAdapter.context = context;
+        this.listener = listener;
     }
 
     @Override
@@ -49,9 +52,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> 
             @Override
             public void onClick(View v) {
                 if (v.getId() == idviewHolder.container.getId()) {
-                    Intent intentCreateAdv = new Intent(v.getContext(), StartAdventureDescription.class);
-                    intentCreateAdv.putExtra("idAdventure", listAdventure.get(i).getIdAdventure());
-                    v.getContext().startActivity(intentCreateAdv);
+                    listener.accept(listAdventure.get(i));
                 }
             }
         });

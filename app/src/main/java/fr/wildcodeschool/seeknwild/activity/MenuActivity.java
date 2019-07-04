@@ -23,12 +23,15 @@ import java.util.Random;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.fragment.AdventureChooseFragment;
+import fr.wildcodeschool.seeknwild.fragment.AdventureDescriptionFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureEditFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
+import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.User;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        AdventureChooseFragment.AdventureChooseListener, AdventureEditFragment.AdventureEditListener {
+        AdventureChooseFragment.AdventureChooseListener, AdventureEditFragment.AdventureEditListener,
+        AdventureDescriptionFragment.AdventureDescriptionListener {
     private DrawerLayout drawer;
     private TextView tv;
     private FirebaseAuth mAuth;
@@ -145,5 +148,18 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onClicked() {
 
+    }
+
+    @Override
+    public void onAdventureSelected(Adventure adventure) {
+        Fragment adventureDescription = new AdventureDescriptionFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("idAdventure", adventure.getIdAdventure());
+        adventureDescription.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, adventureDescription);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.choisiUneAventure);
     }
 }

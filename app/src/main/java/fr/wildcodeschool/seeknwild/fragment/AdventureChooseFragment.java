@@ -10,19 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
 import fr.wildcodeschool.seeknwild.adapter.HomeAdapter;
 import fr.wildcodeschool.seeknwild.model.Adventure;
-import fr.wildcodeschool.seeknwild.model.User;
 
 public class AdventureChooseFragment extends Fragment {
 
-private AdventureChooseListener listener;
+    private AdventureChooseListener listener;
 
     public AdventureChooseFragment() {
         // Required empty public constructor
@@ -40,18 +37,19 @@ private AdventureChooseListener listener;
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_home, container, false);
 
-        UserSingleton userSingleton = UserSingleton.getInstance();
-        User user = userSingleton.getUser();
-
         final RecyclerView rvHome = view.findViewById(R.id.rvAccueil);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvHome.setLayoutManager(layoutManager);
 
-        final ArrayList<Adventure> adventures = new ArrayList<>();
         VolleySingleton.getInstance(getContext()).getAdventures(new Consumer<List<Adventure>>() {
             @Override
             public void accept(List<Adventure> adventures) {
-                final HomeAdapter adapter = new HomeAdapter(adventures, getContext());
+                final HomeAdapter adapter = new HomeAdapter(adventures, getContext(), new Consumer<Adventure>() {
+                    @Override
+                    public void accept(Adventure adventure) {
+                        listener.onAdventureSelected(adventure);
+                    }
+                });
                 rvHome.setAdapter(adapter);
             }
         });
@@ -61,6 +59,6 @@ private AdventureChooseListener listener;
 
     public interface AdventureChooseListener {
 
-        void onClicked();
+        void onAdventureSelected(Adventure adventure);
     }
 }
