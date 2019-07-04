@@ -122,7 +122,7 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                                                 VolleySingleton.getInstance(getApplicationContext()).publishedAdventure(idAdventure, new VolleySingleton.ResponseListener<Adventure>() {
                                                     @Override
                                                     public void finished(Adventure adventure) {
-                                                        Intent intentList = new Intent(TreasureAdventureMapsActivity.this, HomeActivity.class);
+                                                        Intent intentList = new Intent(TreasureAdventureMapsActivity.this, MainActivity.class);
                                                         startActivity(intentList);
                                                     }
                                                 });
@@ -155,12 +155,6 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
 
         if (sizeTreasure == 4) {
             btCreateTresure.setText(R.string.publier);
-            btCreateTresure.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(TreasureAdventureMapsActivity.this, HomeActivity.class);
-                }
-            });
         }
     }
 
