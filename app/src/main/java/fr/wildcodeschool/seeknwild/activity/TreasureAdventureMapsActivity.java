@@ -107,6 +107,10 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                         @Override
                         public void accept(Treasure treasure) {
                             if (sizeTreasure == 4) {
+                                if (mFileUri == null) {
+                                    //TODO Afficher un message d'erreur
+                                    return;
+                                }
                                 VolleySingleton.getInstance(getApplicationContext()).publishedAdventure(idAdventure, new VolleySingleton.ResponseListener<Adventure>() {
                                     @Override
                                     public void finished(Adventure adventure) {
