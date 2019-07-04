@@ -442,10 +442,6 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    interface ResponseListener<T> {
-        void finished(T response);
-    }
-
     public void uploadAdventurePicture(Long idAdventure, Uri pictureURI, final String filename, final Consumer<String> listener) throws IOException {
         Bitmap bitmap = MediaStore.Images.Media.getBitmap(ctx.getContentResolver(), pictureURI);
 
@@ -607,5 +603,9 @@ public class VolleySingleton {
         };
 
         requestQueue.add(multipartRequest);
+    }
+
+    interface ResponseListener<T> {
+        void finished(T response);
     }
 }

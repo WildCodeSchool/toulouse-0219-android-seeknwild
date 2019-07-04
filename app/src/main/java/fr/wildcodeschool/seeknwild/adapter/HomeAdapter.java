@@ -15,10 +15,8 @@ import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.activity.StartAdventureDescription;
-import fr.wildcodeschool.seeknwild.activity.UserAdventureSingleton;
 import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.model.Adventure;
-import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
