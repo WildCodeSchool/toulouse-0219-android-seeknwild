@@ -53,7 +53,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPwSign" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPwSign"
+        android:text="12345678"
+        />
 
     <EditText
         android:id="@+id/etMailSign"
@@ -68,7 +70,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMailSign" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMailSign"
+        android:text="josephine93@gmail.com"
+        />
 
     <TextView
         android:id="@+id/tvMailSign"

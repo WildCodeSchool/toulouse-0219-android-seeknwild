@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,13 +26,18 @@ import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.fragment.AdventureChooseFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureEditFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
+import fr.wildcodeschool.seeknwild.fragment.HomeFragment;
 import fr.wildcodeschool.seeknwild.model.User;
 
-public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        HomeFragment.HomeListener {
     private DrawerLayout drawer;
     private TextView tv;
     private FirebaseAuth mAuth;
     private static final String TAG = "EmailPassword";
+    Fragment mHome;
+    Fragment mActive;
+    FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +81,17 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        mHome = new HomeFragment();
+        mActive = mHome;
+
+        mFragmentManager = getSupportFragmentManager();
+
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mHome);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.choisiUneAventure);
     }
 
     public void sayHello(View header) {
@@ -112,5 +132,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onGalleryClicked() {
+
     }
 }

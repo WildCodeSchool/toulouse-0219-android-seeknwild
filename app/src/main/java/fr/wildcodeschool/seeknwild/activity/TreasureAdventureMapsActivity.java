@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -97,34 +98,48 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
         btCreateTresure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (lat != null && lng != null && !description.getText().toString().isEmpty()) {
+                if (lat != null && lng != null && !description.getText().toString().isEmpty() && mFileUri != null) {
+
                     Treasure treasure = new Treasure();
                     treasure.setDescription(description.getText().toString());
                     treasure.setLongTreasure(lng);
                     treasure.setLatTreasure(lat);
-                    treasure.setPictureTreasure("pic");
+                    treasure.setPictureTreasure("");
+
                     VolleySingleton.getInstance(getApplicationContext()).createTreasure(treasure, idAdventure, new Consumer<Treasure>() {
                         @Override
                         public void accept(Treasure treasure) {
-                            if (sizeTreasure == 4) {
-                                if (mFileUri == null) {
-                                    //TODO Afficher un message d'erreur
-                                    return;
-                                }
-                                VolleySingleton.getInstance(getApplicationContext()).publishedAdventure(idAdventure, new VolleySingleton.ResponseListener<Adventure>() {
+                            try {
+                                Long idTreasure = treasure.getIdTreasure();
+                                VolleySingleton.getInstance(getApplicationContext()).uploadTreasurePicture(mFileUri, "treasure-" + idTreasure + ".jpg",idTreasure, new Consumer<String>() {
                                     @Override
-                                    public void finished(Adventure adventure) {
-                                        Intent intentList = new Intent(TreasureAdventureMapsActivity.this, HomeActivity.class);
-                                        startActivity(intentList);
+                                    public void accept(String filePath) {
+                                        if (filePath == null) {
+                                            //TODO Afficher un message d'erreur
+                                            Toast.makeText(TreasureAdventureMapsActivity.this, "Prendre la photo du trésor", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            if (sizeTreasure == 4) {
+                                                VolleySingleton.getInstance(getApplicationContext()).publishedAdventure(idAdventure, new VolleySingleton.ResponseListener<Adventure>() {
+                                                    @Override
+                                                    public void finished(Adventure adventure) {
+                                                        Intent intentList = new Intent(TreasureAdventureMapsActivity.this, MainActivity.class);
+                                                        startActivity(intentList);
+                                                    }
+                                                });
+                                            } else {
+                                                Intent intent = new Intent(TreasureAdventureMapsActivity.this, TreasureAdventureMapsActivity.class);
+                                                intent.putExtra("idAdventure", idAdventure);
+                                                intent.putExtra("sizeTreasure", sizeTreasure + 1);
+                                                mMap.clear();
+                                                startActivity(intent);
+                                            }
+                                        }
                                     }
                                 });
-                            } else {
-                                Intent intent = new Intent(TreasureAdventureMapsActivity.this, TreasureAdventureMapsActivity.class);
-                                intent.putExtra("idAdventure", idAdventure);
-                                intent.putExtra("sizeTreasure", sizeTreasure + 1);
-                                mMap.clear();
-                                startActivity(intent);
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
+
                         }
                     });
                 } else {
@@ -140,12 +155,6 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
 
         if (sizeTreasure == 4) {
             btCreateTresure.setText(R.string.publier);
-            btCreateTresure.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(TreasureAdventureMapsActivity.this, HomeActivity.class);
-                }
-            });
         }
     }
 

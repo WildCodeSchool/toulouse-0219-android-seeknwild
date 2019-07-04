@@ -39,20 +39,25 @@
 
         <ImageView
             android:id="@+id/ivAdventurePhoto"
-            android:layout_width="0dp"
-            android:layout_height="181dp"
+            android:layout_width="389dp"
+            android:layout_height="149dp"
             android:contentDescription="@string/adventureimg"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <RatingBar
             android:id="@+id/ivStarRate"
-            android:layout_width="112dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="8dp"
-            android:contentDescription="@string/starrate"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto" />
 
@@ -60,13 +65,16 @@
             android:id="@+id/tvAlreadyDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:textColor="@color/tempDone"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivStarRate"
             tools:text="@string/done" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="10dp"
             android:layout_marginTop="8dp"
