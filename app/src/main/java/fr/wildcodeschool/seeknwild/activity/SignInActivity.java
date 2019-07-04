@@ -30,7 +30,7 @@ public class SignInActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String emailUser = intent.getStringExtra("email");
         final EditText etMail = findViewById(R.id.etMailSign);
-        //etMail.setText(emailUser);
+        etMail.setText(emailUser);
         TextView tvCreateAccount = findViewById(R.id.tvHaveAccount);
         tvCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
