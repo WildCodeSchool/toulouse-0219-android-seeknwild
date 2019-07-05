@@ -27,6 +27,8 @@ import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.User;
 
+import static android.view.View.GONE;
+
 public class AdventureCreateFragment extends Fragment {
 
     private Uri mFileUri = null;
@@ -58,6 +60,15 @@ public class AdventureCreateFragment extends Fragment {
         final Long idUser = user.getIdUser();
 
         ImageView ivLogo = view.findViewById(R.id.ivAdventure);
+        Button btCreateTresor = view.findViewById(R.id.btTreasure);
+
+        FloatingActionButton floatBtTakePicTreasure = view.findViewById(R.id.fbTakePicAdventure);
+        floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onTakeAdventurePicture();
+            }
+        });
 
         if (idAdventure != null && idAdventure > -1) {
             Adventure current = null;
@@ -68,24 +79,23 @@ public class AdventureCreateFragment extends Fragment {
                 }
             }
             if (current != null) {
+
                 Glide.with(getContext()).load(current.getAdventurePicture()).into(ivLogo);
 
                 EditText etTitre = view.findViewById(R.id.etNameAdventure);
                 EditText etDescription = view.findViewById(R.id.etDescriptionAdventure);
                 etTitre.setText(current.getTitle());
                 etDescription.setText(current.getDescription());
+                if (current.getTreasures().size() >= 4) {
+                    btCreateTresor.setVisibility(GONE);
+                    etTitre.setEnabled(false);
+                    etDescription.setEnabled(false);
+                    floatBtTakePicTreasure.setEnabled(false);
+                    //TODO: changer vers boutton dans adapter impossible de modifier
+                }
             }
         }
 
-        FloatingActionButton floatBtTakePicTreasure = view.findViewById(R.id.fbTakePicAdventure);
-        floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onTakeAdventurePicture();
-            }
-        });
-
-        Button btCreateTresor = view.findViewById(R.id.btTreasure);
         btCreateTresor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,9 +132,7 @@ public class AdventureCreateFragment extends Fragment {
                                                     if (filePath == null) {
                                                         //TODO Afficher un message d'erreur
                                                     } else {
-                                                        Intent intent = new Intent(getContext(), TreasureAdventureMapsActivity.class);
-                                                        intent.putExtra("idAdventure", idAdventure);
-                                                        startActivity(intent);
+                                                        listener.onCreateTreasure(newAdventure);
                                                     }
                                                 }
                                             }

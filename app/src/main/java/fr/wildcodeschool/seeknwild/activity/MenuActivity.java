@@ -37,6 +37,7 @@ import fr.wildcodeschool.seeknwild.fragment.AdventureCreatedListFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
 import fr.wildcodeschool.seeknwild.fragment.TreasureCreateFragment;
 import fr.wildcodeschool.seeknwild.model.Adventure;
+import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
@@ -46,11 +47,13 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         TreasureCreateFragment.TreasureCreateListener
 {
 
-    private static final int REQUEST_IMAGE_CAPTURE = 1234;
+    private static final int REQUEST_ADVENTURE_PICTURE = 1234;
+    private static final int REQUEST_TREASURE_PICTURE = 1235;
     private AdventureListFragment mChooseAdventure;
     private AdventureCreatedListFragment mEditAdventure;
     private AdventureCreateFragment mCreateAdventure;
     private TreasureCreateFragment mTreasureCreateFragment;
+    private AdventureListFragment mAdventureListFragment;
     private Fragment mActive;
     private FragmentManager mFragmentManager;
     private DrawerLayout drawer;
@@ -195,7 +198,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         return File.createTempFile(imgFileName, ".jpg", storageDir);
     }
 
-    private void dispatchTakePictureIntent() {
+    private void dispatchTakePictureIntent(int request) {
         // ouvrir l'application de prise de photo
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // lors de la validation de la photo
@@ -214,29 +217,63 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                         photoFile);
                 // déclenche l'appel de onActivityResult
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntent, request);
             }
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_ADVENTURE_PICTURE && resultCode == RESULT_OK) {
             mCreateAdventure.onPictureLoaded(mFileUri);
+        }
+        if (requestCode == REQUEST_TREASURE_PICTURE && resultCode == RESULT_OK) {
+            mTreasureCreateFragment.onPictureLoaded(mFileUri);
         }
     }
 
     @Override
     public void onTakeAdventurePicture() {
-        dispatchTakePictureIntent();
+        dispatchTakePictureIntent(REQUEST_ADVENTURE_PICTURE);
     }
+
+    @Override
+    public void onTakeTreasurePicture() {
+        dispatchTakePictureIntent(REQUEST_TREASURE_PICTURE);
+    }
+
+    @Override
+    public void onTreasureCreated(Long idAdventure, int sizeTreasure) {
+        mTreasureCreateFragment = new TreasureCreateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("idAdventure", idAdventure);
+        bundle.putInt("sizeTreasure", sizeTreasure);
+        mTreasureCreateFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mTreasureCreateFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.creeUneAventure);
+
+    }
+
+    @Override
+    public void onPublishedAdventure(Adventure adventure) {
+        mAdventureListFragment = new AdventureListFragment();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mAdventureListFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.creeUneAventure);
+    }
+
 
     @Override
     public void onCreateTreasure(Adventure adventure) {
         mTreasureCreateFragment = new TreasureCreateFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("idAdventure", adventure.getIdAdventure());
-        bundle.putLong("currentAdventure", adventure.getTreasures().size());
+        bundle.putInt("sizeTreasure", adventure.getTreasures().size());
         mTreasureCreateFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, mTreasureCreateFragment);
@@ -247,11 +284,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onAdventureDescriptionChosen(UserAdventure userAdventure) {
-        // TODO
-    }
-
-    @Override
-    public void onTreasureCreated() {
         // TODO
     }
 }
