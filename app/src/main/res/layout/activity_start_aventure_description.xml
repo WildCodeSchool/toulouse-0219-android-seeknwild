@@ -23,11 +23,12 @@
         android:id="@+id/ivAdventure"
         android:layout_width="0dp"
         android:layout_height="118dp"
+        android:contentDescription="@string/todo"
+        android:scaleType="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic"
-        android:contentDescription="@string/todo" />
+        tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/tvTitleAdv"

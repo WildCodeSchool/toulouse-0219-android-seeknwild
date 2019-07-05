@@ -191,6 +191,19 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle(R.string.creeUneAventure);
     }
 
+    @Override
+    public void onAdventureCreate() {
+        mCreateAdventure = new AdventureCreateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("idAdventure", -1);
+        mCreateAdventure.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mCreateAdventure);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.creeUneAventure);
+    }
+
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imgFileName = "JPEG_" + timeStamp + "_";
