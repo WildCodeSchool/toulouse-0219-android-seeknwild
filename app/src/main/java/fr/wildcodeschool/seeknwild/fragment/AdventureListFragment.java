@@ -17,11 +17,11 @@ import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
 import fr.wildcodeschool.seeknwild.adapter.HomeAdapter;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 
-public class AdventureChooseFragment extends Fragment {
+public class AdventureListFragment extends Fragment {
 
     private AdventureChooseListener listener;
 
-    public AdventureChooseFragment() {
+    public AdventureListFragment() {
         // Required empty public constructor
     }
 

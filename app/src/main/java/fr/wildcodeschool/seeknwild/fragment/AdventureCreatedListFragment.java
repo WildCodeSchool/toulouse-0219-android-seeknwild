@@ -10,25 +10,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
-
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
+import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.adapter.CreateHomeAdapter;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 
-public class AdventureEditFragment extends Fragment {
+public class AdventureCreatedListFragment extends Fragment {
 
-    private AdventureEditFragment.AdventureEditListener listener;
+    private AdventureCreatedListFragment.AdventureEditListener listener;
 
-    public AdventureEditFragment() {
+    public AdventureCreatedListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (AdventureEditFragment.AdventureEditListener) context;
+        listener = (AdventureCreatedListFragment.AdventureEditListener) context;
     }
 
     @Override
@@ -41,18 +39,15 @@ public class AdventureEditFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvHomeCreate.setLayoutManager(layoutManager);
 
-        VolleySingleton.getInstance(getContext()).getAdventures(new Consumer<List<Adventure>>() {
+        final CreateHomeAdapter adapter = new CreateHomeAdapter(
+                UserSingleton.getInstance().getUser().getAdventures(),
+                getContext(), new Consumer<Adventure>() {
             @Override
-            public void accept(List<Adventure> adventures) {
-                final CreateHomeAdapter adapter = new CreateHomeAdapter(adventures, getContext(), new Consumer<Adventure>() {
-                    @Override
-                    public void accept(Adventure adventure) {
-                        listener.onAdventureEdited(adventure);
-                    }
-                });
-                rvHomeCreate.setAdapter(adapter);
+            public void accept(Adventure adventure) {
+                listener.onAdventureEdited(adventure);
             }
         });
+        rvHomeCreate.setAdapter(adapter);
 
         return view;
     }

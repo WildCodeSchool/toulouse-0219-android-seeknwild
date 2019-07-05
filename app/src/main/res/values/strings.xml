@@ -117,4 +117,6 @@
     <string name="veuillez_renseigner_ensemble_des_champs">Veuillez renseigner l\'ensemble des champs.</string>
     <string name="photoDeLAventure">Photo de l\'aventure</string>
     <string name="veuillezPrendreUnePhotoDelavenrture">Veuillez prendre une photo de l\'aventure.</string>
+    <string name="take_treasure_photo">Prendre la photo du trésor</string>
+    <string name="take_treasure_picture">Prendre la photo du trésor</string>
 </resources>

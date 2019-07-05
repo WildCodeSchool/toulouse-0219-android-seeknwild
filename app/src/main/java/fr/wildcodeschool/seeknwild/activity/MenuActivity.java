@@ -30,22 +30,27 @@ import java.util.Date;
 import java.util.Random;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.fragment.AdventureChooseFragment;
+import fr.wildcodeschool.seeknwild.fragment.AdventureListFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureCreateFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureDescriptionFragment;
-import fr.wildcodeschool.seeknwild.fragment.AdventureEditFragment;
+import fr.wildcodeschool.seeknwild.fragment.AdventureCreatedListFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
+import fr.wildcodeschool.seeknwild.fragment.TreasureCreateFragment;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        AdventureChooseFragment.AdventureChooseListener, AdventureEditFragment.AdventureEditListener,
-        AdventureDescriptionFragment.AdventureDescriptionListener, AdventureCreateFragment.CreateAdventureListener {
+        AdventureListFragment.AdventureChooseListener, AdventureCreatedListFragment.AdventureEditListener,
+        AdventureDescriptionFragment.AdventureDescriptionListener, AdventureCreateFragment.CreateAdventureListener,
+        TreasureCreateFragment.TreasureCreateListener
+{
+
     private static final int REQUEST_IMAGE_CAPTURE = 1234;
-    private AdventureChooseFragment mChooseAdventure;
-    private AdventureEditFragment mEditAdventure;
+    private AdventureListFragment mChooseAdventure;
+    private AdventureCreatedListFragment mEditAdventure;
     private AdventureCreateFragment mCreateAdventure;
+    private TreasureCreateFragment mTreasureCreateFragment;
     private Fragment mActive;
     private FragmentManager mFragmentManager;
     private DrawerLayout drawer;
@@ -96,8 +101,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        mChooseAdventure = new AdventureChooseFragment();
-        mEditAdventure = new AdventureEditFragment();
+        mChooseAdventure = new AdventureListFragment();
+        mEditAdventure = new AdventureCreatedListFragment();
         mActive = mChooseAdventure;
 
         mFragmentManager = getSupportFragmentManager();
@@ -222,17 +227,31 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onTakePhoto() {
+    public void onTakeAdventurePicture() {
         dispatchTakePictureIntent();
     }
 
     @Override
     public void onCreateTreasure(Adventure adventure) {
-        // TODO
+        mTreasureCreateFragment = new TreasureCreateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("idAdventure", adventure.getIdAdventure());
+        bundle.putLong("currentAdventure", adventure.getTreasures().size());
+        mTreasureCreateFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mTreasureCreateFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.creeUneAventure);
     }
 
     @Override
     public void onAdventureDescriptionChosen(UserAdventure userAdventure) {
+        // TODO
+    }
+
+    @Override
+    public void onTreasureCreated() {
         // TODO
     }
 }

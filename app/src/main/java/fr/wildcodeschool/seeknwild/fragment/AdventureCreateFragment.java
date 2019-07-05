@@ -58,15 +58,30 @@ public class AdventureCreateFragment extends Fragment {
         final Long idUser = user.getIdUser();
 
         ImageView ivLogo = view.findViewById(R.id.ivAdventure);
-        //TODO remplacer String url
-        String url = "https://i.goopics.net/5DbkX.jpg";
-        Glide.with(getContext()).load(url).into(ivLogo);
+
+        if (idAdventure != null && idAdventure > -1) {
+            Adventure current = null;
+            for (Adventure adventure : UserSingleton.getInstance().getUser().getAdventures()) {
+                if (adventure.getIdAdventure().equals(idAdventure)) {
+                    current = adventure;
+                    break;
+                }
+            }
+            if (current != null) {
+                Glide.with(getContext()).load(current.getAdventurePicture()).into(ivLogo);
+
+                EditText etTitre = view.findViewById(R.id.etNameAdventure);
+                EditText etDescription = view.findViewById(R.id.etDescriptionAdventure);
+                etTitre.setText(current.getTitle());
+                etDescription.setText(current.getDescription());
+            }
+        }
 
         FloatingActionButton floatBtTakePicTreasure = view.findViewById(R.id.fbTakePicAdventure);
         floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onTakePhoto();
+                listener.onTakeAdventurePicture();
             }
         });
 
@@ -125,14 +140,8 @@ public class AdventureCreateFragment extends Fragment {
                         // TODO : voir s'il est nécessaire de réuploader une image
                         VolleySingleton.getInstance(getContext()).updateAdventure(idAdventure, newAdventure, new Consumer<Adventure>() {
                             @Override
-                            public void accept(Adventure response) {
-                                etNameAdventure.setText(etNameAdventure.getText().toString());
-                                etDescriptionAdventure.setText(etDescriptionAdventure.getText().toString());
-                                newAdventure.setTitle(etNameAdventure.getText().toString());
-                                newAdventure.setDescription(etDescriptionAdventure.getText().toString());
-                                Intent intent = new Intent(getContext(), TreasureAdventureMapsActivity.class);
-                                intent.putExtra("idAdventure", idAdventure);
-                                startActivity(intent);
+                            public void accept(Adventure adventure) {
+                                listener.onCreateTreasure(adventure);
                             }
                         });
                     }
@@ -147,25 +156,12 @@ public class AdventureCreateFragment extends Fragment {
             }
         });
 
-        if (idAdventure != -1) {
-            VolleySingleton.getInstance(getContext()).getAdventureById(idAdventure, new Consumer<Adventure>() {
-                @Override
-                public void accept(Adventure adventure) {
-                    EditText etTitre = view.findViewById(R.id.etNameAdventure);
-                    EditText etDescription = view.findViewById(R.id.etDescriptionAdventure);
-                    etTitre.setText(adventure.getTitle());
-                    etDescription.setText(adventure.getDescription());
-
-                }
-            });
-        }
-
         return view;
     }
 
     public interface CreateAdventureListener {
 
-        void onTakePhoto();
+        void onTakeAdventurePicture();
 
         void onCreateTreasure(Adventure adventure);
     }
