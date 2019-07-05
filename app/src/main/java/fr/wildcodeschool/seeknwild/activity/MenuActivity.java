@@ -42,13 +42,12 @@ import fr.wildcodeschool.seeknwild.model.UserAdventure;
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         AdventureChooseFragment.AdventureChooseListener, AdventureEditFragment.AdventureEditListener,
         AdventureDescriptionFragment.AdventureDescriptionListener, AdventureCreateFragment.CreateAdventureListener {
-    public static final int REQUEST_IMAGE_CAPTURE = 1234;
-    private static final String TAG = "EmailPassword";
-    AdventureChooseFragment mChooseAdventure;
-    AdventureEditFragment mEditAdventure;
-    AdventureCreateFragment mCreateAdventure;
-    Fragment mActive;
-    FragmentManager mFragmentManager;
+    private static final int REQUEST_IMAGE_CAPTURE = 1234;
+    private AdventureChooseFragment mChooseAdventure;
+    private AdventureEditFragment mEditAdventure;
+    private AdventureCreateFragment mCreateAdventure;
+    private Fragment mActive;
+    private FragmentManager mFragmentManager;
     private DrawerLayout drawer;
     private TextView tv;
     private FirebaseAuth mAuth;
