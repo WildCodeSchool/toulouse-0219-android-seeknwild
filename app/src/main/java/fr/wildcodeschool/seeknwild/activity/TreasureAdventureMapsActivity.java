@@ -119,9 +119,9 @@ public class TreasureAdventureMapsActivity extends FragmentActivity implements O
                                             Toast.makeText(TreasureAdventureMapsActivity.this, "Prendre la photo du trésor", Toast.LENGTH_SHORT).show();
                                         } else {
                                             if (sizeTreasure == 4) {
-                                                VolleySingleton.getInstance(getApplicationContext()).publishedAdventure(idAdventure, new VolleySingleton.ResponseListener<Adventure>() {
+                                                VolleySingleton.getInstance(getApplicationContext()).publishedAdventure(idAdventure, new Consumer<Adventure>() {
                                                     @Override
-                                                    public void finished(Adventure adventure) {
+                                                    public void accept(Adventure adventure) {
                                                         Intent intentList = new Intent(TreasureAdventureMapsActivity.this, MainActivity.class);
                                                         startActivity(intentList);
                                                     }

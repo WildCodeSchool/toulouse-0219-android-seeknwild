@@ -5,10 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
 import android.support.v4.util.Consumer;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,58 +15,61 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.CreateAdventureActivity;
-import fr.wildcodeschool.seeknwild.activity.SearchTreasureActivity;
 import fr.wildcodeschool.seeknwild.activity.TreasureAdventureMapsActivity;
-import fr.wildcodeschool.seeknwild.activity.UserAdventureSingleton;
 import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.User;
-import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
-public class CreateAdventureFragment extends Fragment {
+public class AdventureCreateFragment extends Fragment {
 
-    private AdventureCreateListener listener;
-    public static final int REQUEST_IMAGE_CAPTURE = 1234;
     private Uri mFileUri = null;
+    private View view;
     private Long idAdventure;
 
-    public CreateAdventureFragment() {
+    private AdventureCreateFragment.CreateAdventureListener listener;
+
+    public AdventureCreateFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (AdventureCreateListener) context;
+        listener = (AdventureCreateFragment.CreateAdventureListener) context;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.activity_create_adventure, container, false);
+
+        idAdventure = this.getArguments().getLong("idAdventure");
+
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
         final Long idUser = user.getIdUser();
 
-        /*Intent intent = getIntent();
-        idAdventure = intent.getLongExtra("idAdventure", -1);*/
         ImageView ivLogo = view.findViewById(R.id.ivAdventure);
         //TODO remplacer String url
         String url = "https://i.goopics.net/5DbkX.jpg";
-        Glide.with(this).load(url).into(ivLogo);
-        actionFloattingButton();
+        Glide.with(getContext()).load(url).into(ivLogo);
+
+        FloatingActionButton floatBtTakePicTreasure = view.findViewById(R.id.fbTakePicAdventure);
+        floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onTakePhoto();
+            }
+        });
+
         Button btCreateTresor = view.findViewById(R.id.btTreasure);
         btCreateTresor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,9 +107,9 @@ public class CreateAdventureFragment extends Fragment {
                                                     if (filePath == null) {
                                                         //TODO Afficher un message d'erreur
                                                     } else {
-                                                        /*Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
+                                                        Intent intent = new Intent(getContext(), TreasureAdventureMapsActivity.class);
                                                         intent.putExtra("idAdventure", idAdventure);
-                                                        startActivity(intent);*/
+                                                        startActivity(intent);
                                                     }
                                                 }
                                             }
@@ -120,18 +121,18 @@ public class CreateAdventureFragment extends Fragment {
                             }
                         });
 
-
                     } else {
-                        VolleySingleton.getInstance(getContext()).updateAdventure(idAdventure, newAdventure, new VolleySingleton.ResponseListener<Adventure>() {
+                        // TODO : voir s'il est nécessaire de réuploader une image
+                        VolleySingleton.getInstance(getContext()).updateAdventure(idAdventure, newAdventure, new Consumer<Adventure>() {
                             @Override
-                            public void finished(Adventure response) {
+                            public void accept(Adventure response) {
                                 etNameAdventure.setText(etNameAdventure.getText().toString());
                                 etDescriptionAdventure.setText(etDescriptionAdventure.getText().toString());
                                 newAdventure.setTitle(etNameAdventure.getText().toString());
                                 newAdventure.setDescription(etDescriptionAdventure.getText().toString());
-                                /*Intent intent = new Intent(CreateAdventureActivity.this, TreasureAdventureMapsActivity.class);
+                                Intent intent = new Intent(getContext(), TreasureAdventureMapsActivity.class);
                                 intent.putExtra("idAdventure", idAdventure);
-                                startActivity(intent);*/
+                                startActivity(intent);
                             }
                         });
                     }
@@ -158,45 +159,22 @@ public class CreateAdventureFragment extends Fragment {
                 }
             });
         }
+
         return view;
     }
 
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imgFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imgFileName, ".jpg", storageDir);
-        return image;
+    public interface CreateAdventureListener {
+
+        void onTakePhoto();
+
+        void onCreateTreasure(Adventure adventure);
     }
 
-    private void dispatchTakePictureIntent() {
-        // ouvrir l'application de prise de photo
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // lors de la validation de la photo
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // créer le fichier contenant la photo
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException e) {
-                // TODO : gérer l'erreur
-            }
-            if (photoFile != null) {
-                // récupèrer le chemin de la photo
-                mFileUri = FileProvider.getUriForFile(this,
-                        "fr.wildcodeschool.seeknwild.fileprovider",
-                        photoFile);
-                // déclenche l'appel de onActivityResult
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            }
-        }
+    public void onPictureLoaded(Uri fileUri) {
+        mFileUri = fileUri;
 
-
-    }
-
-    public interface AdventureCreateListener {
-
-        void onAdventureSelected(Adventure adventure);
+        ImageView ivRecupPic = view.findViewById(R.id.ivPic);
+        ivRecupPic.setImageURI(mFileUri);
     }
 }
+

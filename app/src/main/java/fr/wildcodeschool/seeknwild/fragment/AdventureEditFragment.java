@@ -10,15 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
-import fr.wildcodeschool.seeknwild.adapter.HomeAdapter;
+import fr.wildcodeschool.seeknwild.adapter.CreateHomeAdapter;
 import fr.wildcodeschool.seeknwild.model.Adventure;
-import fr.wildcodeschool.seeknwild.model.User;
 
 public class AdventureEditFragment extends Fragment {
 
@@ -40,21 +37,17 @@ public class AdventureEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_create_adventure_home, container, false);
 
-        UserSingleton userSingleton = UserSingleton.getInstance();
-        User user = userSingleton.getUser();
-
         final RecyclerView rvHomeCreate = view.findViewById(R.id.rvAdventureHomeCreate);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvHomeCreate.setLayoutManager(layoutManager);
 
-        final ArrayList<Adventure> adventures = new ArrayList<>();
         VolleySingleton.getInstance(getContext()).getAdventures(new Consumer<List<Adventure>>() {
             @Override
             public void accept(List<Adventure> adventures) {
-                final HomeAdapter adapter = new HomeAdapter(adventures, getContext(), new Consumer<Adventure>() {
+                final CreateHomeAdapter adapter = new CreateHomeAdapter(adventures, getContext(), new Consumer<Adventure>() {
                     @Override
                     public void accept(Adventure adventure) {
-                        //TODO Aller vers l'aventure a éditer.
+                        listener.onAdventureEdited(adventure);
                     }
                 });
                 rvHomeCreate.setAdapter(adapter);
@@ -66,6 +59,6 @@ public class AdventureEditFragment extends Fragment {
 
     public interface AdventureEditListener {
 
-        void onClicked();
+        void onAdventureEdited(Adventure adventure);
     }
 }

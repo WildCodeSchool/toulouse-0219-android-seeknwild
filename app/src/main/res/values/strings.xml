@@ -56,6 +56,7 @@
     <string name="alo">Alo</string>
     <string name="seekn_wild">Seek\'n Wild</string>
     <string name="choisiUneAventure">Choisi une aventure</string>
+    <string name="creeUneAventure">Crée une aventure</string>
     <string name="editeTesAventures">Edite tes aventures</string>
     <string name="voirTaGalerie">Voir ta galerie</string>
     <string name="createAccountIntent">Nouvel utilisateur ? Créer un compte</string>

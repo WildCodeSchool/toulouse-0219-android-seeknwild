@@ -47,7 +47,7 @@ public class AdventureChooseFragment extends Fragment {
                 final HomeAdapter adapter = new HomeAdapter(adventures, getContext(), new Consumer<Adventure>() {
                     @Override
                     public void accept(Adventure adventure) {
-                        listener.onAdventureSelected(adventure);
+                        listener.onAdventureChoosed(adventure);
                     }
                 });
                 rvHome.setAdapter(adapter);
@@ -59,6 +59,6 @@ public class AdventureChooseFragment extends Fragment {
 
     public interface AdventureChooseListener {
 
-        void onAdventureSelected(Adventure adventure);
+        void onAdventureChoosed(Adventure adventure);
     }
 }

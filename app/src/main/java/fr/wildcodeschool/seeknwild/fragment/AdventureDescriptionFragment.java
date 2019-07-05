@@ -1,7 +1,6 @@
 package fr.wildcodeschool.seeknwild.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Consumer;
@@ -15,8 +14,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.SearchTreasureActivity;
-import fr.wildcodeschool.seeknwild.activity.StartAdventureDescription;
 import fr.wildcodeschool.seeknwild.activity.UserAdventureSingleton;
 import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
@@ -73,8 +70,7 @@ public class AdventureDescriptionFragment extends Fragment {
                             @Override
                             public void accept(UserAdventure userAdventure) {
                                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
-                                Intent intent = new Intent(getContext(), SearchTreasureActivity.class);
-                                startActivity(intent);
+                                listener.onAdventureDescriptionChosen(userAdventure);
                             }
                         });
             }
@@ -85,6 +81,6 @@ public class AdventureDescriptionFragment extends Fragment {
 
     public interface AdventureDescriptionListener {
 
-        void onAdventureSelected(Adventure adventure);
+        void onAdventureDescriptionChosen(UserAdventure userAdventure);
     }
 }

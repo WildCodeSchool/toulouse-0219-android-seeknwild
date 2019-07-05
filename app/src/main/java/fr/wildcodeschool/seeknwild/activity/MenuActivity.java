@@ -1,12 +1,16 @@
 package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,27 +23,36 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.fragment.AdventureChooseFragment;
+import fr.wildcodeschool.seeknwild.fragment.AdventureCreateFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureDescriptionFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureEditFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.User;
+import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         AdventureChooseFragment.AdventureChooseListener, AdventureEditFragment.AdventureEditListener,
-        AdventureDescriptionFragment.AdventureDescriptionListener {
+        AdventureDescriptionFragment.AdventureDescriptionListener, AdventureCreateFragment.CreateAdventureListener {
+    public static final int REQUEST_IMAGE_CAPTURE = 1234;
+    private static final String TAG = "EmailPassword";
+    AdventureChooseFragment mChooseAdventure;
+    AdventureEditFragment mEditAdventure;
+    AdventureCreateFragment mCreateAdventure;
+    Fragment mActive;
+    FragmentManager mFragmentManager;
     private DrawerLayout drawer;
     private TextView tv;
     private FirebaseAuth mAuth;
-    private static final String TAG = "EmailPassword";
-    Fragment mChooseAdventure;
-    Fragment mEditAdventure;
-    Fragment mActive;
-    FragmentManager mFragmentManager;
+    private Uri mFileUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +85,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         final View header = navigationView.getHeaderView(0);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-        R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerStateChanged(int newState) {
                 super.onDrawerStateChanged(newState);
@@ -99,7 +112,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void sayHello(View header) {
-        final String hello[] = {getString(R.string.bonjour), getString(R.string.hallo), getString(R.string.hello), getString(R.string.hola), getString(R.string.buongiorno), getString(R.string.ola), getString(R.string.kaixo), getString(R.string.alo)};
+        final String[] hello = {getString(R.string.bonjour), getString(R.string.hallo), getString(R.string.hello), getString(R.string.hola), getString(R.string.buongiorno), getString(R.string.ola), getString(R.string.kaixo), getString(R.string.alo)};
         Random r = new Random();
         String motAleatoire = hello[r.nextInt(hello.length)];
         TextView textView = header.findViewById(R.id.hello);
@@ -146,12 +159,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onClicked() {
-
-    }
-
-    @Override
-    public void onAdventureSelected(Adventure adventure) {
+    public void onAdventureChoosed(Adventure adventure) {
         Fragment adventureDescription = new AdventureDescriptionFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("idAdventure", adventure.getIdAdventure());
@@ -161,5 +169,71 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
+    }
+
+    @Override
+    public void onAdventureEdited(Adventure adventure) {
+        mCreateAdventure = new AdventureCreateFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("idAdventure", adventure.getIdAdventure());
+        mCreateAdventure.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mCreateAdventure);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.creeUneAventure);
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imgFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imgFileName, ".jpg", storageDir);
+    }
+
+    private void dispatchTakePictureIntent() {
+        // ouvrir l'application de prise de photo
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // lors de la validation de la photo
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // créer le fichier contenant la photo
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException e) {
+                // TODO : gérer l'erreur
+            }
+            if (photoFile != null) {
+                // récupèrer le chemin de la photo
+                mFileUri = FileProvider.getUriForFile(this,
+                        "fr.wildcodeschool.seeknwild.fileprovider",
+                        photoFile);
+                // déclenche l'appel de onActivityResult
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            mCreateAdventure.onPictureLoaded(mFileUri);
+        }
+    }
+
+    @Override
+    public void onTakePhoto() {
+        dispatchTakePictureIntent();
+    }
+
+    @Override
+    public void onCreateTreasure(Adventure adventure) {
+        // TODO
+    }
+
+    @Override
+    public void onAdventureDescriptionChosen(UserAdventure userAdventure) {
+        // TODO
     }
 }
