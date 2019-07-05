@@ -35,6 +35,7 @@ import fr.wildcodeschool.seeknwild.fragment.AdventureCreateFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureDescriptionFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureCreatedListFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
+import fr.wildcodeschool.seeknwild.fragment.SearchTreasureFragment;
 import fr.wildcodeschool.seeknwild.fragment.TreasureCreateFragment;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.Treasure;
@@ -54,6 +55,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private AdventureCreateFragment mCreateAdventure;
     private TreasureCreateFragment mTreasureCreateFragment;
     private AdventureListFragment mAdventureListFragment;
+    private SearchTreasureFragment mSearchTreasureFragment;
     private Fragment mActive;
     private FragmentManager mFragmentManager;
     private DrawerLayout drawer;
@@ -297,6 +299,11 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onAdventureDescriptionChosen(UserAdventure userAdventure) {
-        // TODO
+        mSearchTreasureFragment = new SearchTreasureFragment();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.commencer_laventure);
     }
 }
