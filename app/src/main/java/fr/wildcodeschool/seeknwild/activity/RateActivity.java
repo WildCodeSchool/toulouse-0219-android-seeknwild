@@ -2,6 +2,7 @@ package fr.wildcodeschool.seeknwild.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.util.Consumer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -50,9 +51,9 @@ public class RateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO: update photo & user
                 adventure.setRate(ratingBar.getRating());
-                VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, adventure, new VolleySingleton.ResponseListener<Adventure>() {
+                VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, adventure, new Consumer<Adventure>() {
                     @Override
-                    public void finished(Adventure response) {
+                    public void accept(Adventure response) {
                         UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
                         UserSingleton.getInstance().setUser(user);
                         startActivity(new Intent(RateActivity.this, HomeActivity.class));
