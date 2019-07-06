@@ -154,6 +154,7 @@ public class TreasureCreateFragment extends Fragment {
                                                 VolleySingleton.getInstance(getContext()).publishedAdventure(idAdventure, new Consumer<Adventure>() {
                                                     @Override
                                                     public void accept(Adventure adventure) {
+                                                        adventure.setPublished(true);
                                                         listener.onPublishedAdventure(adventure);
                                                     }
                                                 });

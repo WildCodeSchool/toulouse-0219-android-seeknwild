@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">toulouse-0219-android-seeknwild</string>
+    <string name="app_name">Seek\'n Wild</string>
     <string name="bouge">Bouge !</string>
     <string name="utiliser_ton_t_l_phone_comme_une_carte_aux_tr_sors">Utiliser ton téléphone comme une carte aux trésors</string>
     <string name="de_couverte">Découverte !</string>
@@ -10,7 +10,6 @@
     <string name="passer">Passer</string>
     <string name="into_the_wild">Into the Wild</string>
     <string name="done">Déjà fait!</string>
-    <string name="button">Button</string>
     <string name="greybar">greybay</string>
     <string name="adventureimg">AdventureImg</string>
     <string name="starrate">StarRate</string>
@@ -63,7 +62,6 @@
     <string name="Sign_In">ME CONNECTER</string>
     <string name="sign">Connecte- toi</string>
     <string name="failure">échec de conexion</string>
-    <string name="weakPW">onComplete: weak_password</string>
     <string name="warning">Attention</string>
     <string name="needMoreChar">Merci de renseigner un mot de passe de 8 lettres ou plus</string>
     <string name="unformalMail">onComplete: malformed_email</string>
@@ -121,4 +119,6 @@
     <string name="take_treasure_picture">Prendre la photo du trésor</string>
     <string name="create_Tresor">Créer un trésor</string>
     <string name="commencer_laventure">Commencer l\'aventure</string>
+    <string name="adv_published">Publiée</string>
+    <string name="in_process">En cours</string>
 </resources>

@@ -90,13 +90,13 @@ public class SearchTreasureFragment extends Fragment {
         idAdventure = this.getArguments().getLong("idAdventure");
         final int sizeTreasure = this.getArguments().getInt("sizeTreasure");
 
-        FloatingActionButton floatBtTakePicTreasure = view.findViewById(R.id.fbTakePicAdventure);
+        /*FloatingActionButton floatBtTakePicTreasure = view.findViewById(R.id.fbTakePicAdventure);
         floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onTakeTreasurePicture();
+               // listener.onTakeTreasurePicture();
             }
-        });
+        });*/
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         if (mapFragment == null) {
@@ -159,18 +159,20 @@ public class SearchTreasureFragment extends Fragment {
                                     public void accept(String filePath) {
                                         if (filePath == null) {
                                             //TODO Afficher un message d'erreur
-                                            Toast.makeText(getContext(), getString(R.string.take_treasure_picture), Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), getString(R.string.take_treasure_picture), Toast.LENGTH_SHORT).show();
                                         } else {
                                             if (sizeTreasure >= 4) {
                                                 VolleySingleton.getInstance(getContext()).publishedAdventure(idAdventure, new Consumer<Adventure>() {
                                                     @Override
                                                     public void accept(Adventure adventure) {
-                                                        listener.onPublishedAdventure(adventure);
+                                                        //TODO: envoyer le listener sur menu activity
+                                                       // listener.onPublishedAdventure(adventure);
                                                     }
                                                 });
                                             } else {
                                                 mMap.clear();
-                                                listener.onTreasureCreated(idAdventure, sizeTreasure + 1);
+                                                //TODO: envoyer le listener sur menu activity
+                                                //listener.onTreasureCreated(idAdventure, sizeTreasure + 1);
                                             }
                                         }
                                     }

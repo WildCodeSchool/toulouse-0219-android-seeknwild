@@ -86,13 +86,6 @@ public class AdventureCreateFragment extends Fragment {
                 EditText etDescription = view.findViewById(R.id.etDescriptionAdventure);
                 etTitre.setText(current.getTitle());
                 etDescription.setText(current.getDescription());
-                if (current.getTreasures().size() >= 4) {
-                    btCreateTresor.setVisibility(GONE);
-                    etTitre.setEnabled(false);
-                    etDescription.setEnabled(false);
-                    floatBtTakePicTreasure.setEnabled(false);
-                    //TODO: changer vers boutton dans adapter impossible de modifier
-                }
             }
         }
 
@@ -132,7 +125,7 @@ public class AdventureCreateFragment extends Fragment {
                                                     if (filePath == null) {
                                                         //TODO Afficher un message d'erreur
                                                     } else {
-                                                        listener.onCreateTreasure(newAdventure);
+                                                        listener.onCreateTreasure(adventure);
                                                     }
                                                 }
                                             }
@@ -145,7 +138,6 @@ public class AdventureCreateFragment extends Fragment {
                         });
 
                     } else {
-                        // TODO : voir s'il est nécessaire de réuploader une image
                         VolleySingleton.getInstance(getContext()).updateAdventure(idAdventure, newAdventure, new Consumer<Adventure>() {
                             @Override
                             public void accept(Adventure adventure) {

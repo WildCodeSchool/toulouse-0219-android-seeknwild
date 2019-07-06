@@ -88,7 +88,7 @@ public class SignInActivity extends AppCompatActivity {
                     builder.setPositiveButton(getString(R.string.ok), null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                }
+               }
             }
         });
     }

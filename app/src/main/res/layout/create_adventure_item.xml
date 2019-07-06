@@ -19,35 +19,14 @@
             android:id="@+id/tvAdventureName"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/into_the_wild"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto" />
-
-        <TextView
-            android:id="@+id/tvInProcess"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/en_cours"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAdventureName" />
-
-        <TextView
-            android:id="@+id/tvPublish"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Publiée"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:visibility="invisible"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvAdventureName" />
 
         <ImageView
             android:id="@+id/ivAdventurePhoto"
@@ -70,33 +49,15 @@
             app:layout_constraintTop_toBottomOf="@+id/tvAdventureDistance"></LinearLayout>
 
         <ImageButton
-            android:id="@+id/btDelete"
-            style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="51dp"
-            android:layout_height="46dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:adjustViewBounds="false"
-            android:background="@color/colorButtonDefault"
-            android:baselineAlignBottom="true"
-            android:cropToPadding="true"
-            android:scaleType="centerCrop"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
-
-        <ImageButton
             android:id="@+id/btEdit"
             style="@style/Widget.AppCompat.ImageButton"
-            android:layout_width="51dp"
-            android:layout_height="46dp"
+            android:layout_width="44dp"
+            android:layout_height="42dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:adjustViewBounds="false"
-            android:background="@color/colorButtonDefault"
+            android:background="@drawable/oval"
             android:baselineAlignBottom="true"
             android:cropToPadding="true"
             android:scaleType="centerCrop"
@@ -105,6 +66,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@android:drawable/ic_menu_edit" />
+
+        <TextView
+            android:id="@+id/tvPublish"
+            android:layout_width="111dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAdventureName" />
 
     </android.support.constraint.ConstraintLayout>
 

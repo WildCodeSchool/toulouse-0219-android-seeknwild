@@ -49,6 +49,14 @@ public class CreateHomeAdapter extends RecyclerView.Adapter<CreateHomeAdapter.Id
                 }
             }
         });
+        if (listAdventure.get(i).isPublished()) {
+            idviewHolder.edit.setEnabled(false);
+            idviewHolder.edit.setVisibility(View.INVISIBLE);
+            idviewHolder.publish.setText(context.getString(R.string.adv_published));
+        }
+        else {
+            idviewHolder.publish.setText(context.getString(R.string.in_process));
+        }
 
     }
 
@@ -60,9 +68,7 @@ public class CreateHomeAdapter extends RecyclerView.Adapter<CreateHomeAdapter.Id
     public static class IdviewHolder extends RecyclerView.ViewHolder {
         public View container;
         public TextView title;
-        public TextView inProcess;
         public TextView publish;
-        public ImageButton delete;
         public ImageButton edit;
         public ImageView adventureImage;
 
@@ -70,9 +76,7 @@ public class CreateHomeAdapter extends RecyclerView.Adapter<CreateHomeAdapter.Id
             super(favoritesView);
             container = favoritesView;
             title = favoritesView.findViewById(R.id.tvAdventureName);
-            inProcess = favoritesView.findViewById(R.id.tvInProcess);
             publish = favoritesView.findViewById(R.id.tvPublish);
-            delete = favoritesView.findViewById(R.id.btDelete);
             edit = favoritesView.findViewById(R.id.btEdit);
             adventureImage = favoritesView.findViewById(R.id.ivAdventurePhoto);
         }
