@@ -58,7 +58,6 @@ public class RateActivity extends AppCompatActivity {
                         startActivity(new Intent(RateActivity.this, HomeActivity.class));
                     }
                 });
-
             }
         });
     }
