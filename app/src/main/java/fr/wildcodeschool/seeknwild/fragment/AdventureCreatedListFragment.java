@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.activity.UserSingleton;
-import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
 import fr.wildcodeschool.seeknwild.adapter.CreateHomeAdapter;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.User;
@@ -22,9 +21,9 @@ public class AdventureCreatedListFragment extends Fragment {
 
     private AdventureCreatedListFragment.AdventureEditListener listener;
     private Long userId;
+    private CreateHomeAdapter adapter;
 
     public AdventureCreatedListFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -36,7 +35,6 @@ public class AdventureCreatedListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
         userId = user.getIdUser();
@@ -54,15 +52,17 @@ public class AdventureCreatedListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvHomeCreate.setLayoutManager(layoutManager);
 
-        final CreateHomeAdapter adapter = new CreateHomeAdapter(
+        adapter = new CreateHomeAdapter(
                 UserSingleton.getInstance().getUser().getAdventures(),
                 getContext(), new Consumer<Adventure>() {
             @Override
             public void accept(Adventure adventure) {
                 listener.onAdventureEdited(adventure);
+                adapter.notifyDataSetChanged();
             }
         });
         rvHomeCreate.setAdapter(adapter);
+
 
         return view;
     }
@@ -70,6 +70,7 @@ public class AdventureCreatedListFragment extends Fragment {
     public interface AdventureEditListener {
 
         void onAdventureEdited(Adventure adventure);
+
         void onAdventureCreate();
     }
 }

@@ -27,7 +27,6 @@ public class AdventureDescriptionFragment extends Fragment {
     private Long idAdventure;
 
     public AdventureDescriptionFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -39,7 +38,6 @@ public class AdventureDescriptionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_start_aventure_description, container, false);
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();

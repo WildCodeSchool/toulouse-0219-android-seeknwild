@@ -1,16 +1,15 @@
 package fr.wildcodeschool.seeknwild.fragment;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Consumer;
@@ -18,10 +17,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -30,16 +30,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.maps.android.SphericalUtil;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 import fr.wildcodeschool.seeknwild.R;
+import fr.wildcodeschool.seeknwild.activity.UserAdventureSingleton;
+import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
-import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
@@ -58,21 +62,17 @@ public class SearchTreasureFragment extends Fragment {
     private SupportMapFragment mapFragment;
     private SearchTreasureFragment.SearchTreasureListener listener;
     private View view;
-    private Long idAdventure;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationClient;
-    private Double lat;
-    private Double lng;
-    private Uri mFileUri = null;
     private boolean mustMove = false;
     private Location mLocation;
     private Treasure treasure;
     private UserAdventure userAdventure;
     private Long idUser;
     private User user;
+    private Long idUserAdventure;
 
     public SearchTreasureFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -84,19 +84,23 @@ public class SearchTreasureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.activity_search_treasure, container, false);
 
-        idAdventure = this.getArguments().getLong("idAdventure");
-        final int sizeTreasure = this.getArguments().getInt("sizeTreasure");
+        UserSingleton userSingleton = UserSingleton.getInstance();
+        user = userSingleton.getUser();
+        idUser = user.getIdUser();
 
-        /*FloatingActionButton floatBtTakePicTreasure = view.findViewById(R.id.fbTakePicAdventure);
-        floatBtTakePicTreasure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // listener.onTakeTreasurePicture();
-            }
-        });*/
+        UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
+        userAdventure = userAdventureSingleton.getUserAdventure();
+        idUserAdventure = userAdventureSingleton.getUserAdventureId();
+        List<Treasure> treasures = userAdventure.getAdventure().getTreasures();
+        treasure = treasures.get(userAdventure.getCurrentTreasure());
+
+        TextView etDescriptionTreasure = view.findViewById(R.id.etDescriptionTreasure);
+        etDescriptionTreasure.setText(treasure.getDescription());
+
+        ImageView treasureImg = view.findViewById(R.id.ivTreasure);
+        Glide.with(this).load(treasure.getPictureTreasure()).into(treasureImg);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         if (mapFragment == null) {
@@ -107,26 +111,62 @@ public class SearchTreasureFragment extends Fragment {
                     mMap = googleMap;
                     mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
                             getContext(), R.raw.stylemap));
-                    mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                        @Override
-                        public void onMapClick(LatLng latLng) {
-                            // Création du marqueur
-                            MarkerOptions markerOptions = new MarkerOptions()
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
-                            markerOptions.position(latLng);
-                            // ajoute un titre au marqueur
-                            markerOptions.title(getString(R.string.le_tresor));
-                            // effacer le marqueur précédent
-                            mMap.clear();
-                            // Zommer sur le marqueur placé
-                            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                            // Ajoute le marqueur à la carte
-                            mMap.addMarker(markerOptions);
-                            // récupére la position GPS du marqueur
-                            lat = markerOptions.getPosition().latitude;
-                            lng = markerOptions.getPosition().longitude;
-                        }
-                    });
+                    LatLng latLongTreasure = new LatLng(treasure.getLatTreasure(), treasure.getLongTreasure());
+                    final MarkerOptions markerOptions = new MarkerOptions()
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
+                    markerOptions.position(latLongTreasure);
+
+                    Random r = new Random();
+                    int randomHeading = r.nextInt(RANDOM_HEADING);
+                    int randomDistance = r.nextInt(RANDOM_DISTANCE);
+                    LatLng positionAleatoire = SphericalUtil.computeOffset(latLongTreasure, randomDistance, randomHeading);
+                    mMap.addCircle(new CircleOptions()
+                            .center(positionAleatoire)
+                            .radius(RADIUS_RANDOM_CIRCLE)
+                            .strokeColor(Color.LTGRAY)
+                            .fillColor(Color.LTGRAY));
+
+                    final Button btFoundIt = view.findViewById(R.id.btFoundIt);
+                    if (userAdventure.getNbTreasure() >= 4) {
+                        btFoundIt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMap.clear();
+                                mMap.addMarker(markerOptions);
+                                VolleySingleton.getInstance(getContext()).updateUserAdventure(idUser, idUserAdventure, true,
+                                        new Consumer<UserAdventure>() {
+                                            @Override
+                                            public void accept(UserAdventure userAdventure) {
+                                                //TODO: listener vers recycle
+                                                UserSingleton.getInstance().setUser(user);
+                                                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                                                listener.onFinishAdventureGoRate();
+
+                                            }
+                                        });
+                            }
+                        });
+                    } else {
+                        btFoundIt.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                mMap.clear();
+                                mMap.addMarker(markerOptions);
+                                VolleySingleton.getInstance(getContext()).updateUserAdventure(idUser, idUserAdventure, true,
+                                        new Consumer<UserAdventure>() {
+                                            @Override
+                                            public void accept(UserAdventure userAdventure) {
+                                                //TODO: listener vers treasure
+                                                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                                                listener.onFindedTreasure(userAdventure);
+                                            }
+                                        });
+                            }
+                        });
+
+                    }
+
+
                     if (mustMove) {
                         moveCameraOnUser(mLocation);
                         mustMove = false;
@@ -135,69 +175,6 @@ public class SearchTreasureFragment extends Fragment {
             });
         }
         getChildFragmentManager().beginTransaction().replace(R.id.map, mapFragment).commit();
-
-        final EditText description = view.findViewById(R.id.etDescriptionTreasure);
-        final Button btCreateTresure = view.findViewById(R.id.btCreateTreasure);
-        btCreateTresure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                if (lat != null && lng != null && !description.getText().toString().isEmpty() && mFileUri != null) {
-
-                    Treasure treasure = new Treasure();
-                    treasure.setDescription(description.getText().toString());
-                    treasure.setLongTreasure(lng);
-                    treasure.setLatTreasure(lat);
-                    treasure.setPictureTreasure("");
-
-                    VolleySingleton.getInstance(getContext()).createTreasure(treasure, idAdventure, new Consumer<Treasure>() {
-                        @Override
-                        public void accept(final Treasure treasure) {
-                            try {
-                                final Long idTreasure = treasure.getIdTreasure();
-                                VolleySingleton.getInstance(getContext()).uploadTreasurePicture(mFileUri, "treasure-" + idTreasure + ".jpg", idTreasure, new Consumer<String>() {
-                                    @Override
-                                    public void accept(String filePath) {
-                                        if (filePath == null) {
-                                            //TODO Afficher un message d'erreur
-                                            //Toast.makeText(getContext(), getString(R.string.take_treasure_picture), Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            if (sizeTreasure >= 4) {
-                                                VolleySingleton.getInstance(getContext()).publishedAdventure(idAdventure, new Consumer<Adventure>() {
-                                                    @Override
-                                                    public void accept(Adventure adventure) {
-                                                        //TODO: envoyer le listener sur menu activity
-                                                       // listener.onPublishedAdventure(adventure);
-                                                    }
-                                                });
-                                            } else {
-                                                mMap.clear();
-                                                //TODO: envoyer le listener sur menu activity
-                                                //listener.onTreasureCreated(idAdventure, sizeTreasure + 1);
-                                            }
-                                        }
-                                    }
-                                });
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                        }
-                    });
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setTitle("");
-                    builder.setMessage(getString(R.string.errorEmptyTreasure));
-                    builder.setPositiveButton(R.string.ok, null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-            }
-        });
-
-        if (sizeTreasure >= 4) {
-            btCreateTresure.setText(R.string.publier);
-        }
-
         return view;
     }
 
@@ -208,7 +185,7 @@ public class SearchTreasureFragment extends Fragment {
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, // if the permission wasn't granted so ask for permission
                     MY_PERMISSIONS_REQUEST_FINE_LOCATION);
-        } else { // if it was granted so get the location
+        } else {
             getLocation();
         }
     }
@@ -219,6 +196,16 @@ public class SearchTreasureFragment extends Fragment {
             public void onLocationChanged(Location location) {
                 mLocation = location;
                 moveCameraOnUser(location);
+                mLocation.setLatitude(treasure.getLatTreasure());
+                mLocation.setLongitude(treasure.getLongTreasure());
+                double distance = location.distanceTo(mLocation);
+                if (distance < DISTANCE_USER_BETWEEN_TREASURE) {
+                    Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                    v.vibrate(TIME_VIBRATION);
+                    v.cancel();
+                    Button btFoundIt = view.findViewById(R.id.btFoundIt);
+                    btFoundIt.setVisibility(View.VISIBLE);
+                }
             }
 
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -263,8 +250,7 @@ public class SearchTreasureFragment extends Fragment {
                 mMap.setMyLocationEnabled(true);
             }
             mMap.moveCamera(yourLocation);
-        }
-        else {
+        } else {
             mustMove = true;
         }
     }
@@ -285,15 +271,12 @@ public class SearchTreasureFragment extends Fragment {
         }
     }
 
-    public void onPictureLoaded(Uri fileUri) {
-        mFileUri = fileUri;
-
-        ImageView ivRecupPic = view.findViewById(R.id.ivPic);
-        ivRecupPic.setImageURI(mFileUri);
-    }
-
     public interface SearchTreasureListener {
 
-        void onFindedTreasure();
+        void onFindedTreasure(UserAdventure userAdventure);
+
+        void onFinishAdventureGoRate();
+
+        void onFinishedAdventureCantRate();
     }
 }

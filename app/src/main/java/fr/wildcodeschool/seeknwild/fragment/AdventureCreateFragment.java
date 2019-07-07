@@ -2,7 +2,6 @@ package fr.wildcodeschool.seeknwild.fragment;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,13 +20,10 @@ import com.bumptech.glide.Glide;
 import java.io.IOException;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.TreasureAdventureMapsActivity;
 import fr.wildcodeschool.seeknwild.activity.UserSingleton;
 import fr.wildcodeschool.seeknwild.activity.VolleySingleton;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 import fr.wildcodeschool.seeknwild.model.User;
-
-import static android.view.View.GONE;
 
 public class AdventureCreateFragment extends Fragment {
 
@@ -38,7 +34,6 @@ public class AdventureCreateFragment extends Fragment {
     private AdventureCreateFragment.CreateAdventureListener listener;
 
     public AdventureCreateFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -50,7 +45,6 @@ public class AdventureCreateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.activity_create_adventure, container, false);
 
         idAdventure = this.getArguments().getLong("idAdventure");
@@ -159,18 +153,18 @@ public class AdventureCreateFragment extends Fragment {
         return view;
     }
 
-    public interface CreateAdventureListener {
-
-        void onTakeAdventurePicture();
-
-        void onCreateTreasure(Adventure adventure);
-    }
-
     public void onPictureLoaded(Uri fileUri) {
         mFileUri = fileUri;
 
         ImageView ivRecupPic = view.findViewById(R.id.ivPic);
         ivRecupPic.setImageURI(mFileUri);
+    }
+
+    public interface CreateAdventureListener {
+
+        void onTakeAdventurePicture();
+
+        void onCreateTreasure(Adventure adventure);
     }
 }
 

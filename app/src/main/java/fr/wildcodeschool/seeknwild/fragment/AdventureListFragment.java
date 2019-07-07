@@ -22,7 +22,6 @@ public class AdventureListFragment extends Fragment {
     private AdventureChooseListener listener;
 
     public AdventureListFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -34,7 +33,6 @@ public class AdventureListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_home, container, false);
 
         final RecyclerView rvHome = view.findViewById(R.id.rvAccueil);

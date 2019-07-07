@@ -30,23 +30,24 @@ import java.util.Date;
 import java.util.Random;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.fragment.AdventureListFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureCreateFragment;
-import fr.wildcodeschool.seeknwild.fragment.AdventureDescriptionFragment;
 import fr.wildcodeschool.seeknwild.fragment.AdventureCreatedListFragment;
+import fr.wildcodeschool.seeknwild.fragment.AdventureDescriptionFragment;
+import fr.wildcodeschool.seeknwild.fragment.AdventureListFragment;
+import fr.wildcodeschool.seeknwild.fragment.CannotRateFragment;
 import fr.wildcodeschool.seeknwild.fragment.GalleryFragment;
+import fr.wildcodeschool.seeknwild.fragment.RateFragment;
 import fr.wildcodeschool.seeknwild.fragment.SearchTreasureFragment;
 import fr.wildcodeschool.seeknwild.fragment.TreasureCreateFragment;
 import fr.wildcodeschool.seeknwild.model.Adventure;
-import fr.wildcodeschool.seeknwild.model.Treasure;
 import fr.wildcodeschool.seeknwild.model.User;
 import fr.wildcodeschool.seeknwild.model.UserAdventure;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         AdventureListFragment.AdventureChooseListener, AdventureCreatedListFragment.AdventureEditListener,
         AdventureDescriptionFragment.AdventureDescriptionListener, AdventureCreateFragment.CreateAdventureListener,
-        TreasureCreateFragment.TreasureCreateListener
-{
+        TreasureCreateFragment.TreasureCreateListener, SearchTreasureFragment.SearchTreasureListener,
+        RateFragment.RateFragmentListener, CannotRateFragment.CannotRateFragmentListener {
 
     private static final int REQUEST_ADVENTURE_PICTURE = 1234;
     private static final int REQUEST_TREASURE_PICTURE = 1235;
@@ -56,6 +57,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private TreasureCreateFragment mTreasureCreateFragment;
     private AdventureListFragment mAdventureListFragment;
     private SearchTreasureFragment mSearchTreasureFragment;
+    private RateFragment mRateFragment;
+    private CannotRateFragment mCannotRateFragment;
     private Fragment mActive;
     private FragmentManager mFragmentManager;
     private DrawerLayout drawer;
@@ -109,9 +112,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         mChooseAdventure = new AdventureListFragment();
         mEditAdventure = new AdventureCreatedListFragment();
         mActive = mChooseAdventure;
-
         mFragmentManager = getSupportFragmentManager();
-
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, mChooseAdventure);
         fragmentTransaction.addToBackStack(null);
@@ -305,5 +306,61 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.commencer_laventure);
+    }
+
+    @Override
+    public void onFindedTreasure(UserAdventure userAdventure) {
+        mSearchTreasureFragment = new SearchTreasureFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("userAdventure", userAdventure.getCurrentTreasure() + 1);
+        mSearchTreasureFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.treasurec);
+
+    }
+
+    @Override
+    public void onFinishAdventureGoRate() {
+        mRateFragment = new RateFragment();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mRateFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.treasurec);
+
+    }
+
+    @Override
+    public void onFinishedAdventureCantRate() {
+        mCannotRateFragment = new CannotRateFragment();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mCannotRateFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.treasurec);
+    }
+
+    @Override
+    public void onRatedAdventure() {
+        mAdventureListFragment = new AdventureListFragment();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mAdventureListFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.treasurec);
+
+    }
+
+    @Override
+    public void onNotRatedAdventure() {
+        mAdventureListFragment = new AdventureListFragment();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mAdventureListFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.treasurec);
     }
 }

@@ -61,7 +61,6 @@ public class TreasureCreateFragment extends Fragment {
     private Location mLocation;
 
     public TreasureCreateFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -73,7 +72,6 @@ public class TreasureCreateFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.activity_teasure_adventure_maps, container, false);
 
         idAdventure = this.getArguments().getLong("idAdventure");
@@ -251,8 +249,7 @@ public class TreasureCreateFragment extends Fragment {
                 mMap.setMyLocationEnabled(true);
             }
             mMap.moveCamera(yourLocation);
-        }
-        else {
+        } else {
             mustMove = true;
         }
     }
