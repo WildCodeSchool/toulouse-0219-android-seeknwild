@@ -47,7 +47,7 @@ public class VolleySingleton {
 
     public static final String ERROR_EMAIL = "ERROR_EMAIL";
     public static final String ERROR_PASSWORD = "ERROR_PASSWORD";
-    private final static String REQUEST_URL = "http://192.168.8.116:8080/";
+    private final static String REQUEST_URL = "http://51.68.18.120:8080/seeknwild/";
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;
@@ -349,12 +349,12 @@ public class VolleySingleton {
     public void publishedAdventure(Long idAdventure, final ResponseListener<Adventure> listener) {
         String url = REQUEST_URL + "adventure/" + idAdventure + "/published";
 
-        final JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.PUT, url, null,
-                new Response.Listener<JSONArray>() {
+                new Response.Listener<JSONObject>() {
 
                     @Override
-                    public void onResponse(JSONArray response) {
+                    public void onResponse(JSONObject response) {
                         Log.d("VOLLEY_SUCCESS", response.toString());
                         GsonBuilder gsonBuilder = new GsonBuilder();
                         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
