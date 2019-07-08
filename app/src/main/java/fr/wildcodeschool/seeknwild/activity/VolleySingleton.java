@@ -203,7 +203,6 @@ public class VolleySingleton {
         };
         requestQueue.add(jsonObjectRequest);
     }
-    //TODO: Create updateUser
 
     public void getAdventures(final Consumer<List<Adventure>> listener) {
         String url = REQUEST_URL + "adventure";
@@ -454,7 +453,6 @@ public class VolleySingleton {
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                        //  TODO : photo uploaded
                         String filePath = null;
                         try {
                             filePath = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
@@ -506,7 +504,6 @@ public class VolleySingleton {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                // TODO : add your params if necessary
                 params.put("replace", "this");
                 return params;
             }
@@ -535,7 +532,6 @@ public class VolleySingleton {
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                        //  TODO : photo uploaded
                         String filePath = null;
 
                         try {
@@ -588,7 +584,6 @@ public class VolleySingleton {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                // TODO : add your params if necessary
                 params.put("replace", "this");
                 return params;
             }

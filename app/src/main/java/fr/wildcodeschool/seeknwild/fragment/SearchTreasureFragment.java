@@ -137,7 +137,6 @@ public class SearchTreasureFragment extends Fragment {
                                         new Consumer<UserAdventure>() {
                                             @Override
                                             public void accept(UserAdventure userAdventure) {
-                                                //TODO: listener vers recycle
                                                 UserSingleton.getInstance().setUser(user);
                                                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
                                                 listener.onFinishAdventureGoRate();
@@ -156,7 +155,6 @@ public class SearchTreasureFragment extends Fragment {
                                         new Consumer<UserAdventure>() {
                                             @Override
                                             public void accept(UserAdventure userAdventure) {
-                                                //TODO: listener vers treasure
                                                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
                                                 listener.onFindedTreasure(userAdventure);
                                             }

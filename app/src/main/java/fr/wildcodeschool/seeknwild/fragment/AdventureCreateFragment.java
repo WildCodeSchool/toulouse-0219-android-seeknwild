@@ -108,16 +108,13 @@ public class AdventureCreateFragment extends Fragment {
                             public void accept(final Adventure adventure) {
                                 idAdventure = adventure.getIdAdventure();
                                 try {
-                                    //TODO Afficher une fenêtre de chargement
                                     ProgressBar pgPicture = view.findViewById(R.id.pgPicture);
                                     pgPicture.setVisibility(View.VISIBLE);
                                     VolleySingleton.getInstance(getContext()).uploadAdventurePicture(idAdventure, mFileUri, "adventure-" + idUser + "-" + idAdventure + ".jpg",
                                             new Consumer<String>() {
                                                 @Override
                                                 public void accept(String filePath) {
-                                                    //TODO Fermer la fenêtre de chargement
                                                     if (filePath == null) {
-                                                        //TODO Afficher un message d'erreur
                                                     } else {
                                                         listener.onCreateTreasure(adventure);
                                                     }
