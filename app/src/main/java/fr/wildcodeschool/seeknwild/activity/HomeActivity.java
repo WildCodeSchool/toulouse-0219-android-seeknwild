@@ -34,7 +34,12 @@ public class HomeActivity extends AppCompatActivity {
         VolleySingleton.getInstance(getApplicationContext()).getAdventures(new Consumer<List<Adventure>>() {
             @Override
             public void accept(List<Adventure> adventures) {
-                final HomeAdapter adapter = new HomeAdapter(adventures, HomeActivity.this);
+                final HomeAdapter adapter = new HomeAdapter(adventures, HomeActivity.this, new Consumer<Adventure>() {
+                    @Override
+                    public void accept(Adventure adventure) {
+
+                    }
+                });
                 rvHome.setAdapter(adapter);
             }
         });

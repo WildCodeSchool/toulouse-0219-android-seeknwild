@@ -41,6 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/etPwSign" />
 
     <EditText
+        android:text="tacostacos"
         android:id="@+id/etPwSign"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -56,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvPwSign" />
 
     <EditText
+        android:text="bastien1@wildcodeschool.fr"
         android:id="@+id/etMailSign"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

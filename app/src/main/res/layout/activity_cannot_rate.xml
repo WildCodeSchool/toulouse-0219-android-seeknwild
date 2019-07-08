@@ -10,11 +10,7 @@
         android:id="@+id/vtCongrat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="240dp"
         android:fontFamily="bold"
         android:text="@string/bravo_tu_as_termin"
         android:textSize="23dp"
@@ -27,16 +23,12 @@
         android:id="@+id/tvTreasureFInd"
         android:layout_width="185dp"
         android:layout_height="21dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="256dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="findtreasure"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vtCongrat" />
+        app:layout_constraintTop_toBottomOf="@+id/vtCongrat"
+        tools:text="findTreasure" />
 
     <TextView
         android:id="@+id/tvNote"
@@ -56,39 +48,24 @@
         android:id="@+id/tvConsulteOuContinue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:gravity="start|top"
+        android:gravity="center|start|top"
         android:inputType="textMultiLine"
         android:text="@string/tu_peux_consulter_ta_galerie_photos_ou_d_marrer_une_nouvelle_aventure"
-        app:layout_constraintBottom_toTopOf="@+id/btGalery"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btGalery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/oval"
-        android:text="@string/galerie"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="616dp" />
 
     <Button
         android:id="@+id/btContinue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/oval"
         android:text="@string/continuer"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

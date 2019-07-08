@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long userId = user.getIdUser();
+        //final Long userId = user.getIdUser();
 
         Button btAddStudent = findViewById(R.id.accueil);
         btAddStudent.setOnClickListener(new View.OnClickListener() {

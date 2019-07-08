@@ -60,7 +60,7 @@ public class TakePictureActivity extends AppCompatActivity {
 
         Button btNext = findViewById(R.id.btNext);
 
-        if (userAdventure.getNbTreasure() == 4) {
+        if (userAdventure.getNbTreasure() >= 4) {
             btNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

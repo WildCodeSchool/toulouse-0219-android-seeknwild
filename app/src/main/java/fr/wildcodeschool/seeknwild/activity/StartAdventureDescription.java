@@ -19,7 +19,6 @@ import fr.wildcodeschool.seeknwild.model.UserAdventure;
 public class StartAdventureDescription extends AppCompatActivity {
 
     private Long idAdventure;
-    private Adventure adventure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +31,18 @@ public class StartAdventureDescription extends AppCompatActivity {
 
         final Intent intent = getIntent();
         idAdventure = intent.getLongExtra("idAdventure", 0);
-        adventure.setIdAdventure(idAdventure);
 
         final TextView title = findViewById(R.id.tvTitleAdv);
         final TextView description = findViewById(R.id.tvDescriptionAdv);
-        ImageView imageAdv = findViewById(R.id.ivAdventure);
-        Glide.with(this).load(adventure.getAdventurePicture()).into(imageAdv);
+        final ImageView imageAdv = findViewById(R.id.ivAdventure);
+
 
         VolleySingleton.getInstance(getApplicationContext()).getAdventureById(idAdventure, new Consumer<Adventure>() {
             @Override
             public void accept(Adventure adventure) {
                 title.setText(adventure.getTitle());
                 description.setText(adventure.getDescription());
+                Glide.with(StartAdventureDescription.this).load(adventure.getAdventurePicture()).into(imageAdv);
             }
         });
 
