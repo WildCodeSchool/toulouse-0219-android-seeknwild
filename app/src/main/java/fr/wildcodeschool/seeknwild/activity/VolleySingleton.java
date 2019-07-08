@@ -301,7 +301,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void updateAdventure(final Long idAdventure, Adventure adventure, final ResponseListener<Adventure> listener) {
+    public void updateAdventure(final Long idAdventure, Adventure adventure, final Consumer<Adventure> listener) {
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson gson = gsonBuilder.create();
@@ -320,7 +320,7 @@ public class VolleySingleton {
                         Gson gson = gsonBuilder.create();
                         Adventure adventure = (gson.fromJson(response.toString(), Adventure.class));
 
-                        listener.finished(adventure);
+                        listener.accept(adventure);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -346,7 +346,7 @@ public class VolleySingleton {
         requestQueue.add(jsonObjectRequest);
     }
 
-    public void publishedAdventure(Long idAdventure, final ResponseListener<Adventure> listener) {
+    public void publishedAdventure(Long idAdventure, final Consumer<Adventure> listener) {
         String url = REQUEST_URL + "adventure/" + idAdventure + "/published";
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
@@ -360,7 +360,7 @@ public class VolleySingleton {
                         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
                         Gson gson = gsonBuilder.create();
                         Adventure adventure = (gson.fromJson(response.toString(), Adventure.class));
-                        listener.finished(adventure);
+                        listener.accept(adventure);
                     }
                 },
                 new Response.ErrorListener() {
@@ -440,10 +440,6 @@ public class VolleySingleton {
                 }
         );
         requestQueue.add(jsonObjectRequest);
-    }
-
-    interface ResponseListener<T> {
-        void finished(T response);
     }
 
     public void uploadAdventurePicture(Long idAdventure, Uri pictureURI, final String filename, final Consumer<String> listener) throws IOException {

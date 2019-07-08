@@ -27,10 +27,7 @@ public class SignInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        Intent intent = getIntent();
-        String emailUser = intent.getStringExtra("email");
-        final EditText etMail = findViewById(R.id.etMailSign);
-        etMail.setText(emailUser);
+
         TextView tvCreateAccount = findViewById(R.id.tvHaveAccount);
         tvCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +88,7 @@ public class SignInActivity extends AppCompatActivity {
                     builder.setPositiveButton(getString(R.string.ok), null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                }
+               }
             }
         });
     }

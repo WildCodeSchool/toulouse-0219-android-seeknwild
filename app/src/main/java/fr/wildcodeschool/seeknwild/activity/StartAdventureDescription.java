@@ -6,7 +6,10 @@ import android.support.v4.util.Consumer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import fr.wildcodeschool.seeknwild.R;
 import fr.wildcodeschool.seeknwild.model.Adventure;
@@ -22,9 +25,6 @@ public class StartAdventureDescription extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_aventure_description);
 
-        //TODO: Photo de l'aventure associé.
-
-
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
         final Long userId = user.getIdUser();
@@ -34,13 +34,15 @@ public class StartAdventureDescription extends AppCompatActivity {
 
         final TextView title = findViewById(R.id.tvTitleAdv);
         final TextView description = findViewById(R.id.tvDescriptionAdv);
-        //ImageView imageAdv = findViewById(R.id.tvTitleAdv);
+        final ImageView imageAdv = findViewById(R.id.ivAdventure);
+
 
         VolleySingleton.getInstance(getApplicationContext()).getAdventureById(idAdventure, new Consumer<Adventure>() {
             @Override
             public void accept(Adventure adventure) {
                 title.setText(adventure.getTitle());
                 description.setText(adventure.getDescription());
+                Glide.with(StartAdventureDescription.this).load(adventure.getAdventurePicture()).into(imageAdv);
             }
         });
 

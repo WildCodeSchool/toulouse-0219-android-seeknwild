@@ -103,9 +103,9 @@ public class CreateAdventureActivity extends AppCompatActivity {
 
 
                     } else {
-                        VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, newAdventure, new VolleySingleton.ResponseListener<Adventure>() {
+                        VolleySingleton.getInstance(getApplicationContext()).updateAdventure(idAdventure, newAdventure, new Consumer<Adventure>() {
                             @Override
-                            public void finished(Adventure response) {
+                            public void accept(Adventure response) {
                                 etNameAdventure.setText(etNameAdventure.getText().toString());
                                 etDescriptionAdventure.setText(etDescriptionAdventure.getText().toString());
                                 newAdventure.setTitle(etNameAdventure.getText().toString());
