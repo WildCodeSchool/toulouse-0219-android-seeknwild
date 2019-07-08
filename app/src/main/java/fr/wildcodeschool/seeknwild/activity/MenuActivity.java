@@ -74,8 +74,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long idUser = user.getIdUser();
-
+        final String pseudo = user.getPseudo();
         Button btSignOut = findViewById(R.id.btn_sing_out);
         btSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +102,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 super.onDrawerStateChanged(newState);
                 if (newState == DrawerLayout.STATE_SETTLING) {
                     sayHello(header);
+                    TextView name = findViewById(R.id.tvName);
+                    name.setText(pseudo);
                 }
             }
         };
@@ -118,7 +119,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
-
     }
 
     public void sayHello(View header) {
@@ -178,7 +178,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, adventureDescription);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.choisiUneAventure);
+        getSupportActionBar().setTitle(adventure.getTitle());
     }
 
     @Override
@@ -269,7 +269,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mTreasureCreateFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.creeUneAventure);
+        getSupportActionBar().setTitle(R.string.creaTresasure);
 
     }
 
@@ -295,7 +295,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mTreasureCreateFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.creeUneAventure);
+        getSupportActionBar().setTitle(R.string.creaTresasure);
     }
 
     @Override

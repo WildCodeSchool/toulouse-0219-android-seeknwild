@@ -122,4 +122,5 @@
     <string name="adv_published">Publiée</string>
     <string name="in_process">En cours</string>
     <string name="treasurec">Trésor</string>
+    <string name="creaTresasure">Créer un trésor</string>
 </resources>
