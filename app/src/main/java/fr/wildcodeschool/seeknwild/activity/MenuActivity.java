@@ -70,12 +70,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        mAuth = FirebaseAuth.getInstance();
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
-        final Long idUser = user.getIdUser();
-
+        final String pseudo = user.getPseudo();
         Button btSignOut = findViewById(R.id.btn_sing_out);
         btSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +101,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 super.onDrawerStateChanged(newState);
                 if (newState == DrawerLayout.STATE_SETTLING) {
                     sayHello(header);
+                    TextView name = findViewById(R.id.tvName);
+                    name.setText(pseudo);
                 }
             }
         };
@@ -118,7 +118,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
-
     }
 
     public void sayHello(View header) {
@@ -178,7 +177,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, adventureDescription);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.choisiUneAventure);
+        getSupportActionBar().setTitle(adventure.getTitle());
     }
 
     @Override
@@ -215,11 +214,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void dispatchTakePictureIntent(int request) {
-        // ouvrir l'application de prise de photo
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // lors de la validation de la photo
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // créer le fichier contenant la photo
             File photoFile = null;
             try {
                 photoFile = createImageFile();
@@ -227,11 +223,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 // TODO : gérer l'erreur
             }
             if (photoFile != null) {
-                // récupèrer le chemin de la photo
                 mFileUri = FileProvider.getUriForFile(this,
                         "fr.wildcodeschool.seeknwild.fileprovider",
                         photoFile);
-                // déclenche l'appel de onActivityResult
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
                 startActivityForResult(takePictureIntent, request);
             }
@@ -269,7 +263,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mTreasureCreateFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.creeUneAventure);
+        getSupportActionBar().setTitle(R.string.creaTresasure);
 
     }
 
@@ -295,7 +289,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mTreasureCreateFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.creeUneAventure);
+        getSupportActionBar().setTitle(R.string.creaTresasure);
     }
 
     @Override

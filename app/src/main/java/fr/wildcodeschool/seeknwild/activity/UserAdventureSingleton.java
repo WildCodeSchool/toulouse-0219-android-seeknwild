@@ -21,12 +21,12 @@ public class UserAdventureSingleton {
         return userAdventure;
     }
 
-    public Long getUserAdventureId() {
-        return userAdventure.getIdUserAdventure();
-    }
-
     public void setUserAdventure(UserAdventure userAdventure) {
         this.userAdventure = userAdventure;
+    }
+
+    public Long getUserAdventureId() {
+        return userAdventure.getIdUserAdventure();
     }
 
 }

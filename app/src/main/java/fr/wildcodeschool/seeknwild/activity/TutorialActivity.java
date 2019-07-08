@@ -28,7 +28,6 @@ public class TutorialActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_tutorial);
 
         viewPager = findViewById(R.id.view_pager);
@@ -73,9 +72,8 @@ public class TutorialActivity extends AppCompatActivity {
         btnFollowing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int currentPage = viewPager.getCurrentItem()+1;
-                if(currentPage < layouts.length) {
-                    //move to next page
+                int currentPage = viewPager.getCurrentItem() + 1;
+                if (currentPage < layouts.length) {
                     viewPager.setCurrentItem(currentPage);
                 } else {
                     startHomeActivity();
@@ -84,7 +82,6 @@ public class TutorialActivity extends AppCompatActivity {
         });
 
     }
-
 
     private void setDotStatus(int page) {
         layoutDot.removeAllViews();
@@ -106,5 +103,4 @@ public class TutorialActivity extends AppCompatActivity {
         startActivity(new Intent(TutorialActivity.this, SignInActivity.class));
         finish();
     }
-
 }

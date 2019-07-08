@@ -24,37 +24,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.CannotRateActivity"></activity>
-        <activity android:name=".activity.StartAdventureDescription" />
-        <activity android:name=".activity.CreateAdventureHomeActivity" />
-        <activity android:name=".activity.CreateAdventureActivity" />
         <activity android:name=".activity.CreateAccountActivity"/>
-        <activity android:name=".activity.RateActivity"></activity>
         <activity android:name=".activity.SignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".activity.TakePictureActivity" />
-        <activity android:name=".activity.SearchTreasureActivity" />
-        <activity android:name=".activity.TutorialActivity" />
+        <activity android:name=".activity.TutorialActivity">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.TreasureAdventureMapsActivity"
-            android:label="@string/title_activity_treasure_adventure_maps" />
-        <activity
             android:name=".activity.MenuActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.MainActivity" >
 
-        </activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="fr.wildcodeschool.seeknwild.fileprovider"

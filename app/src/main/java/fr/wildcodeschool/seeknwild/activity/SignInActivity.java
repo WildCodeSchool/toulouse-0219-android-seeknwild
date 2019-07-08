@@ -76,7 +76,12 @@ public class SignInActivity extends AppCompatActivity {
                                 dialog.show();
 
                             } else if (authentication.getUser() == null) {
-                                //TODO afficher une erreur
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SignInActivity.this);
+                                builder.setTitle(getString(R.string.warning));
+                                builder.setMessage(getString(R.string.veuillezRenseigner));
+                                builder.setPositiveButton(getString(R.string.ok), null);
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
 
                             } else {
                                 UserSingleton.getInstance().setUser(authentication.getUser());
