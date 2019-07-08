@@ -2,14 +2,26 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias KEY_ALIAS
+            keyPassword KEY_PASSWORD
+            storeFile file('keystore.jks')
+            storePassword KEYSTORE_PASSWORD
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "fr.wildcodeschool.seeknwild"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.config
     }
     configurations.all {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'

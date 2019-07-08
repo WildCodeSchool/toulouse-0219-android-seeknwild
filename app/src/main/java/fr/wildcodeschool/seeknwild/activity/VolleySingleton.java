@@ -47,7 +47,7 @@ public class VolleySingleton {
 
     public static final String ERROR_EMAIL = "ERROR_EMAIL";
     public static final String ERROR_PASSWORD = "ERROR_PASSWORD";
-    private final static String REQUEST_URL = "http://192.168.1.74:8080/";
+    private final static String REQUEST_URL = "http://51.68.18.120:8080/seeknwild/";
     private static VolleySingleton instance;
     private static Context ctx;
     private RequestQueue requestQueue;

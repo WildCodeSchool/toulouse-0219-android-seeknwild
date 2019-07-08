@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
@@ -41,8 +42,14 @@ public class AdventureListFragment extends Fragment {
 
         VolleySingleton.getInstance(getContext()).getAdventures(new Consumer<List<Adventure>>() {
             @Override
-            public void accept(List<Adventure> adventures) {
-                final HomeAdapter adapter = new HomeAdapter(adventures, getContext(), new Consumer<Adventure>() {
+            public void accept(List<Adventure> allAdventures) {
+                List<Adventure> adventuresPublished = new ArrayList<>();
+                for (Adventure adventure : allAdventures) {
+                    if (adventure.isPublished()) {
+                        adventuresPublished.add(adventure);
+                    }
+                }
+                final HomeAdapter adapter = new HomeAdapter(adventuresPublished, getContext(), new Consumer<Adventure>() {
                     @Override
                     public void accept(Adventure adventure) {
                         listener.onAdventureChoosed(adventure);

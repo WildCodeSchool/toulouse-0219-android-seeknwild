@@ -52,6 +52,7 @@ public class AdventureCreatedListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvHomeCreate.setLayoutManager(layoutManager);
 
+        // TODO : ne pas charger du singleton mais de Volley, sinon les aventures en cours de création n'apparaissent pas
         adapter = new CreateHomeAdapter(
                 UserSingleton.getInstance().getUser().getAdventures(),
                 getContext(), new Consumer<Adventure>() {

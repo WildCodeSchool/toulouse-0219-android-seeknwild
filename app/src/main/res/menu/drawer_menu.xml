@@ -11,6 +11,7 @@
         android:title="@string/edite_tes_aventures" />
     <item
         android:id="@+id/voir_ta_galerie"
+        android:visible="false"
         android:title="@string/voir_ta_galerie" />
 
 

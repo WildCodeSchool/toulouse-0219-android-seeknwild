@@ -324,13 +324,20 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onFinishAdventureGoRate() {
-        mRateFragment = new RateFragment();
+        // TODO : finaliser la notation
+        /*mRateFragment = new RateFragment();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, mRateFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.treasurec);
+        getSupportActionBar().setTitle(R.string.treasurec);*/
 
+        mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mChooseAdventure);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.choisiUneAventure);
     }
 
     @Override

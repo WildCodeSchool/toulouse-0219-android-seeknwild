@@ -36,7 +36,7 @@
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvAdventureName"
-            tools:visibility="gone" />
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/ivAdventurePhoto"
@@ -60,7 +60,9 @@
             android:numStars="5"
             android:stepSize="0.1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto" />
+            app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/tvAlreadyDone"
@@ -72,6 +74,7 @@
             android:textColor="@color/tempDone"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
             tools:text="@string/done" />
 
         <LinearLayout

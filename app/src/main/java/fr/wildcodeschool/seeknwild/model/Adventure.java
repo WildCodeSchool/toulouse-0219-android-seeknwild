@@ -1,5 +1,6 @@
 package fr.wildcodeschool.seeknwild.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Adventure {
@@ -18,7 +19,7 @@ public class Adventure {
 
     private User user;
 
-    private List<Treasure> treasures;
+    private List<Treasure> treasures = new ArrayList<>();
 
     private boolean published;
 
