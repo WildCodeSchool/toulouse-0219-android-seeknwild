@@ -53,8 +53,7 @@ public class CreateHomeAdapter extends RecyclerView.Adapter<CreateHomeAdapter.Id
             idviewHolder.edit.setEnabled(false);
             idviewHolder.edit.setVisibility(View.INVISIBLE);
             idviewHolder.publish.setText(context.getString(R.string.adv_published));
-        }
-        else {
+        } else {
             idviewHolder.publish.setText(context.getString(R.string.in_process));
         }
 

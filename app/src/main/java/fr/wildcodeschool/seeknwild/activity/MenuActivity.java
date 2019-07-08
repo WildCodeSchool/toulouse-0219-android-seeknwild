@@ -70,7 +70,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
-        mAuth = FirebaseAuth.getInstance();
 
         UserSingleton userSingleton = UserSingleton.getInstance();
         User user = userSingleton.getUser();
@@ -215,11 +214,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void dispatchTakePictureIntent(int request) {
-        // ouvrir l'application de prise de photo
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // lors de la validation de la photo
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // créer le fichier contenant la photo
             File photoFile = null;
             try {
                 photoFile = createImageFile();
@@ -227,11 +223,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 // TODO : gérer l'erreur
             }
             if (photoFile != null) {
-                // récupèrer le chemin de la photo
                 mFileUri = FileProvider.getUriForFile(this,
                         "fr.wildcodeschool.seeknwild.fileprovider",
                         photoFile);
-                // déclenche l'appel de onActivityResult
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mFileUri);
                 startActivityForResult(takePictureIntent, request);
             }

@@ -1,7 +1,6 @@
 package fr.wildcodeschool.seeknwild.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Consumer;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,6 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import fr.wildcodeschool.seeknwild.R;
-import fr.wildcodeschool.seeknwild.activity.StartAdventureDescription;
 import fr.wildcodeschool.seeknwild.model.Adventure;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.IdviewHolder> {

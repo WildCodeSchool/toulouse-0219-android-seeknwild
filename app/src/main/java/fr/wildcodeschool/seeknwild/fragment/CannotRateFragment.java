@@ -42,7 +42,6 @@ public class CannotRateFragment extends Fragment {
         UserSingleton userSingleton = UserSingleton.getInstance();
         user = userSingleton.getUser();
 
-
         UserAdventureSingleton userAdventureSingleton = UserAdventureSingleton.getInstance();
         userAdventure = userAdventureSingleton.getUserAdventure();
         List<Treasure> treasures = userAdventure.getAdventure().getTreasures();

@@ -72,7 +72,12 @@ public class CreateAccountActivity extends AppCompatActivity {
                                             @Override
                                             public void accept(User user) {
                                                 if (user == null) {
-                                                    //TODO afficher un message d'erreur
+                                                    AlertDialog.Builder builder = new AlertDialog.Builder(CreateAccountActivity.this);
+                                                    builder.setTitle(getString(R.string.mot_de_passe));
+                                                    builder.setMessage(getString(R.string.votre_mot_de_passe));
+                                                    builder.setPositiveButton(getString(R.string.ok), null);
+                                                    AlertDialog dialog = builder.create();
+                                                    dialog.show();
                                                 } else {
                                                     UserSingleton.getInstance().setUser(user);
                                                     startActivity(new Intent(CreateAccountActivity.this, MenuActivity.class));
@@ -131,4 +136,3 @@ public class CreateAccountActivity extends AppCompatActivity {
         });
     }
 }
-

@@ -62,7 +62,6 @@
     <string name="Sign_In">ME CONNECTER</string>
     <string name="sign">Connecte- toi</string>
     <string name="failure">échec de conexion</string>
-    <string name="warning">Attention</string>
     <string name="needMoreChar">Merci de renseigner un mot de passe de 8 lettres ou plus</string>
     <string name="unformalMail">onComplete: malformed_email</string>
     <string name="reWrittingMail">L’adresse email n’est pas correctement formatée.</string>
@@ -123,4 +122,5 @@
     <string name="in_process">En cours</string>
     <string name="treasurec">Trésor</string>
     <string name="creaTresasure">Créer un trésor</string>
+    <string name="warning">Attention</string>
 </resources>

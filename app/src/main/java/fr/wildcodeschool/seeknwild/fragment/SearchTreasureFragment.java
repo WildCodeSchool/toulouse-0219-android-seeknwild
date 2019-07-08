@@ -271,6 +271,7 @@ public class SearchTreasureFragment extends Fragment {
         }
     }
 
+
     public interface SearchTreasureListener {
 
         void onFindedTreasure(UserAdventure userAdventure);
