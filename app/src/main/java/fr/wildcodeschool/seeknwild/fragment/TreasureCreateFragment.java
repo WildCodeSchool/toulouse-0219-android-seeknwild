@@ -98,8 +98,7 @@ public class TreasureCreateFragment extends Fragment {
                         @Override
                         public void onMapClick(LatLng latLng) {
                             // Création du marqueur
-                            MarkerOptions markerOptions = new MarkerOptions()
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
+                            MarkerOptions markerOptions = new MarkerOptions();
                             markerOptions.position(latLng);
                             // ajoute un titre au marqueur
                             markerOptions.title(getString(R.string.le_tresor));
