@@ -1,6 +1,7 @@
 package fr.wildcodeschool.seeknwild.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -13,9 +14,9 @@ public class User {
 
     private String email;
 
-    private List<Adventure> adventures;
+    private List<Adventure> adventures = new ArrayList<>();
 
-    private List<Picture> pictures;
+    private List<Picture> pictures = new ArrayList<>();
 
     private UserAdventure userAdventure;
 
