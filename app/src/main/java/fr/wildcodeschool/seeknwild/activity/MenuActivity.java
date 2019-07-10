@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
+import android.support.v4.util.Consumer;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -65,6 +67,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private TextView tv;
     private FirebaseAuth mAuth;
     private Uri mFileUri = null;
+    private Button btnPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +86,15 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(goToSignIn);
             }
         });
+        
+        btnPass = findViewById(R.id.btnPass);
+        /*btPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goTreasure = new Intent(MenuActivity.this, SearchTreasureFragment.class);
+                startActivity(goTreasure);
+            }
+        });*/
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -130,6 +142,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        btnPass.setVisibility(View.GONE);
         FragmentTransaction fragmentTransaction;
         switch (menuItem.getItemId()) {
             case R.id.choisi_une_aventures:
@@ -178,6 +191,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(adventure.getTitle());
+        btnPass.setVisibility(View.GONE);
     }
 
     @Override
@@ -191,6 +205,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creeUneAventure);
+        btnPass.setVisibility(View.GONE);
     }
 
     @Override
@@ -204,6 +219,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creeUneAventure);
+        btnPass.setVisibility(View.GONE);
     }
 
     private File createImageFile() throws IOException {
@@ -264,6 +280,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creaTresasure);
+        btnPass.setVisibility(View.GONE);
 
     }
 
@@ -275,6 +292,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creeUneAventure);
+        btnPass.setVisibility(View.GONE);
     }
 
 
@@ -290,29 +308,82 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creaTresasure);
+        btnPass.setVisibility(View.GONE);
     }
 
     @Override
-    public void onAdventureDescriptionChosen(UserAdventure userAdventure) {
+    public void onAdventureDescriptionChosen(final UserAdventure userAdventure) {
         mSearchTreasureFragment = new SearchTreasureFragment();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.commencer_laventure);
+        btnPass.setVisibility(View.VISIBLE);
+        btnPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VolleySingleton.getInstance(getApplicationContext()).updateUserAdventure(
+                        userAdventure.getUser().getIdUser(), userAdventure.getIdUserAdventure(), false,
+                        new Consumer<UserAdventure>() {
+                            @Override
+                            public void accept(UserAdventure userAdventure) {
+                                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                                if (userAdventure.getCurrentTreasure() >= 54) {
+                                    onFinishAdventureGoRate();
+                                } else {
+                                    onSkippedTreasure(userAdventure);
+                                }
+                            }
+                        });
+            }
+        });
     }
 
     @Override
-    public void onFindedTreasure(UserAdventure userAdventure) {
+    public void onFindedTreasure(final UserAdventure userAdventure) {
         mSearchTreasureFragment = new SearchTreasureFragment();
         Bundle bundle = new Bundle();
-        bundle.putLong("userAdventure", userAdventure.getCurrentTreasure() + 1);
+        bundle.putLong("userAdventure", userAdventure.getCurrentTreasure());
         mSearchTreasureFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
+        btnPass.setVisibility(View.VISIBLE);
+        btnPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VolleySingleton.getInstance(getApplicationContext()).updateUserAdventure(
+                        userAdventure.getUser().getIdUser(), userAdventure.getIdUserAdventure(), false,
+                        new Consumer<UserAdventure>() {
+                            @Override
+                            public void accept(UserAdventure userAdventure) {
+                                UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                                if (userAdventure.getCurrentTreasure() >= 4) {
+                                    onFinishAdventureGoRate();
+                                } else {
+                                    onSkippedTreasure(userAdventure);
+                                }
+                            }
+                        });
+            }
+        });
+
+    }
+
+    public void onSkippedTreasure(UserAdventure userAdventure) {
+        mSearchTreasureFragment = new SearchTreasureFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("userAdventure", userAdventure.getCurrentTreasure());
+        mSearchTreasureFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        getSupportActionBar().setTitle(R.string.treasurec);
+        btnPass.setVisibility(View.VISIBLE);
 
     }
 
@@ -332,6 +403,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
+        btnPass.setVisibility(View.GONE);
     }
 
     @Override
@@ -342,6 +414,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
+        btnPass.setVisibility(View.GONE);
     }
 
     @Override
@@ -352,6 +425,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
+        btnPass.setVisibility(View.GONE);
 
     }
 
@@ -363,5 +437,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
+        btnPass.setVisibility(View.GONE);
     }
 }
