@@ -88,13 +88,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         });
         
         btnPass = findViewById(R.id.btnPass);
-        /*btPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goTreasure = new Intent(MenuActivity.this, SearchTreasureFragment.class);
-                startActivity(goTreasure);
-            }
-        });*/
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
