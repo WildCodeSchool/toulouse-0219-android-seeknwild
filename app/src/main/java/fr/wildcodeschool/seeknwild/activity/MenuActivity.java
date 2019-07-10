@@ -274,7 +274,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creaTresasure);
         btnPass.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -377,7 +376,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
         btnPass.setVisibility(View.VISIBLE);
-
     }
 
     @Override
@@ -421,7 +419,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         btnPass.setVisibility(View.GONE);
 
     }
-
     @Override
     public void onNotRatedAdventure() {
         mAdventureListFragment = new AdventureListFragment();
