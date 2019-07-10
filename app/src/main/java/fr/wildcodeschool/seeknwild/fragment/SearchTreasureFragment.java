@@ -54,9 +54,9 @@ public class SearchTreasureFragment extends Fragment {
     private static final int MIN_DISTANCE = 10;
     private static final int DEFAULT_ZOOM = 17;
     private static final int RANDOM_HEADING = 360;
-    private static final int RANDOM_DISTANCE = 250;
+    private static final int RANDOM_DISTANCE = 20;
     private static final int RADIUS_RANDOM_CIRCLE = 250;
-    private static final int DISTANCE_USER_BETWEEN_TREASURE = 500;
+    private static final int DISTANCE_USER_BETWEEN_TREASURE = 5;
     private static final int TIME_VIBRATION = 1500;
 
     private SupportMapFragment mapFragment;
@@ -123,8 +123,8 @@ public class SearchTreasureFragment extends Fragment {
                     mMap.addCircle(new CircleOptions()
                             .center(positionAleatoire)
                             .radius(RADIUS_RANDOM_CIRCLE)
-                            .strokeColor(Color.LTGRAY)
-                            .fillColor(Color.LTGRAY));
+                            .strokeColor(getContext().getResources().getColor(R.color.colorPrimaryMaquette))
+                            .fillColor(getContext().getResources().getColor(R.color.colorCircleTreasure)));
 
                     final Button btFoundIt = view.findViewById(R.id.btFoundIt);
                     if (userAdventure.getNbTreasure() >= 4) {
@@ -194,9 +194,10 @@ public class SearchTreasureFragment extends Fragment {
             public void onLocationChanged(Location location) {
                 mLocation = location;
                 moveCameraOnUser(location);
-                mLocation.setLatitude(treasure.getLatTreasure());
-                mLocation.setLongitude(treasure.getLongTreasure());
-                double distance = location.distanceTo(mLocation);
+                Location treasureLocation = new Location("");
+                treasureLocation.setLongitude(treasure.getLongTreasure());
+                treasureLocation.setLatitude(treasure.getLatTreasure());
+                double distance = location.distanceTo(treasureLocation);
                 if (distance < DISTANCE_USER_BETWEEN_TREASURE) {
                     Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                     v.vibrate(TIME_VIBRATION);
