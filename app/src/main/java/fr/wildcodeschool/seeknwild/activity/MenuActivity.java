@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -59,6 +58,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     private TreasureCreateFragment mTreasureCreateFragment;
     private AdventureListFragment mAdventureListFragment;
     private SearchTreasureFragment mSearchTreasureFragment;
+    private AdventureDescriptionFragment mAdvnetureDescriptionFragment;
     private RateFragment mRateFragment;
     private CannotRateFragment mCannotRateFragment;
     private Fragment mActive;
@@ -86,7 +86,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(goToSignIn);
             }
         });
-        
+
         btnPass = findViewById(R.id.btnPass);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -113,18 +113,19 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        showAdventureList();
+    }
 
+    public void showAdventureList() {
         mChooseAdventure = new AdventureListFragment();
-        mEditAdventure = new AdventureCreatedListFragment();
-        mActive = mChooseAdventure;
         mFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, mChooseAdventure);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
+        mActive = mChooseAdventure;
     }
-
     public void sayHello(View header) {
         final String[] hello = {getString(R.string.bonjour), getString(R.string.hallo), getString(R.string.hello), getString(R.string.hola), getString(R.string.buongiorno), getString(R.string.ola), getString(R.string.kaixo), getString(R.string.alo)};
         Random r = new Random();
@@ -139,20 +140,17 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction;
         switch (menuItem.getItemId()) {
             case R.id.choisi_une_aventures:
-                fragmentTransaction = mFragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, mChooseAdventure);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-                getSupportActionBar().setTitle(R.string.choisiUneAventure);
+                showAdventureList();
 
                 break;
             case R.id.edite_tes_aventures:
-
+                mEditAdventure = new AdventureCreatedListFragment();
                 fragmentTransaction = mFragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, mEditAdventure);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 getSupportActionBar().setTitle(R.string.editeTesAventures);
+                mActive = mEditAdventure;
                 break;
             case R.id.voir_ta_galerie:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -169,22 +167,28 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+            btnPass.setVisibility(View.GONE);
+            if (mActive != mChooseAdventure) {
+                showAdventureList();
+            }
+            //TODO/ mettre un else avec une allertDialog.
         }
     }
 
     @Override
     public void onAdventureChoosed(Adventure adventure) {
-        Fragment adventureDescription = new AdventureDescriptionFragment();
+        mAdvnetureDescriptionFragment = new AdventureDescriptionFragment();
         Bundle bundle = new Bundle();
         bundle.putLong("idAdventure", adventure.getIdAdventure());
-        adventureDescription.setArguments(bundle);
+        mAdvnetureDescriptionFragment.setArguments(bundle);
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, adventureDescription);
+        fragmentTransaction.replace(R.id.fragment_container, mAdvnetureDescriptionFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(adventure.getTitle());
         btnPass.setVisibility(View.GONE);
+        mActive = mAdvnetureDescriptionFragment;
     }
 
     @Override
@@ -199,6 +203,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creeUneAventure);
         btnPass.setVisibility(View.GONE);
+        mActive = mCreateAdventure;
     }
 
     @Override
@@ -213,6 +218,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creeUneAventure);
         btnPass.setVisibility(View.GONE);
+        mActive = mCreateAdventure;
     }
 
     private File createImageFile() throws IOException {
@@ -274,6 +280,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creaTresasure);
         btnPass.setVisibility(View.GONE);
+        mActive = mTreasureCreateFragment;
     }
 
     @Override
@@ -285,6 +292,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creeUneAventure);
         btnPass.setVisibility(View.GONE);
+        mActive = mAdventureListFragment;
     }
 
 
@@ -301,6 +309,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.creaTresasure);
         btnPass.setVisibility(View.GONE);
+        mActive = mTreasureCreateFragment;
     }
 
     @Override
@@ -321,7 +330,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                             @Override
                             public void accept(UserAdventure userAdventure) {
                                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
-                                if (userAdventure.getCurrentTreasure() >= 54) {
+                                if (userAdventure.getCurrentTreasure() >= 4) {
                                     onFinishAdventureGoRate();
                                 } else {
                                     onSkippedTreasure(userAdventure);
@@ -330,6 +339,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                         });
             }
         });
+        mActive = mSearchTreasureFragment;
     }
 
     @Override
@@ -362,7 +372,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                         });
             }
         });
-
+        mActive = mSearchTreasureFragment;
     }
 
     public void onSkippedTreasure(UserAdventure userAdventure) {
@@ -376,6 +386,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
         btnPass.setVisibility(View.VISIBLE);
+        mActive = mSearchTreasureFragment;
     }
 
     @Override
@@ -395,6 +406,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
         btnPass.setVisibility(View.GONE);
+        mActive = mChooseAdventure;
     }
 
     @Override
@@ -406,6 +418,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
         btnPass.setVisibility(View.GONE);
+        mActive = mCannotRateFragment;
     }
 
     @Override
@@ -417,8 +430,10 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
         btnPass.setVisibility(View.GONE);
+        mActive = mAdventureListFragment;
 
     }
+
     @Override
     public void onNotRatedAdventure() {
         mAdventureListFragment = new AdventureListFragment();
@@ -428,5 +443,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.treasurec);
         btnPass.setVisibility(View.GONE);
+        mActive = mAdventureListFragment;
     }
 }
