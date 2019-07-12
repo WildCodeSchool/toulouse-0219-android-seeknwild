@@ -58,7 +58,7 @@ public class Treasure {
     }
 
     public String getPictureTreasure() {
-        return pictureTreasure;
+        return pictureTreasure + "?t=" + System.currentTimeMillis();
     }
 
     public void setPictureTreasure(String pictureTreasure) {

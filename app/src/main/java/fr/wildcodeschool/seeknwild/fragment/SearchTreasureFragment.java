@@ -163,8 +163,6 @@ public class SearchTreasureFragment extends Fragment {
                         });
 
                     }
-
-
                     if (mustMove) {
                         moveCameraOnUser(mLocation);
                         mustMove = false;

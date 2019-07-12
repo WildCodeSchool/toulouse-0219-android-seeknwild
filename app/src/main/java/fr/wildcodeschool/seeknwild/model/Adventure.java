@@ -59,7 +59,7 @@ public class Adventure {
     }
 
     public String getAdventurePicture() {
-        return adventurePicture;
+        return adventurePicture + "?t=" + System.currentTimeMillis();
     }
 
     public void setAdventurePicture(String adventurePicture) {

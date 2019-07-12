@@ -126,6 +126,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
         mActive = mChooseAdventure;
     }
+
     public void sayHello(View header) {
         final String[] hello = {getString(R.string.bonjour), getString(R.string.hallo), getString(R.string.hello), getString(R.string.hola), getString(R.string.buongiorno), getString(R.string.ola), getString(R.string.kaixo), getString(R.string.alo)};
         Random r = new Random();
@@ -319,7 +320,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.commencer_laventure);
+        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
         btnPass.setVisibility(View.VISIBLE);
         btnPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,7 +331,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                             @Override
                             public void accept(UserAdventure userAdventure) {
                                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
-                                if (userAdventure.getCurrentTreasure() >= 4) {
+                                if (userAdventure.getCurrentTreasure() >= 5) {
                                     onFinishAdventureGoRate();
                                 } else {
                                     onSkippedTreasure(userAdventure);
@@ -352,7 +353,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.treasurec);
+        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
         btnPass.setVisibility(View.VISIBLE);
         btnPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -363,7 +364,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
                             @Override
                             public void accept(UserAdventure userAdventure) {
                                 UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
-                                if (userAdventure.getCurrentTreasure() >= 4) {
+                                if (userAdventure.getCurrentTreasure() >= 5) {
                                     onFinishAdventureGoRate();
                                 } else {
                                     onSkippedTreasure(userAdventure);
@@ -384,7 +385,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.treasurec);
+        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
         btnPass.setVisibility(View.VISIBLE);
         mActive = mSearchTreasureFragment;
     }
@@ -431,7 +432,6 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         getSupportActionBar().setTitle(R.string.treasurec);
         btnPass.setVisibility(View.GONE);
         mActive = mAdventureListFragment;
-
     }
 
     @Override
