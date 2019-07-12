@@ -320,7 +320,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle("Trésor " + String.valueOf(userAdventure.getCurrentTreasure()) + "/5");
+        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
         btnPass.setVisibility(View.VISIBLE);
         btnPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -353,7 +353,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle("Trésor " + String.valueOf(userAdventure.getCurrentTreasure()) + "/5");
+        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
         btnPass.setVisibility(View.VISIBLE);
         btnPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -385,7 +385,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle("Trésor " + String.valueOf(userAdventure.getCurrentTreasure()) + "/5");
+        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
         btnPass.setVisibility(View.VISIBLE);
         mActive = mSearchTreasureFragment;
     }
