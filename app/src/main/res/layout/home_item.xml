@@ -19,6 +19,8 @@
             android:id="@+id/tvAdventureName"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/into_the_wild"
             android:textColor="@android:color/black"
@@ -59,10 +61,9 @@
             android:isIndicator="true"
             android:numStars="5"
             android:stepSize="0.1"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto"
-            android:visibility="gone"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/ivAdventurePhoto" />
 
         <TextView
             android:id="@+id/tvAlreadyDone"

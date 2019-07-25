@@ -320,7 +320,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
+        getSupportActionBar().setTitle(String.format("%s %s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure() + 1)));
         btnPass.setVisibility(View.VISIBLE);
         btnPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -353,7 +353,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
+        getSupportActionBar().setTitle(String.format("%s %s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure() + 1)));
         btnPass.setVisibility(View.VISIBLE);
         btnPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -385,7 +385,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.replace(R.id.fragment_container, mSearchTreasureFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(String.format("%s%s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure())));
+        getSupportActionBar().setTitle(String.format("%s %s/5", getString(R.string.ttr), String.valueOf(userAdventure.getCurrentTreasure() + 1)));
         btnPass.setVisibility(View.VISIBLE);
         mActive = mSearchTreasureFragment;
     }
@@ -393,21 +393,22 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onFinishAdventureGoRate() {
         // TODO : finaliser la notation
-        /*mRateFragment = new RateFragment();
+        mRateFragment = new RateFragment();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, mRateFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        getSupportActionBar().setTitle(R.string.treasurec);*/
+        getSupportActionBar().setTitle("C'est fini !");
+        mActive = mRateFragment;
 
-        mFragmentManager = getSupportFragmentManager();
+        /*mFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, mChooseAdventure);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
         getSupportActionBar().setTitle(R.string.choisiUneAventure);
         btnPass.setVisibility(View.GONE);
-        mActive = mChooseAdventure;
+        mActive = mChooseAdventure;*/
     }
 
     @Override

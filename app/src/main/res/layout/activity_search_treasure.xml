@@ -57,6 +57,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@drawable/oval"
+        android:paddingRight="8dp"
+        android:paddingLeft="8dp"
         android:text="@string/j_ai_trouv"
         android:textColor="#FFFFFF"
         android:visibility="gone"

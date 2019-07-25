@@ -54,8 +54,8 @@ public class SearchTreasureFragment extends Fragment {
     private static final int MIN_DISTANCE = 10;
     private static final int DEFAULT_ZOOM = 17;
     private static final int RANDOM_HEADING = 360;
-    private static final int RANDOM_DISTANCE = 20;
-    private static final int RADIUS_RANDOM_CIRCLE = 250;
+    private static final int RANDOM_DISTANCE = 300;
+    private static final int RADIUS_RANDOM_CIRCLE = 600;
     private static final int DISTANCE_USER_BETWEEN_TREASURE = 5;
     private static final int TIME_VIBRATION = 1500;
 
@@ -116,6 +116,54 @@ public class SearchTreasureFragment extends Fragment {
                             .icon(BitmapDescriptorFactory.fromResource(R.drawable.tresor1));
                     markerOptions.position(latLongTreasure);
 
+                    ImageView treasureImg = view.findViewById(R.id.ivTreasure);
+                    treasureImg.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final Button btFoundIt = view.findViewById(R.id.btFoundIt);
+                            btFoundIt.setVisibility(View.VISIBLE);
+                            mMap.clear();
+                            mMap.addMarker(markerOptions);
+
+                            if (userAdventure.getCurrentTreasure() >= 4) {
+                                btFoundIt.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        mMap.clear();
+                                        mMap.addMarker(markerOptions);
+                                        VolleySingleton.getInstance(getContext()).updateUserAdventure(idUser, idUserAdventure, true,
+                                                new Consumer<UserAdventure>() {
+                                                    @Override
+                                                    public void accept(UserAdventure userAdventure) {
+                                                        UserSingleton.getInstance().setUser(user);
+                                                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                                                        listener.onFinishAdventureGoRate();
+
+                                                    }
+                                                });
+                                    }
+                                });
+                            } else {
+                                btFoundIt.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        mMap.clear();
+                                        mMap.addMarker(markerOptions);
+                                        VolleySingleton.getInstance(getContext()).updateUserAdventure(idUser, idUserAdventure, true,
+                                                new Consumer<UserAdventure>() {
+                                                    @Override
+                                                    public void accept(UserAdventure userAdventure) {
+                                                        UserAdventureSingleton.getInstance().setUserAdventure(userAdventure);
+                                                        listener.onFindedTreasure(userAdventure);
+                                                    }
+                                                });
+                                    }
+                                });
+
+                            }
+                        }
+                    });
+
                     Random r = new Random();
                     int randomHeading = r.nextInt(RANDOM_HEADING);
                     int randomDistance = r.nextInt(RANDOM_DISTANCE);
@@ -127,7 +175,7 @@ public class SearchTreasureFragment extends Fragment {
                             .fillColor(getContext().getResources().getColor(R.color.colorCircleTreasure)));
 
                     final Button btFoundIt = view.findViewById(R.id.btFoundIt);
-                    if (userAdventure.getNbTreasure() >= 4) {
+                    if (userAdventure.getCurrentTreasure() >= 4) {
                         btFoundIt.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -226,11 +274,11 @@ public class SearchTreasureFragment extends Fragment {
             });
             boolean gpsActivated = false;
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, MIN_DISTANCE, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1000, locationListener);
                 gpsActivated = true;
             }
             if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, MIN_DISTANCE, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1000, locationListener);
                 gpsActivated = true;
             }
             if (!gpsActivated) {
